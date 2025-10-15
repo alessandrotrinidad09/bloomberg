@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoTrade - Registro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-lg">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-green-500">Crear Cuenta</h1>
+            <p class="text-gray-400 mt-2">Únete a CryptoTrade y comienza a invertir con IA</p>
+        </div>
+
+        <form method="POST" class="space-y-4">
+            {% csrf_token %}
+            <div class="grid grid-cols-2 gap-4">
+                <input type="text" name="nombre" placeholder="Nombre" required
+                    class="bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
+                <input type="text" name="apellido" placeholder="Apellido" required
+                    class="bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
+            </div>
+
+            <input type="email" name="email" placeholder="Correo electrónico" required
+                class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
+
+            <div class="grid grid-cols-2 gap-4">
+                <input type="text" name="dni" placeholder="DNI" maxlength="8" required
+                    class="bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
+                <input type="text" name="telefono" placeholder="Teléfono"
+                    class="bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
+            </div>
+
+            <input type="text" name="direccion" placeholder="Dirección"
+                class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
+
+            <input type="date" name="fecha_nacimiento"
+                class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
+
+            <div class="grid grid-cols-2 gap-4">
+                <input type="password" name="password" placeholder="Contraseña" required
+                    class="bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
+                <input type="password" name="password2" placeholder="Confirmar contraseña" required
+                    class="bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
+            </div>
+
+            <button type="submit"
+                class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-lg transition duration-200">
+                Crear Cuenta
+            </button>
+        </form>
+
+        {% if messages %}
+        <div class="mt-4 text-center">
+            {% for message in messages %}
+            <p class="text-red-400">{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <p class="text-center text-gray-400 mt-6">
+            ¿Ya tienes cuenta?
+            <a href="{% url 'login' %}" class="text-green-500 hover:text-green-400 font-semibold">Inicia sesión</a>
+        </p>
+    </div>
+</body>
+</html>
