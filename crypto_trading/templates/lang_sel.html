@@ -1,0 +1,13 @@
+{% load i18n %}
+<form action="{% url 'set_language' %}" method="post" class="absolute top-4 right-4 z-50">
+    {% csrf_token %}
+    {% get_current_language as LANGUAGE_CODE %}
+    <div class="relative">
+        <select name="language"
+                onchange="this.form.submit()"
+                class="bg-gray-800 text-white border border-gray-600 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-green-400">
+            <option value="es" {% if LANGUAGE_CODE == 'es' %}selected{% endif %}>🇪🇸 ES</option>
+            <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>🇬🇧 EN</option>
+        </select>
+    </div>
+</form>
