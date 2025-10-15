@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CryptoTrade 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-15 09:50-0500\n"
-"PO-Revision-Date: 2025-10-15 10:00-0500\n"
+"POT-Creation-Date: 2025-10-15 10:35-0500\n"
+"PO-Revision-Date: 2025-10-15 11:00-0500\n"
 "Last-Translator: Giussepe Trinidad <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -25,19 +25,45 @@ msgstr "Spanish"
 msgid "Inglés"
 msgstr "English"
 
+#: .\usuarios\templates\usuarios\landing.html:8
+msgid "CryptoTrade - Bienvenido"
+msgstr "CryptoTrade - Welcome"
+
+#: .\usuarios\templates\usuarios\landing.html:16
+msgid "Bienvenido a CryptoTrade"
+msgstr "Welcome to CryptoTrade"
+
+#: .\usuarios\templates\usuarios\landing.html:18
+msgid "La plataforma de trading con predicciones inteligentes impulsadas por IA. Gestiona tus inversiones y toma decisiones informadas en criptomonedas."
+msgstr "The trading platform with AI-powered smart predictions. Manage your investments and make informed cryptocurrency decisions."
+
+#: .\usuarios\templates\usuarios\landing.html:23
+msgid "Iniciar Sesión"
+msgstr "Login"
+
+#: .\usuarios\templates\usuarios\landing.html:27
+#: .\usuarios\templates\usuarios\login.html:64
+msgid "¿No tienes cuenta?"
+msgstr "Don't have an account?"
+
+#: .\usuarios\templates\usuarios\landing.html:28
+#: .\usuarios\templates\usuarios\login.html:66
+msgid "Registrarse"
+msgstr "Sign Up"
+
 #: .\usuarios\templates\usuarios\login.html:8
 msgid "CryptoTrade - Iniciar Sesión"
 msgstr "CryptoTrade - Login"
 
-#: .\usuarios\templates\usuarios\login.html:25
+#: .\usuarios\templates\usuarios\login.html:24
 msgid "CryptoTrade"
 msgstr "CryptoTrade"
 
-#: .\usuarios\templates\usuarios\login.html:27
+#: .\usuarios\templates\usuarios\login.html:26
 msgid "Tu plataforma de trading confiable"
 msgstr "Your trusted trading platform"
 
-#: .\usuarios\templates\usuarios\login.html:34
+#: .\usuarios\templates\usuarios\login.html:33
 msgid "Correo electrónico"
 msgstr "Email"
 
@@ -45,18 +71,10 @@ msgstr "Email"
 msgid "ejemplo@correo.com"
 msgstr "example@email.com"
 
-#: .\usuarios\templates\usuarios\login.html:42
+#: .\usuarios\templates\usuarios\login.html:41
 msgid "Contraseña"
 msgstr "Password"
 
-#: .\usuarios\templates\usuarios\login.html:51
+#: .\usuarios\templates\usuarios\login.html:50
 msgid "Ingresar"
-msgstr "Sign in"
-
-#: .\usuarios\templates\usuarios\login.html:65
-msgid "¿No tienes cuenta?"
-msgstr "Don't have an account?"
-
-#: .\usuarios\templates\usuarios\login.html:67
-msgid "Registrarse"
-msgstr "Sign up"
+msgstr "Sign In"

@@ -73,3 +73,7 @@ def registro_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+
+def landing_page(request):
+    return render(request, 'usuarios/landing.html')

@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
+from usuarios import views as usuarios_views
 
 
 urlpatterns = [
@@ -24,5 +25,8 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
-    path('', include('usuarios.urls')),  
+    path('admin/', admin.site.urls),
+    path('', usuarios_views.landing_page, name='landing'),  # landing page en /
+    path('usuarios/', include('usuarios.urls')),
+    path('dashboard/', include('dashboard.urls')),
 )

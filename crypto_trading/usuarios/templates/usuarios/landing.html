@@ -1,0 +1,60 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "CryptoTrade - Bienvenido" %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black min-h-screen text-white">
+
+    <!-- Barra de navegación -->
+    <nav class="bg-gray-900 bg-opacity-80 backdrop-blur-md fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center text-green-500 font-bold text-xl">
+                    CryptoTrade
+                </div>
+
+                <!-- Menú -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#producto" class="hover:text-green-500 transition">{% trans "Producto" %}</a>
+                    <a href="#soporte" class="hover:text-green-500 transition">{% trans "Soporte" %}</a>
+                    <a href="#sobre-nosotros" class="hover:text-green-500 transition">{% trans "Sobre nosotros" %}</a>
+                    <a href="#aprender" class="hover:text-green-500 transition">{% trans "Aprender" %}</a>
+                </div>
+
+                <!-- Botón login -->
+                <div class="flex items-center space-x-4">
+                    <a href="{% url 'login' %}"
+                        class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition">
+                        {% trans "Iniciar Sesión" %}
+                    </a>
+                    <a href="{% url 'registro' %}" class="hover:text-green-500 transition">{% trans "Registrarse" %}</a>
+                     {% include "lang_sel.html" %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Espacio para que la barra fija no tape el contenido -->
+    <div class="h-16"></div>
+
+    <!-- Contenido principal -->
+    <div class="flex flex-col items-center justify-center p-4 text-center max-w-2xl mx-auto mt-10">
+        <h1 class="text-5xl font-bold text-green-500 mb-4">{% trans "Bienvenido a CryptoTrade" %}</h1>
+        <p class="text-gray-300 mb-8">
+            {% trans "La plataforma de trading con predicciones inteligentes impulsadas por IA. Gestiona tus inversiones y toma decisiones informadas en criptomonedas." %}
+        </p>
+
+    </div>
+
+
+</body>
+
+</html>
