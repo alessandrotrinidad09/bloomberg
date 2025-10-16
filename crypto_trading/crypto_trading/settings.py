@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+#CADA VEZ QUE SE CREA UNA APP, HAY QUE AGREGARLA AQUI
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'usuarios',
     'dashboard',
+    "trading",
 ]
 
 MIDDLEWARE = [
