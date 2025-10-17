@@ -22,6 +22,7 @@ class UsuarioPersonalizado(AbstractUser):
     risk_profile = models.CharField(max_length=3, choices=RISK_CHOICES, default='MOD')
     preferences = JSONField(blank=True, null=True, default=dict)
     is_verified = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.username} ({self.nombre} {self.apellido})"

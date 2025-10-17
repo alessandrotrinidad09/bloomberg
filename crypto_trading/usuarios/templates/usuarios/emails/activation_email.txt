@@ -1,0 +1,10 @@
+Hola {{ user.nombre }},
+
+Gracias por registrarte en BloomBerg AI.
+
+Activa tu cuenta haciendo clic en este enlace:
+{{ activation_link }}
+
+Si no solicitaste esto, ignora este correo.
+
+— El equipo de BLOOMBERG AI

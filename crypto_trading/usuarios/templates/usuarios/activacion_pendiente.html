@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activa tu cuenta - CryptoTrade</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white flex items-center justify-center min-h-screen">
+
+    <div class="bg-gray-900 rounded-2xl p-8 shadow-xl max-w-md w-full text-center">
+        <h1 class="text-2xl font-bold mb-4 text-green-400">¡Revisa tu correo!</h1>
+        <p class="text-gray-300 mb-6">
+            Te enviamos un enlace de activación a <span class="font-semibold text-white">{{ email }}</span>.
+            <br>Activa tu cuenta para poder ingresar.
+        </p>
+
+        <form action="{% url 'reenviar_activacion' email=email %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-xl">
+                Reenviar enlace de activación
+            </button>
+        </form>
+
+        <a href="{% url 'login' %}" class="block mt-6 text-gray-400 hover:text-white">
+            ← Volver al inicio de sesión
+        </a>
+    </div>
+
+</body>
+</html>
+-
