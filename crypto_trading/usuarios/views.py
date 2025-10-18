@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import UsuarioPersonalizado
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.decorators import login_required
 
 #METODOS PARA TRABAJAR CON EMAIL 
 from django.contrib.auth.tokens import default_token_generator
@@ -29,19 +30,33 @@ def login_view(request):
                 messages.warning(request, 'Tu cuenta aún no está activada. Revisa tu correo o solicita un nuevo enlace.')
                 return redirect('activacion_pendiente', email=usuario.email)
 
-            # Solo autenticamos si está activo
             user = authenticate(request, username=usuario.username, password=password)
 
             if user is not None:
+                # ✅ Si el usuario tiene 2FA activado
+                if user.two_factor_enabled:
+                    code = user.generate_two_factor_code()
+                    send_mail(
+                        subject='Código de verificación - CryptoTrade',
+                        message=f'Tu código de verificación es: {code}',
+                        from_email=settings.DEFAULT_FROM_EMAIL,
+                        recipient_list=[user.email],
+                        fail_silently=False,
+                    )
+                    # Guardamos el ID del usuario en la sesión para continuar la verificación
+                    request.session['pending_user_id'] = user.id
+                    messages.info(request, 'Se ha enviado un código de verificación a tu correo.')
+                    return redirect('verificar_codigo')
+
+                # 🚀 Si no tiene 2FA, entra directo
                 login(request, user)
-                return redirect('dashboard')  # Ajusta según tu proyecto
+                return redirect('dashboard')
             else:
                 messages.error(request, 'Contraseña incorrecta.')
         else:
             messages.error(request, 'No existe una cuenta registrada con ese correo.')
 
     return render(request, 'usuarios/login.html')
-
 
 
 def enviar_mail_activacion(request, usuario):
@@ -172,3 +187,72 @@ def logout_view(request):
 
 def landing_page(request):
     return render(request, 'usuarios/landing.html')
+
+
+
+# VERIFICAR CÓDIGO 2FA
+def verificar_codigo_view(request):
+    user_id = request.session.get('pending_user_id')
+    if not user_id:
+        return redirect('login')
+
+    usuario = UsuarioPersonalizado.objects.get(id=user_id)
+
+    if request.method == 'POST':
+        codigo_ingresado = request.POST.get('codigo')
+        if codigo_ingresado == usuario.two_factor_code:
+            usuario.two_factor_code = None  # Limpia el código
+            usuario.save()
+            login(request, usuario)
+            del request.session['pending_user_id']
+            return redirect('dashboard')
+        else:
+            messages.error(request, 'Código incorrecto. Intenta nuevamente.')
+
+    return render(request, 'usuarios/verificar_codigo.html', {'email': usuario.email})
+
+@login_required
+def configurar_2fa_view(request):
+    user = request.user
+    if request.method == 'POST':
+        opcion = request.POST.get('opcion')
+        user.two_factor_enabled = (opcion == 'activar')
+        user.save()
+        msg = "Autenticación en dos pasos activada." if opcion == 'activar' else "Autenticación en dos pasos desactivada."
+        messages.success(request, msg)
+    return render(request, 'usuarios/configurar_2fa.html', {'user': user})
+
+# usuarios/views.py
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.contrib import messages
+
+@login_required
+def perfil_view(request):
+    user = request.user
+
+    #Actualizar datos personales
+    if request.method == 'POST':
+        if 'update_profile' in request.POST:
+            user.nombre = request.POST.get('nombre')
+            user.apellido = request.POST.get('apellido')
+            user.telefono = request.POST.get('telefono')
+            user.direccion = request.POST.get('direccion')
+            user.fecha_nacimiento = request.POST.get('fecha_nacimiento')
+            user.save()
+            messages.success(request, "Datos personales actualizados correctamente.")
+            return redirect('perfil')
+
+        #Activar o desactivar 2FA
+        elif 'toggle_2fa' in request.POST:
+            user.two_factor_enabled = not user.two_factor_enabled
+            user.save()
+
+            if user.two_factor_enabled:
+                messages.success(request, "Autenticación en dos pasos ACTIVADA.")
+            else:
+                messages.info(request, "Autenticación en dos pasos DESACTIVADA.")
+
+            return redirect('perfil')
+
+    return render(request, 'usuarios/perfil.html')

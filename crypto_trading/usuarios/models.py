@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models import JSONField
+import random
 
 # Create your models here.
 
@@ -23,6 +24,16 @@ class UsuarioPersonalizado(AbstractUser):
     preferences = JSONField(blank=True, null=True, default=dict)
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
+
+    two_factor_enabled = models.BooleanField(default=False) # Habilitar 2FA
+    two_factor_code = models.CharField(max_length=6, blank=True, null=True)
+
+    def generate_two_factor_code(self):
+        """Genera un código de 6 dígitos y lo guarda."""
+        code = str(random.randint(100000, 999999))
+        self.two_factor_code = code
+        self.save()
+        return code
 
     def __str__(self):
         return f"{self.username} ({self.nombre} {self.apellido})"

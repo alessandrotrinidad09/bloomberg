@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - BloombergFG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Control de pestañas
+        function mostrarSeccion(id) {
+            document.getElementById('datos').classList.add('hidden');
+            document.getElementById('seguridad').classList.add('hidden');
+            document.getElementById(id).classList.remove('hidden');
+
+            // Cambiar estilos del botón activo
+            document.getElementById('btn-datos').classList.remove('bg-green-600');
+            document.getElementById('btn-seguridad').classList.remove('bg-green-600');
+            document.getElementById('btn-' + id).classList.add('bg-green-600');
+        }
+    </script>
+</head>
+
+<body class="bg-black text-white min-h-screen flex">
+
+    <!-- Sidebar -->
+    {% include 'partials/sidebar.html' %}
+
+    <!-- Contenido principal -->
+    <main class="flex-1 p-8">
+        <h2 class="text-3xl font-bold mb-6 text-green-500">Configuración de Perfil</h2>
+
+        <div class="bg-gray-900 rounded-xl shadow p-6 border border-gray-800 max-w-3xl">
+            <!-- Botones de secciones -->
+            <div class="flex space-x-4 mb-6">
+                <button id="btn-datos" onclick="mostrarSeccion('datos')"
+                    class="px-4 py-2 rounded-lg bg-green-600 font-semibold">Datos personales</button>
+                <button id="btn-seguridad" onclick="mostrarSeccion('seguridad')"
+                    class="px-4 py-2 rounded-lg bg-gray-700 hover:bg-green-600 font-semibold">Seguridad</button>
+            </div>
+
+            <!-- SECCIÓN DATOS PERSONALES -->
+            <div id="datos">
+                <form method="POST" class="space-y-5">
+                    {% csrf_token %}
+                    <input type="hidden" name="update_profile" value="1">
+
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Nombre</label>
+                            <input type="text" name="nombre" value="{{ user.nombre }}"
+                                class="w-full p-2 rounded bg-gray-800 border border-gray-700 focus:border-green-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Apellido</label>
+                            <input type="text" name="apellido" value="{{ user.apellido }}"
+                                class="w-full p-2 rounded bg-gray-800 border border-gray-700 focus:border-green-500">
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Teléfono</label>
+                            <input type="text" name="telefono" value="{{ user.telefono }}"
+                                class="w-full p-2 rounded bg-gray-800 border border-gray-700 focus:border-green-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Dirección</label>
+                            <input type="text" name="direccion" value="{{ user.direccion }}"
+                                class="w-full p-2 rounded bg-gray-800 border border-gray-700 focus:border-green-500">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Fecha de nacimiento</label>
+                        <input type="date" name="fecha_nacimiento" value="{{ user.fecha_nacimiento|date:'Y-m-d' }}"
+                            class="w-full p-2 rounded bg-gray-800 border border-gray-700 focus:border-green-500">
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit"
+                            class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-semibold">
+                            Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- SECCIÓN SEGURIDAD -->
+            <div id="seguridad" class="hidden">
+                <h3 class="text-xl font-semibold mb-4 text-green-400">Seguridad</h3>
+
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <p class="text-gray-300 mb-4">
+                        Aquí podrás configurar opciones de seguridad como la autenticación en dos pasos (2FA).
+                    </p>
+
+                    <!-- Esto lo implementaremos en el siguiente paso -->
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-200 font-medium">Autenticación en dos pasos</span>
+                        {% if user.two_factor_enabled %}
+                        <span class="bg-green-500 text-black px-3 py-1 rounded-lg text-sm font-semibold">Activada</span>
+                        {% else %}
+                        <span class="bg-gray-600 px-3 py-1 rounded-lg text-sm font-semibold">Desactivada</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="mt-4">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="toggle_2fa" value="1">
+                            {% if user.two_factor_enabled %}
+                            <button
+                                class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold transition">
+                                Desactivar 2FA
+                            </button>
+                            {% else %}
+                            <button
+                                class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-semibold transition">
+                                Activar 2FA
+                            </button>
+                            {% endif %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {% if messages %}
+            <div class="mt-6">
+                {% for message in messages %}
+                <p class="text-green-400">{{ message }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <script>
+        // Mostrar la sección de datos al cargar
+        mostrarSeccion('datos');
+    </script>
+
+</body>
+
+</html>

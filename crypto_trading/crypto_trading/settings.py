@@ -144,3 +144,4 @@ AUTH_USER_MODEL = 'usuarios.UsuarioPersonalizado'
 # Configuración del backend de correo electrónico para desarrollo CONSOLA
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'CryptoTrade <no-reply@cryptotrade.local>'
+
