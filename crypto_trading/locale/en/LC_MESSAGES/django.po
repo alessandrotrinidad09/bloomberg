@@ -78,3 +78,23 @@ msgstr "Password"
 #: .\usuarios\templates\usuarios\login.html:50
 msgid "Ingresar"
 msgstr "Sign In"
+
+#: .\usuarios\templates\usuarios\login.html:71
+
+msgid "O"
+msgstr "Or"
+
+msgid "INGRESAR CON GOOGLE"
+msgstr "Sign in with Google"
+
+msgid "INGRESAR CON GITHUB"
+msgstr "Sign in with GitHub"
+
+msgid "INGRESAR CON X"
+msgstr "Sign in with X"
+
+msgid "INGRESAR CON FACEBOOK"
+msgstr "Sign in with Facebook"
+
+
+

@@ -1,7 +1,6 @@
 {% load i18n %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,45 +18,117 @@
             <div class="flex items-center justify-center gap-2 mb-2">
                 <svg class="text-green-500 w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                 </svg>
                 <h1 class="text-4xl font-bold text-white">{% trans "CryptoTrade" %}</h1>
             </div>
             <p class="text-gray-400">{% trans "Tu plataforma de trading confiable" %}</p>
         </div>
 
+        <!-- Formulario de Inicio de Sesión -->
         <form method="POST" class="space-y-4">
             {% csrf_token %}
+            
             <!-- Campo de Email -->
             <div>
                 <label class="block text-gray-300 mb-2">{% trans "Correo electrónico" %}</label>
                 <input type="email" name="email"
-                    class="w-full px-4 py-3 bg-black border border-gray-700 rounded-lg text-white focus:outline-none focus:border-green-500 transition"
-                    placeholder="{% trans 'ejemplo@correo.com'%} " required />
+                       class="w-full px-4 py-3 bg-black border border-gray-700 rounded-lg text-white 
+                              focus:outline-none focus:border-green-500 transition"
+                       placeholder="{% trans 'ejemplo@correo.com' %}" required />
             </div>
 
             <!-- Campo de Contraseña -->
             <div>
                 <label class="block text-gray-300 mb-2">{% trans "Contraseña" %}</label>
                 <input type="password" name="password"
-                    class="w-full px-4 py-3 bg-black border border-gray-700 rounded-lg text-white focus:outline-none focus:border-green-500 transition"
-                    placeholder="••••••••" required />
+                       class="w-full px-4 py-3 bg-black border border-gray-700 rounded-lg text-white 
+                              focus:outline-none focus:border-green-500 transition"
+                       placeholder="••••••••" required />
             </div>
 
             <!-- Botón de Ingresar -->
             <button type="submit"
-                class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-lg transition duration-200 mt-6">
+                    class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 
+                           rounded-lg transition duration-200 mt-6">
                 {% trans "Ingresar" %}
             </button>
         </form>
 
+        <!-- Mensajes de error o éxito -->
         {% if messages %}
         <div class="mt-4 text-red-400 text-center">
             {% for message in messages %}
-            <p>{{ message }}</p>
+                <p>{{ message }}</p>
             {% endfor %}
         </div>
         {% endif %}
+
+        <!-- Separador OR -->
+        <div class="relative flex items-center my-6">
+        
+            <div class="flex-grow border-t border-gray-700"></div>
+            <span class="px-3 text-gray-400 text-sm">{% trans "O" %}</span>
+            <div class="flex-grow border-t border-gray-700"></div>
+        </div>
+
+        <!-- Opciones de inicio de sesión alternativo -->
+        <div class="w-full md:w-80 mx-auto space-y-3 font-semibold">
+        
+            <!-- Google -->
+            <a href="#" class="relative flex items-center p-4 rounded-full border border-gray-700 
+                              hover:bg-gray-800 text-gray-300 hover:text-white transition w-full">
+                <svg class="w-6 h-6 absolute left-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                    <path fill="#fcfcfcff" d="M43.611,20.083H42V20H24v8h11.303
+                          c-1.649,4.657-6.08,8-11.303,8
+                          c-6.627,0-12-5.373-12-12
+                          c0-6.627,5.373-12,12-12
+                          c3.045,0,5.82,1.14,7.938,3.001
+                          l5.657-5.657C34.578,7.583,29.574,5,24,5
+                          C12.954,5,4,13.954,4,25
+                          c0,11.046,8.954,20,20,20
+                          c11.046,0,20-8.954,20-20
+                          C44,23.659,43.861,21.845,43.611,20.083z"/>
+                </svg>
+                <span class="w-full text-center">{% trans "INGRESAR CON GOOGLE" %}</span>
+            </a>
+
+            <!-- GitHub -->
+            <a class="relative flex items-center p-4 rounded-full border border-gray-700 
+                      hover:bg-gray-800 text-gray-300 hover:text-white transition w-full" href="">
+                <svg class="w-6 h-6 absolute left-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path fill="#fcfcfcff" d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.18 6.84 9.5.5.09.66-.22.66-.48
+                             0-.24-.01-1.04-.01-1.9-2.78.58-3.37-1.18-3.37-1.18-.45-1.15-1.1-1.46-1.1-1.46
+                             -.9-.62.07-.6.07-.6 1 .07 1.52 1.03 1.52 1.03.9 1.51 2.36 1.07 2.94.82
+                             .09-.66.35-1.07.63-1.31-2.22-.25-4.56-1.11-4.56-4.95
+                             0-1.09.39-1.99 1.03-2.69-.1-.26-.45-1.29.1-2.69
+                             0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0
+                             c1.91-1.29 2.75-1.02 2.75-1.02.55 1.4.2 2.43.1 2.69
+                             .64.7 1.03 1.6 1.03 2.69
+                             0 3.85-2.34 4.7-4.57 4.95.36.31.68.91.68 1.84
+                             0 1.33-.01 2.41-.01 2.74 0 .26.16.58.67.48
+                             A10.012 10.012 0 0 0 22 12c0-5.52-4.48-10-10-10z"/>
+                </svg>
+                <span class="text-center w-full">{% trans "INGRESAR CON GITHUB" %}</span>
+            </a>
+
+            <!-- X -->
+            <a class="relative flex items-center p-4 rounded-full border border-gray-700 
+                      hover:bg-gray-800 text-gray-300 hover:text-white transition w-full" href="">
+                <svg class="w-6 h-6 absolute left-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                    <path fill="#fcfcfcff" d="M 5.9199219 6 L 20.582031 27.375 L 6.2304688 44 
+                             L 9.4101562 44 L 21.986328 29.421875 L 31.986328 44 
+                             L 44 44 L 28.681641 21.669922 L 42.199219 6 
+                             L 39.029297 6 L 27.275391 19.617188 L 17.933594 6 
+                             L 5.9199219 6 z 
+                             M 9.7167969 8 L 16.880859 8 L 40.203125 42 
+                             L 33.039062 42 L 9.7167969 8 z"></path>
+                </svg>
+                <span class="text-center w-full">{% trans "INGRESAR CON X" %}</span>
+            </a>
+
+           
+        </div>
 
         <!-- Link a Registro -->
         <p class="text-center text-gray-400 mt-6">
@@ -67,5 +138,6 @@
             </a>
         </p>
     </div>
+
 </body>
 </html>
