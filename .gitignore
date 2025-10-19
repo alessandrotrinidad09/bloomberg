@@ -1,23 +1,4 @@
 # Entorno virtual de Python
 venv/
-
-#configurar mysql:
-& "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -p
-alianzalima1
-CREATE DATABASE bloomberg CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-EXIT;
-
-#cambiar políticas 
-Get-ExecutionPolicy
-Set-ExecutionPolicy RemoteSigned
-
 #
-pip install -r requirements.txt
-#la migración
-python manage.py makemigrations
-python manage.py migrate
-python manage.py loaddata data.json
-
-#Ejecuta servidor
-python manage.py runserver
-
+notas.txt
