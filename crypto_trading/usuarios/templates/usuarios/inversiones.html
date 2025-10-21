@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Inversiones - CryptoTrade</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black text-white min-h-screen flex">
+
+    <!-- Sidebar -->
+    {% include 'partials/sidebar.html' %}
+
+    <!-- Contenido principal -->
+    <main class="flex-1 p-8 overflow-y-auto">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h2 class="text-3xl font-bold text-green-500 mb-2">Mi Portafolio</h2>
+                <p class="text-gray-400">Gestiona y monitorea tus inversiones activas</p>
+            </div>
+            <button onclick="nuevaInversion()" 
+                class="bg-green-500 hover:bg-green-600 px-6 py-3 rounded-lg font-semibold transition flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                Nueva Inversión
+            </button>
+        </div>
+
+        <!-- Resumen del Portafolio -->
+        <div class="grid md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-gradient-to-br from-green-900/30 to-gray-900 p-6 rounded-xl border border-green-700">
+                <p class="text-gray-400 text-sm mb-2">Valor Total</p>
+                <p class="text-3xl font-bold text-green-400">$12,340.00</p>
+                <p class="text-green-400 text-sm mt-2">+$1,234 (11.1%)</p>
+            </div>
+            <div class="bg-gradient-to-br from-blue-900/30 to-gray-900 p-6 rounded-xl border border-blue-700">
+                <p class="text-gray-400 text-sm mb-2">Inversión Inicial</p>
+                <p class="text-3xl font-bold text-blue-400">$11,106.00</p>
+                <p class="text-gray-400 text-sm mt-2">Capital invertido</p>
+            </div>
+            <div class="bg-gradient-to-br from-yellow-900/30 to-gray-900 p-6 rounded-xl border border-yellow-700">
+                <p class="text-gray-400 text-sm mb-2">Ganancia/Pérdida</p>
+                <p class="text-3xl font-bold text-yellow-400">+$1,234</p>
+                <p class="text-yellow-400 text-sm mt-2">ROI: +11.1%</p>
+            </div>
+            <div class="bg-gradient-to-br from-purple-900/30 to-gray-900 p-6 rounded-xl border border-purple-700">
+                <p class="text-gray-400 text-sm mb-2">Mejor Inversión</p>
+                <p class="text-3xl font-bold text-purple-400">SOL</p>
+                <p class="text-purple-400 text-sm mt-2">+18.5%</p>
+            </div>
+        </div>
+
+        <!-- Pestañas -->
+        <div class="bg-gray-900 rounded-xl border border-gray-800 mb-6">
+            <div class="flex border-b border-gray-800">
+                <button id="tab-activas" onclick="cambiarTab('activas')" 
+                    class="px-6 py-4 font-semibold text-green-400 border-b-2 border-green-500">
+                    Inversiones Activas
+                </button>
+                <button id="tab-historial" onclick="cambiarTab('historial')" 
+                    class="px-6 py-4 font-semibold text-gray-400 hover:text-white transition">
+                    Historial
+                </button>
+            </div>
+        </div>
+
+        <!-- Contenido de Inversiones Activas -->
+        <div id="contenido-activas" class="space-y-6">
+            
+            <!-- Inversión Bitcoin -->
+            <div class="bg-gradient-to-r from-gray-900 to-gray-800 p-6 rounded-xl border border-gray-700 hover:border-green-500 transition">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-orange-500 rounded-full flex items-center justify-center text-xl font-bold">₿</div>
+                        <div>
+                            <h3 class="text-xl font-bold">Bitcoin (BTC)</h3>
+                            <p class="text-gray-400 text-sm">Comprado hace 15 días</p>
+                        </div>
+                    </div>
+                    <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm font-semibold">
+                        Ganando +8.5%
+                    </span>
+                </div>
+
+                <div class="grid md:grid-cols-4 gap-4 mb-4">
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-xs mb-1">Cantidad</p>
+                        <p class="text-white font-bold">0.15 BTC</p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-xs mb-1">Precio Compra</p>
+                        <p class="text-white font-bold">$41,680</p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-xs mb-1">Valor Actual</p>
+                        <p class="text-white font-bold">$6,784.50</p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-xs mb-1">Ganancia</p>
+                        <p class="text-green-400 font-bold">+$532.50</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="venderCripto('Bitcoin')" 
+                        class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg font-semibold transition">
+                        Vender
+                    </button>
+                    <button onclick="comprarMas('Bitcoin')" 
+                        class="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-semibold transition">
+                        Comprar Más
+                    </button>
+                    <button onclick="verAnalisis('Bitcoin')" 
+                        class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-lg font-semibold transition">
+                        Ver Análisis
+                    </button>
+                </div>
+            </div>
+
+            <!-- Inversión Solana -->
+            <div class="bg-gradient-to-r from-gray-900 to-gray-800 p-6 rounded-xl border border-gray-700 hover:border-green-500 transition">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-purple-500 rounded-full flex items-center justify-center text-xl font-bold">◎</div>
+                        <div>
+                            <h3 class="text-xl font-bold">Solana (SOL)</h3>
+                            <p class="text-gray-400 text-sm">Comprado hace 8 días</p>
+                        </div>
+                    </div>
+                    <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm font-semibold">
+                        Ganando +18.5%
+                    </span>
+                </div>
+
+                <div class="grid md:grid-cols-4 gap-4 mb-4">
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-xs mb-1">Cantidad</p>
+                        <p class="text-white font-bold">42 SOL</p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-xs mb-1">Precio Compra</p>
+                        <p class="text-white font-bold">$83.10</p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-xs mb-1">Valor Actual</p>
+                        <p class="text-white font-bold">$4,137.00</p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-xs mb-1">Ganancia</p>
+                        <p class="text-green-400 font-bold">+$646.80</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="venderCripto('Solana')" 
+                        class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg font-semibold transition">
+                        Vender
+                    </button>
+                    <button onclick="comprarMas('Solana')" 
+                        class="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-semibold transition">
+                        Comprar Más
+                    </button>
+                    <button onclick="verAnalisis('Solana')" 
+                        class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-lg font-semibold transition">
+                        Ver Análisis
+                    </button>
+                </div>
+            </div>
+
+            <!-- Inversión Ethereum -->
+            <div class="bg-gradient-to-r from-gray-900 to-gray-800 p-6 rounded-xl border border-gray-700 hover:border-green-500 transition">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-blue-500 rounded-full flex items-center justify-center text-xl font-bold">Ξ</div>
+                        <div>
+                            <h3 class="text-xl font-bold">Ethereum (ETH)</h3>
+                            <p class="text-gray-400 text-sm">Comprado hace 22 días</p>
+                        </div>
+                    </div>
+                    <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm font-semibold">
+                        Ganando +5.2%
+                    </span>
+                </div>
+
+                <div class="grid md:grid-cols-4 gap-4 mb-4">
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-xs mb-1">Cantidad</p>
+                        <p class="text-white font-bold">0.8 ETH</p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-xs mb-1">Precio Compra</p>
+                        <p class="text-white font-bold">$2,746</p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-xs mb-1">Valor Actual</p>
+                        <p class="text-white font-bold">$2,312.00</p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-xs mb-1">Ganancia</p>
+                        <p class="text-green-400 font-bold">+$115.20</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="venderCripto('Ethereum')" 
+                        class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg font-semibold transition">
+                        Vender
+                    </button>
+                    <button onclick="comprarMas('Ethereum')" 
+                        class="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-semibold transition">
+                        Comprar Más
+                    </button>
+                    <button onclick="verAnalisis('Ethereum')" 
+                        class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-lg font-semibold transition">
+                        Ver Análisis
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Contenido de Historial (oculto inicialmente) -->
+        <div id="contenido-historial" class="hidden space-y-4">
+            <div class="bg-gray-900 rounded-xl border border-gray-800 overflow-hidden">
+                <table class="w-full">
+                    <thead class="bg-gray-800 border-b border-gray-700">
+                        <tr>
+                            <th class="text-left p-4 font-semibold text-gray-300">Fecha</th>
+                            <th class="text-left p-4 font-semibold text-gray-300">Moneda</th>
+                            <th class="text-left p-4 font-semibold text-gray-300">Tipo</th>
+                            <th class="text-left p-4 font-semibold text-gray-300">Cantidad</th>
+                            <th class="text-left p-4 font-semibold text-gray-300">Precio</th>
+                            <th class="text-left p-4 font-semibold text-gray-300">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-800 hover:bg-gray-800/50 transition">
+                            <td class="p-4 text-gray-400">20/10/2025</td>
+                            <td class="p-4 font-semibold">Bitcoin (BTC)</td>
+                            <td class="p-4"><span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-sm">Compra</span></td>
+                            <td class="p-4">0.05 BTC</td>
+                            <td class="p-4">$43,200</td>
+                            <td class="p-4 font-bold">$2,160</td>
+                        </tr>
+                        <tr class="border-b border-gray-800 hover:bg-gray-800/50 transition">
+                            <td class="p-4 text-gray-400">18/10/2025</td>
+                            <td class="p-4 font-semibold">Ethereum (ETH)</td>
+                            <td class="p-4"><span class="bg-red-500/20 text-red-400 px-2 py-1 rounded text-sm">Venta</span></td>
+                            <td class="p-4">1.2 ETH</td>
+                            <td class="p-4">$2,890</td>
+                            <td class="p-4 font-bold">$3,468</td>
+                        </tr>
+                        <tr class="border-b border-gray-800 hover:bg-gray-800/50 transition">
+                            <td class="p-4 text-gray-400">15/10/2025</td>
+                            <td class="p-4 font-semibold">Solana (SOL)</td>
+                            <td class="p-4"><span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-sm">Compra</span></td>
+                            <td class="p-4">42 SOL</td>
+                            <td class="p-4">$83.10</td>
+                            <td class="p-4 font-bold">$3,490.20</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function cambiarTab(tab) {
+            const activas = document.getElementById('contenido-activas');
+            const historial = document.getElementById('contenido-historial');
+            const tabActivas = document.getElementById('tab-activas');
+            const tabHistorial = document.getElementById('tab-historial');
+
+            if (tab === 'activas') {
+                activas.classList.remove('hidden');
+                historial.classList.add('hidden');
+                tabActivas.classList.add('text-green-400', 'border-b-2', 'border-green-500');
+                tabActivas.classList.remove('text-gray-400');
+                tabHistorial.classList.remove('text-green-400', 'border-b-2', 'border-green-500');
+                tabHistorial.classList.add('text-gray-400');
+            } else {
+                activas.classList.add('hidden');
+                historial.classList.remove('hidden');
+                tabHistorial.classList.add('text-green-400', 'border-b-2', 'border-green-500');
+                tabHistorial.classList.remove('text-gray-400');
+                tabActivas.classList.remove('text-green-400', 'border-b-2', 'border-green-500');
+                tabActivas.classList.add('text-gray-400');
+            }
+        }
+
+        function nuevaInversion() {
+            alert('Abriendo formulario de nueva inversión...\n\nAquí podrás:\n• Seleccionar la criptomoneda\n• Ingresar el monto\n• Ver predicciones de la IA\n• Confirmar la compra');
+        }
+
+        function venderCripto(moneda) {
+            if (confirm(`¿Estás seguro de que deseas vender tu inversión en ${moneda}?`)) {
+                alert(`Procesando venta de ${moneda}...`);
+            }
+        }
+
+        function comprarMas(moneda) {
+            alert(`Abriendo formulario para comprar más ${moneda}...`);
+        }
+
+        function verAnalisis(moneda) {
+            alert(`Análisis detallado de ${moneda}:\n\n• Gráficos históricos\n• Predicciones IA\n• Indicadores técnicos\n• Noticias recientes`);
+        }
+    </script>
+
+</body>
+
+</html>

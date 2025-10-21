@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - CryptoTrade</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out;
+        }
+        .guide-overlay {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+
+<body class="bg-black text-white min-h-screen flex">
+
+    <!-- Sidebar -->
+    {% include 'partials/sidebar.html' %}
+
+    <!-- Contenido principal -->
+    <main class="flex-1 p-8 overflow-y-auto">
+        <!-- Header con botón de guía -->
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <h2 class="text-3xl font-bold text-green-500">Panel de Control</h2>
+                <p class="text-gray-400 mt-2">Resumen general de tu portafolio de criptomonedas</p>
+            </div>
+            <button onclick="iniciarGuia()" 
+                class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg font-semibold transition flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Ver Guía
+            </button>
+        </div>
+
+        <!-- Tarjetas principales -->
+        <div class="grid md:grid-cols-3 gap-6 mb-8 animate-fadeIn" id="tarjetas-resumen">
+            <!-- Tarjeta 1: Saldo Total -->
+            <div class="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-green-500 transition-all transform hover:scale-105">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-lg font-semibold text-gray-300">Saldo Total</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <p class="text-3xl text-green-500 font-bold mb-1">$12,340.00</p>
+                <p class="text-sm text-gray-400">USD disponible</p>
+            </div>
+
+            <!-- Tarjeta 2: Inversiones Activas -->
+            <div class="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-green-500 transition-all transform hover:scale-105">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-lg font-semibold text-gray-300">Inversiones Activas</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                </div>
+                <p class="text-3xl text-blue-500 font-bold mb-1">5</p>
+                <p class="text-sm text-gray-400">Criptomonedas en cartera</p>
+            </div>
+
+            <!-- Tarjeta 3: Ganancia Estimada -->
+            <div class="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 hover:border-green-500 transition-all transform hover:scale-105">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-lg font-semibold text-gray-300">Ganancia Total</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                </div>
+                <p class="text-3xl text-yellow-500 font-bold mb-1">+8.4%</p>
+                <p class="text-sm text-gray-400">Rendimiento mensual</p>
+            </div>
+        </div>
+
+        <!-- Sección de Predicción IA -->
+        <div class="bg-gradient-to-br from-green-900/20 to-gray-900 p-6 rounded-xl border border-green-700 mb-8 animate-fadeIn" id="prediccion-ia">
+            <div class="flex items-center gap-3 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+                <h3 class="text-2xl font-bold text-green-400">Análisis Predictivo IA</h3>
+            </div>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-gray-800/50 p-4 rounded-lg border border-gray-700">
+                    <p class="text-gray-300 font-semibold mb-2">Recomendación del momento:</p>
+                    <p class="text-green-400 text-lg">⬆️ COMPRAR Bitcoin (BTC)</p>
+                    <p class="text-sm text-gray-400 mt-2">Confianza del modelo: 87%</p>
+                </div>
+                <div class="bg-gray-800/50 p-4 rounded-lg border border-gray-700">
+                    <p class="text-gray-300 font-semibold mb-2">Predicción próximas 24h:</p>
+                    <p class="text-yellow-400 text-lg">📈 Tendencia alcista esperada</p>
+                    <p class="text-sm text-gray-400 mt-2">Basado en análisis de Bloomberg</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actividad reciente -->
+        <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 animate-fadeIn" id="actividad-reciente">
+            <h3 class="text-xl font-bold mb-4 text-green-400">Actividad Reciente</h3>
+            <div class="space-y-3">
+                <div class="flex items-center justify-between p-3 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center font-bold">BTC</div>
+                        <div>
+                            <p class="font-semibold">Compra de Bitcoin</p>
+                            <p class="text-sm text-gray-400">Hace 2 horas</p>
+                        </div>
+                    </div>
+                    <p class="text-green-400 font-bold">+0.05 BTC</p>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center font-bold">ETH</div>
+                        <div>
+                            <p class="font-semibold">Venta de Ethereum</p>
+                            <p class="text-sm text-gray-400">Hace 5 horas</p>
+                        </div>
+                    </div>
+                    <p class="text-red-400 font-bold">-1.2 ETH</p>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-gray-800 rounded-lg hover:bg-gray-700 transition">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center font-bold text-black">BNB</div>
+                        <div>
+                            <p class="font-semibold">Compra de Binance Coin</p>
+                            <p class="text-sm text-gray-400">Hace 1 día</p>
+                        </div>
+                    </div>
+                    <p class="text-green-400 font-bold">+5 BNB</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Guía Interactiva -->
+    <div id="guia-modal" class="fixed inset-0 guide-overlay hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-900 rounded-xl border-2 border-green-500 max-w-2xl w-full p-8 relative animate-fadeIn">
+            <button onclick="cerrarGuia()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <div id="paso-contenido">
+                <!-- El contenido cambiará según el paso -->
+            </div>
+
+            <div class="flex justify-between items-center mt-6">
+                <button onclick="pasoAnterior()" id="btn-anterior" class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg font-semibold transition">
+                    ← Anterior
+                </button>
+                <div class="flex gap-2" id="indicadores">
+                    <!-- Puntos indicadores -->
+                </div>
+                <button onclick="pasoSiguiente()" id="btn-siguiente" class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg font-semibold transition">
+                    Siguiente →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let pasoActual = 0;
+        const pasos = [
+            {
+                titulo: "¡Bienvenido a CryptoTrade! 🚀",
+                contenido: "Este panel te permite gestionar tus inversiones en criptomonedas con el poder de la inteligencia artificial. Nuestro algoritmo analiza datos de Bloomberg en tiempo real para predecir los mejores momentos para invertir.",
+                icono: "M13 10V3L4 14h7v7l9-11h-7z"
+            },
+            {
+                titulo: "Panel de Control 📊",
+                contenido: "En la parte superior encuentras tres tarjetas con información clave: tu <strong>saldo total</strong>, número de <strong>inversiones activas</strong> y tu <strong>ganancia estimada</strong>. Estos datos se actualizan en tiempo real.",
+                icono: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+            },
+            {
+                titulo: "Análisis Predictivo IA 🤖",
+                contenido: "Nuestro algoritmo analiza patrones del mercado y te da recomendaciones en tiempo real. Verás si es momento de <strong>COMPRAR</strong>, <strong>MANTENER</strong> o <strong>VENDER</strong>, junto con el nivel de confianza del modelo.",
+                icono: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+            },
+            {
+                titulo: "Navegación del Sistema 🧭",
+                contenido: "Usa el menú lateral para navegar:<br><br>• <strong>Inicio</strong>: Vista general (estás aquí)<br>• <strong>Monedas disponibles</strong>: Explora criptomonedas<br>• <strong>Mis inversiones</strong>: Gestiona tu portafolio<br>• <strong>Perfil</strong>: Configura tu cuenta",
+                icono: "M4 6h16M4 12h16M4 18h16"
+            },
+            {
+                titulo: "¡Listo para empezar! 🎯",
+                contenido: "Ya conoces lo básico de CryptoTrade. Explora las diferentes secciones, revisa las recomendaciones de la IA y comienza a invertir de manera inteligente. ¡Buena suerte en tus inversiones!",
+                icono: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            }
+        ];
+
+        function iniciarGuia() {
+            pasoActual = 0;
+            document.getElementById('guia-modal').classList.remove('hidden');
+            actualizarPaso();
+        }
+
+        function cerrarGuia() {
+            document.getElementById('guia-modal').classList.add('hidden');
+        }
+
+        function pasoSiguiente() {
+            if (pasoActual < pasos.length - 1) {
+                pasoActual++;
+                actualizarPaso();
+            } else {
+                cerrarGuia();
+            }
+        }
+
+        function pasoAnterior() {
+            if (pasoActual > 0) {
+                pasoActual--;
+                actualizarPaso();
+            }
+        }
+
+        function actualizarPaso() {
+            const paso = pasos[pasoActual];
+            const contenido = document.getElementById('paso-contenido');
+            
+            contenido.innerHTML = `
+                <div class="text-center mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${paso.icono}" />
+                    </svg>
+                    <h3 class="text-2xl font-bold text-green-400 mb-3">${paso.titulo}</h3>
+                    <p class="text-gray-300 text-lg leading-relaxed">${paso.contenido}</p>
+                </div>
+            `;
+
+            // Actualizar indicadores
+            const indicadores = document.getElementById('indicadores');
+            indicadores.innerHTML = '';
+            for (let i = 0; i < pasos.length; i++) {
+                const dot = document.createElement('div');
+                dot.className = `w-2 h-2 rounded-full ${i === pasoActual ? 'bg-green-500' : 'bg-gray-600'}`;
+                indicadores.appendChild(dot);
+            }
+
+            // Actualizar botones
+            document.getElementById('btn-anterior').style.visibility = pasoActual === 0 ? 'hidden' : 'visible';
+            document.getElementById('btn-siguiente').textContent = pasoActual === pasos.length - 1 ? '¡Comenzar! ✓' : 'Siguiente →';
+        }
+
+        // Cerrar modal con tecla ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') cerrarGuia();
+        });
+    </script>
+
+</body>
+
+</html>

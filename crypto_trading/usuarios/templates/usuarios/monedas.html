@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monedas Disponibles - CryptoTrade</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes pulse-green {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pulse-green {
+            animation: pulse-green 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+
+<body class="bg-black text-white min-h-screen flex">
+
+    <!-- Sidebar -->
+    {% include 'partials/sidebar.html' %}
+
+    <!-- Contenido principal -->
+    <main class="flex-1 p-8 overflow-y-auto">
+        <!-- Header -->
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold text-green-500 mb-2">Criptomonedas Disponibles</h2>
+            <p class="text-gray-400">Explora y analiza las principales criptomonedas del mercado</p>
+        </div>
+
+        <!-- Filtros y búsqueda -->
+        <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 mb-8">
+            <div class="grid md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Buscar moneda</label>
+                    <input type="text" id="buscar" onkeyup="filtrarMonedas()" 
+                        placeholder="Ej: Bitcoin, ETH..."
+                        class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:border-green-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Filtrar por tendencia</label>
+                    <select onchange="filtrarPorTendencia(this.value)" 
+                        class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:border-green-500 focus:outline-none">
+                        <option value="todas">Todas</option>
+                        <option value="alcista">Alcista</option>
+                        <option value="bajista">Bajista</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Ordenar por</label>
+                    <select onchange="ordenarMonedas(this.value)"
+                        class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:border-green-500 focus:outline-none">
+                        <option value="precio-desc">Precio (Mayor a menor)</option>
+                        <option value="precio-asc">Precio (Menor a mayor)</option>
+                        <option value="cambio-desc">Cambio 24h (Mayor)</option>
+                        <option value="cambio-asc">Cambio 24h (Menor)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de Criptomonedas -->
+        <div class="grid gap-6" id="lista-monedas">
+            
+            <!-- Bitcoin -->
+            <div class="bg-gradient-to-r from-gray-900 to-gray-800 p-6 rounded-xl border border-gray-700 hover:border-green-500 transition-all transform hover:scale-[1.02] moneda-card" data-tendencia="alcista" data-precio="45230" data-cambio="2.4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center text-2xl font-bold">₿</div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">Bitcoin</h3>
+                            <p class="text-gray-400">BTC</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-3xl font-bold text-white">$45,230.00</p>
+                        <p class="text-green-400 text-lg font-semibold">+2.4% (24h)</p>
+                    </div>
+                </div>
+                
+                <div class="mt-6 grid md:grid-cols-3 gap-4">
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-sm mb-1">Recomendación IA</p>
+                        <p class="text-green-400 font-bold flex items-center gap-2">
+                            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse-green"></span>
+                            COMPRAR
+                        </p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-sm mb-1">Confianza</p>
+                        <p class="text-white font-bold">87%</p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-sm mb-1">Cap. Mercado</p>
+                        <p class="text-white font-bold">$880B</p>
+                    </div>
+                </div>
+
+                <button onclick="verDetalles('Bitcoin')" 
+                    class="w-full mt-4 bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-semibold transition">
+                    Ver Detalles y Analizar
+                </button>
+            </div>
+
+            <!-- Ethereum -->
+            <div class="bg-gradient-to-r from-gray-900 to-gray-800 p-6 rounded-xl border border-gray-700 hover:border-green-500 transition-all transform hover:scale-[1.02] moneda-card" data-tendencia="alcista" data-precio="2890" data-cambio="1.8">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-2xl font-bold">Ξ</div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">Ethereum</h3>
+                            <p class="text-gray-400">ETH</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-3xl font-bold text-white">$2,890.00</p>
+                        <p class="text-green-400 text-lg font-semibold">+1.8% (24h)</p>
+                    </div>
+                </div>
+                
+                <div class="mt-6 grid md:grid-cols-3 gap-4">
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-sm mb-1">Recomendación IA</p>
+                        <p class="text-yellow-400 font-bold flex items-center gap-2">
+                            <span class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse-green"></span>
+                            MANTENER
+                        </p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-sm mb-1">Confianza</p>
+                        <p class="text-white font-bold">72%</p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-sm mb-1">Cap. Mercado</p>
+                        <p class="text-white font-bold">$347B</p>
+                    </div>
+                </div>
+
+                <button onclick="verDetalles('Ethereum')" 
+                    class="w-full mt-4 bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-semibold transition">
+                    Ver Detalles y Analizar
+                </button>
+            </div>
+
+            <!-- Binance Coin -->
+            <div class="bg-gradient-to-r from-gray-900 to-gray-800 p-6 rounded-xl border border-gray-700 hover:border-green-500 transition-all transform hover:scale-[1.02] moneda-card" data-tendencia="bajista" data-precio="315" data-cambio="-0.5">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center text-2xl font-bold text-black">B</div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">Binance Coin</h3>
+                            <p class="text-gray-400">BNB</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-3xl font-bold text-white">$315.00</p>
+                        <p class="text-red-400 text-lg font-semibold">-0.5% (24h)</p>
+                    </div>
+                </div>
+                
+                <div class="mt-6 grid md:grid-cols-3 gap-4">
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-sm mb-1">Recomendación IA</p>
+                        <p class="text-red-400 font-bold flex items-center gap-2">
+                            <span class="w-2 h-2 bg-red-400 rounded-full animate-pulse-green"></span>
+                            ESPERAR
+                        </p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-sm mb-1">Confianza</p>
+                        <p class="text-white font-bold">65%</p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-sm mb-1">Cap. Mercado</p>
+                        <p class="text-white font-bold">$48B</p>
+                    </div>
+                </div>
+
+                <button onclick="verDetalles('Binance Coin')" 
+                    class="w-full mt-4 bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-semibold transition">
+                    Ver Detalles y Analizar
+                </button>
+            </div>
+
+            <!-- Cardano -->
+            <div class="bg-gradient-to-r from-gray-900 to-gray-800 p-6 rounded-xl border border-gray-700 hover:border-green-500 transition-all transform hover:scale-[1.02] moneda-card" data-tendencia="alcista" data-precio="0.52" data-cambio="3.2">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-2xl font-bold">₳</div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">Cardano</h3>
+                            <p class="text-gray-400">ADA</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-3xl font-bold text-white">$0.52</p>
+                        <p class="text-green-400 text-lg font-semibold">+3.2% (24h)</p>
+                    </div>
+                </div>
+                
+                <div class="mt-6 grid md:grid-cols-3 gap-4">
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-sm mb-1">Recomendación IA</p>
+                        <p class="text-green-400 font-bold flex items-center gap-2">
+                            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse-green"></span>
+                            COMPRAR
+                        </p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-sm mb-1">Confianza</p>
+                        <p class="text-white font-bold">79%</p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-sm mb-1">Cap. Mercado</p>
+                        <p class="text-white font-bold">$18.2B</p>
+                    </div>
+                </div>
+
+                <button onclick="verDetalles('Cardano')" 
+                    class="w-full mt-4 bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-semibold transition">
+                    Ver Detalles y Analizar
+                </button>
+            </div>
+
+            <!-- Solana -->
+            <div class="bg-gradient-to-r from-gray-900 to-gray-800 p-6 rounded-xl border border-gray-700 hover:border-green-500 transition-all transform hover:scale-[1.02] moneda-card" data-tendencia="alcista" data-precio="98.50" data-cambio="5.1">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center text-2xl font-bold">◎</div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">Solana</h3>
+                            <p class="text-gray-400">SOL</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-3xl font-bold text-white">$98.50</p>
+                        <p class="text-green-400 text-lg font-semibold">+5.1% (24h)</p>
+                    </div>
+                </div>
+                
+                <div class="mt-6 grid md:grid-cols-3 gap-4">
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-sm mb-1">Recomendación IA</p>
+                        <p class="text-green-400 font-bold flex items-center gap-2">
+                            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse-green"></span>
+                            COMPRAR
+                        </p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-sm mb-1">Confianza</p>
+                        <p class="text-white font-bold">92%</p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-sm mb-1">Cap. Mercado</p>
+                        <p class="text-white font-bold">$42B</p>
+                    </div>
+                </div>
+
+                <button onclick="verDetalles('Solana')" 
+                    class="w-full mt-4 bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-semibold transition">
+                    Ver Detalles y Analizar
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        function filtrarMonedas() {
+            const input = document.getElementById('buscar').value.toLowerCase();
+            const cards = document.querySelectorAll('.moneda-card');
+            
+            cards.forEach(card => {
+                const texto = card.textContent.toLowerCase();
+                card.style.display = texto.includes(input) ? 'block' : 'none';
+            });
+        }
+
+        function filtrarPorTendencia(tendencia) {
+            const cards = document.querySelectorAll('.moneda-card');
+            
+            cards.forEach(card => {
+                if (tendencia === 'todas') {
+                    card.style.display = 'block';
+                } else {
+                    const tendenciaCard = card.getAttribute('data-tendencia');
+                    card.style.display = tendenciaCard === tendencia ? 'block' : 'none';
+                }
+            });
+        }
+
+        function ordenarMonedas(criterio) {
+            const container = document.getElementById('lista-monedas');
+            const cards = Array.from(document.querySelectorAll('.moneda-card'));
+            
+            cards.sort((a, b) => {
+                const precioA = parseFloat(a.getAttribute('data-precio'));
+                const precioB = parseFloat(b.getAttribute('data-precio'));
+                const cambioA = parseFloat(a.getAttribute('data-cambio'));
+                const cambioB = parseFloat(b.getAttribute('data-cambio'));
+                
+                switch(criterio) {
+                    case 'precio-desc':
+                        return precioB - precioA;
+                    case 'precio-asc':
+                        return precioA - precioB;
+                    case 'cambio-desc':
+                        return cambioB - cambioA;
+                    case 'cambio-asc':
+                        return cambioA - cambioB;
+                    default:
+                        return 0;
+                }
+            });
+            
+            cards.forEach(card => container.appendChild(card));
+        }
+
+        function verDetalles(moneda) {
+            alert(`Abriendo análisis detallado de ${moneda}...\n\nAquí verás:\n• Gráficos históricos\n• Predicciones IA\n• Análisis técnico\n• Noticias relevantes`);
+        }
+    </script>
+
+</body>
+
+</html>

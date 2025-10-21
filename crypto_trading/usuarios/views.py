@@ -189,7 +189,6 @@ def landing_page(request):
     return render(request, 'usuarios/landing.html')
 
 
-
 # VERIFICAR CÓDIGO 2FA
 def verificar_codigo_view(request):
     user_id = request.session.get('pending_user_id')
