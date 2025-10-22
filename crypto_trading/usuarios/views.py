@@ -5,7 +5,7 @@ from .models import UsuarioPersonalizado
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
 
-#METODOS PARA TRABAJAR CON EMAIL 
+#METODOS PARA TRABAJAR CON EMAIL
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
@@ -33,7 +33,6 @@ def login_view(request):
             user = authenticate(request, username=usuario.username, password=password)
 
             if user is not None:
-                # ✅ Si el usuario tiene 2FA activado
                 if user.two_factor_enabled:
                     code = user.generate_two_factor_code()
                     send_mail(
@@ -43,14 +42,12 @@ def login_view(request):
                         recipient_list=[user.email],
                         fail_silently=False,
                     )
-                    # Guardamos el ID del usuario en la sesión para continuar la verificación
                     request.session['pending_user_id'] = user.id
                     messages.info(request, 'Se ha enviado un código de verificación a tu correo.')
                     return redirect('verificar_codigo')
 
-                # 🚀 Si no tiene 2FA, entra directo
                 login(request, user)
-                return redirect('dashboard')
+                return redirect('inicio')
             else:
                 messages.error(request, 'Contraseña incorrecta.')
         else:
@@ -60,25 +57,16 @@ def login_view(request):
 
 
 def enviar_mail_activacion(request, usuario):
-    """
-    Esta función construye el enlace de activación y envía el correo.
-    Con console.EmailBackend, el contenido aparecerá en la terminal.
-    """
     token = default_token_generator.make_token(usuario)
     uid = urlsafe_base64_encode(force_bytes(usuario.pk))
     activation_link = request.build_absolute_uri(
         reverse('activar_cuenta', kwargs={'uidb64': uid, 'token': token})
     )
-
-    # Puedes usar render_to_string con una plantilla .txt
     subject = "Activa tu cuenta en CryptoTrade"
-    # plantilla de texto: templates/usuarios/emails/activation_email.txt
     message = render_to_string('usuarios/emails/activation_email.txt', {
         'user': usuario,
         'activation_link': activation_link,
     })
-
-    # send_mail(from_email = settings.DEFAULT_FROM_EMAIL si pones None Django usa DEFAULT_FROM_EMAIL)
     send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [usuario.email], fail_silently=False)
 
 
@@ -94,20 +82,16 @@ def registro_view(request):
         password = request.POST.get('password')
         password2 = request.POST.get('password2')
 
-        # Validaciones básicas
         if password != password2:
             messages.error(request, "Las contraseñas no coinciden.")
             return redirect('registro')
-
         if UsuarioPersonalizado.objects.filter(email=email).exists():
             messages.error(request, "El correo ya está registrado.")
             return redirect('registro')
-
         if UsuarioPersonalizado.objects.filter(dni=dni).exists():
             messages.error(request, "El DNI ya está registrado.")
             return redirect('registro')
 
-        # Crear usuario inactivo
         usuario = UsuarioPersonalizado.objects.create(
             username=email,
             email=email,
@@ -121,26 +105,16 @@ def registro_view(request):
             is_active=False,
             is_verified=False,
         )
-
-        # Enviar correo de activación (a la consola)
         enviar_mail_activacion(request, usuario)
-
-        # Redirigir a la vista "activación pendiente"
         return redirect('activacion_pendiente', email=usuario.email)
 
     return render(request, 'usuarios/registro.html')
 
 
 def activacion_pendiente(request, email):
-    """
-    Muestra mensaje para activar la cuenta y opción de reenviar correo.
-    """
     contexto = {'email': email}
     return render(request, 'usuarios/activacion_pendiente.html', contexto)
 
-# -----------------------------------
-# Vista para reenviar el correo
-# -----------------------------------
 def reenviar_activacion(request, email):
     try:
         usuario = UsuarioPersonalizado.objects.get(email=email)
@@ -157,10 +131,6 @@ def reenviar_activacion(request, email):
     return redirect('activacion_pendiente', email=email)
 
 
-
-# -----------------------------------
-# Activar cuenta desde enlace
-# -----------------------------------
 def activar_cuenta(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
@@ -177,19 +147,14 @@ def activar_cuenta(request, uidb64, token):
     else:
         messages.error(request, "El enlace de activación no es válido o ha expirado.")
         return redirect('registro')
-    
-
 
 def logout_view(request):
     logout(request)
     return redirect('login')
 
-
 def landing_page(request):
     return render(request, 'usuarios/landing.html')
 
-
-# VERIFICAR CÓDIGO 2FA
 def verificar_codigo_view(request):
     user_id = request.session.get('pending_user_id')
     if not user_id:
@@ -200,11 +165,11 @@ def verificar_codigo_view(request):
     if request.method == 'POST':
         codigo_ingresado = request.POST.get('codigo')
         if codigo_ingresado == usuario.two_factor_code:
-            usuario.two_factor_code = None  # Limpia el código
+            usuario.two_factor_code = None
             usuario.save()
             login(request, usuario)
             del request.session['pending_user_id']
-            return redirect('dashboard')
+            return redirect('inicio')
         else:
             messages.error(request, 'Código incorrecto. Intenta nuevamente.')
 
@@ -221,16 +186,9 @@ def configurar_2fa_view(request):
         messages.success(request, msg)
     return render(request, 'usuarios/configurar_2fa.html', {'user': user})
 
-# usuarios/views.py
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from django.contrib import messages
-
 @login_required
 def perfil_view(request):
     user = request.user
-
-    #Actualizar datos personales
     if request.method == 'POST':
         if 'update_profile' in request.POST:
             user.nombre = request.POST.get('nombre')
@@ -242,16 +200,38 @@ def perfil_view(request):
             messages.success(request, "Datos personales actualizados correctamente.")
             return redirect('perfil')
 
-        #Activar o desactivar 2FA
         elif 'toggle_2fa' in request.POST:
             user.two_factor_enabled = not user.two_factor_enabled
             user.save()
-
             if user.two_factor_enabled:
                 messages.success(request, "Autenticación en dos pasos ACTIVADA.")
             else:
                 messages.info(request, "Autenticación en dos pasos DESACTIVADA.")
-
             return redirect('perfil')
 
     return render(request, 'usuarios/perfil.html')
+
+# ==========================================================
+# VISTAS PARA LAS PÁGINAS DEL PANEL DE CONTROL (AÑADIDAS)
+# ==========================================================
+
+@login_required
+def inicio_view(request):
+    """
+    Muestra la página principal del panel (el dashboard).
+    """
+    return render(request, 'usuarios/inicio.html')
+
+@login_required
+def monedas_view(request):
+    """
+    Muestra la página de monedas disponibles para invertir.
+    """
+    return render(request, 'usuarios/monedas.html')
+
+@login_required
+def inversiones_view(request):
+    """
+    Muestra la página del portafolio de inversiones del usuario.
+    """
+    return render(request, 'usuarios/inversiones.html')

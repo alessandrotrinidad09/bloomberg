@@ -1,9 +1,9 @@
 from django.urls import path
 from . import views
 
-
-urlpatterns = [ 
-    path('', views.landing_page, name='landing'),    
+urlpatterns = [
+    # --- Tus rutas existentes ---
+    path('', views.landing_page, name='landing'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('registro/', views.registro_view, name='registro'),
@@ -12,4 +12,10 @@ urlpatterns = [
     path('reenviar-activacion/<str:email>/', views.reenviar_activacion, name='reenviar_activacion'),
     path('verificar-codigo/', views.verificar_codigo_view, name='verificar_codigo'),
     path('perfil/', views.perfil_view, name='perfil'),
+
+    # --- ¡RUTAS QUE FALTABAN! ---
+    
+    path('panel/', views.inicio_view, name='inicio'),
+    path('monedas/', views.monedas_view, name='monedas'),
+    path('inversiones/', views.inversiones_view, name='inversiones'),
 ]
