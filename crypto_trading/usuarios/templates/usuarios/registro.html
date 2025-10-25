@@ -196,12 +196,29 @@
     }
 
     function applyDialCode() {
-      const opt = country.selectedOptions[0];
-      const dial = opt?.dataset?.dial || '';
-      // En caso de que no empieza con +, y el usuario no ha escrito número telefonico, sugerir prefijo
-      if (dial && (telefono.value === '' || /^\d+$/.test(telefono.value))) {
-        telefono.value = dial;
-      }
+        const newDial = country.selectedOptions[0]?.dataset?.dial || '';
+        if (!telefono) return;
+
+        // Normaliza valor actual
+        let v = telefono.value.trim().replace(/\s+/g, '').replace(/[^\d+]/g, '');
+
+        // Caso 1: si empezaba con el prefijo anterior, reemplázalo por el nuevo
+        if (lastDial && v.startsWith(lastDial)) {
+            v = newDial + v.slice(lastDial.length);
+        }
+        // Caso 2: si está vacío o solo tenía un prefijo suelto (con o sin '+')
+        else if (v === '' || /^\+?\d{0,3}$/.test(v)) {
+            v = newDial;
+        }
+        // Caso 3: si no tenía '+', antepone el nuevo prefijo
+        else if (!v.startsWith('+') && newDial) {
+            v = newDial + v.replace(/^0+/, '');
+        }
+
+        telefono.value = v;
+        lastDial = newDial;
+        // Dispara validación en vivo
+        telefono.dispatchEvent(new Event('input'));
     }
 
     country.addEventListener('change', () => { applyDocRules(); applyDialCode(); });
