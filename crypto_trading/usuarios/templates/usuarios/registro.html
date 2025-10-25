@@ -1,70 +1,307 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CryptoTrade - Registro</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CryptoTrade - Registro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-black min-h-screen flex items-center justify-center p-4">
-    <div class="w-full max-w-lg">
-        <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-green-500">Crear Cuenta</h1>
-            <p class="text-gray-400 mt-2">Únete a CryptoTrade y comienza a invertir con IA</p>
-        </div>
-
-        <form method="POST" class="space-y-4">
-            {% csrf_token %}
-            <div class="grid grid-cols-2 gap-4">
-                <input type="text" name="nombre" placeholder="Nombre" required
-                    class="bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
-                <input type="text" name="apellido" placeholder="Apellido" required
-                    class="bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
-            </div>
-
-            <input type="email" name="email" placeholder="Correo electrónico" required
-                class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
-
-            <div class="grid grid-cols-2 gap-4">
-                <input type="text" name="dni" placeholder="DOCUMENTO DE IDENTIDAD" maxlength="8" required
-                    class="bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
-                <input type="text" name="telefono" placeholder="Teléfono"
-                    class="bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
-            </div>
-
-            <input type="text" name="direccion" placeholder="Dirección"
-                class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
-
-            <input type="date" name="fecha_nacimiento"
-                class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
-
-            <div class="grid grid-cols-2 gap-4">
-                <input type="password" name="password" placeholder="Contraseña" required
-                    class="bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
-                <input type="password" name="password2" placeholder="Confirmar contraseña" required
-                    class="bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
-            </div>
-
-            <button type="submit"
-                class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-lg transition duration-200">
-                Crear Cuenta
-            </button>
-        </form>
-
-        {% if messages %}
-        <div class="mt-4 text-center">
-            {% for message in messages %}
-            <p class="text-red-400">{{ message }}</p>
-            {% endfor %}
-        </div>
-        {% endif %}
-
-        <p class="text-center text-gray-400 mt-6">
-            ¿Ya tienes cuenta?
-            <a href="{% url 'login' %}" class="text-green-500 hover:text-green-400 font-semibold">Inicia sesión</a>
-        </p>
+  <div class="w-full max-w-lg">
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold text-green-500">Crear Cuenta</h1>
+      <p class="text-gray-400 mt-2">Únete a CryptoTrade y comienza a invertir con IA</p>
     </div>
+
+    <form id="registroForm" method="POST" class="space-y-4" novalidate>
+      {% csrf_token %}
+
+      <!-- Listado de paises-->
+      <div>
+        <label class="block mb-1 text-gray-300">País</label>
+        <select id="country" name="country"
+                class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none"
+                aria-describedby="error-country" required>
+          <!-- value=ISO-3166-1 alpha-2 -->
+          <option value="PE" data-dial="+51">Perú</option>
+          <option value="US" data-dial="+1">Estados Unidos</option>
+          <option value="ES" data-dial="+34">España</option>
+          <option value="MX" data-dial="+52">México</option>
+          <option value="CO" data-dial="+57">Colombia</option>
+          <option value="AR" data-dial="+54">Argentina</option>
+          <option value="CL" data-dial="+56">Chile</option>
+          <option value="OTHER" data-dial="">Otro</option>
+        </select>
+        <p id="error-country" class="mt-1 text-sm text-red-400 hidden">Selecciona un país.</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <input type="text" name="nombre" placeholder="Nombre" required minlength="2"
+                 pattern="[A-Za-zÁÉÍÓÚÑáéíóúñ ]{2,}" autocomplete="given-name"
+                 class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none"
+                 aria-describedby="error-nombre">
+          <p id="error-nombre" class="mt-1 text-sm text-red-400 hidden">Ingresa un nombre válido (solo letras y espacios).</p>
+        </div>
+
+        <div>
+          <input type="text" name="apellido" placeholder="Apellido" required minlength="2"
+                 pattern="[A-Za-zÁÉÍÓÚÑáéíóúñ ]{2,}" autocomplete="family-name"
+                 class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none"
+                 aria-describedby="error-apellido">
+          <p id="error-apellido" class="mt-1 text-sm text-red-400 hidden">Ingresa un apellido válido (solo letras y espacios).</p>
+        </div>
+      </div>
+
+      <div>
+        <input type="email" name="email" placeholder="Correo electrónico" required autocomplete="email"
+               class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none"
+               aria-describedby="error-email">
+        <p id="error-email" class="mt-1 text-sm text-red-400 hidden">Ingresa un correo válido.</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Documento de identidad: Cambia según país elegido -->
+        <div>
+          <input type="text" name="dni" id="dni" placeholder="Documento de identidad"
+                 required
+                 class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none"
+                 aria-describedby="error-dni">
+          <p id="error-dni" class="mt-1 text-sm text-red-400 hidden"></p>
+        </div>
+
+        <!-- Teléfono  -->
+        <div>
+          <input type="text" name="telefono" id="telefono"
+                 placeholder="Teléfono en formato internacional (ej. +519XXXXXXXX)"
+                 inputmode="tel" autocomplete="tel"
+                 class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none"
+                 aria-describedby="error-telefono">
+          <p id="error-telefono" class="mt-1 text-sm text-red-400 hidden">
+            Usa formato internacional (E.164), ej.: +519XXXXXXXX. Mín. 8 y máx. 15 dígitos.
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <input type="text" name="direccion" placeholder="Dirección" autocomplete="street-address"
+               class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
+      </div>
+
+      <div>
+        <input type="date" name="fecha_nacimiento"
+               class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none"
+               aria-describedby="error-fecha">
+        <p id="error-fecha" class="mt-1 text-sm text-red-400 hidden">Debes ser mayor de 18 años.</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <input type="password" name="password" placeholder="Contraseña" required minlength="8"
+                 pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}"
+                 autocomplete="new-password"
+                 class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none"
+                 aria-describedby="error-pass pass-help">
+          <p id="pass-help" class="mt-1 text-xs text-gray-400">
+            Mín. 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 símbolo.
+          </p>
+          <p id="error-pass" class="mt-1 text-sm text-red-400 hidden">La contraseña no cumple los requisitos.</p>
+          <div class="mt-2 h-2 bg-gray-800 rounded">
+            <div id="bar-pass" class="h-2 w-0 rounded transition-all duration-300"></div>
+          </div>
+        </div>
+
+        <div>
+          <input type="password" name="password2" placeholder="Confirmar contraseña" required autocomplete="new-password"
+                 class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none"
+                 aria-describedby="error-pass2">
+          <p id="error-pass2" class="mt-1 text-sm text-red-400 hidden">Las contraseñas no coinciden.</p>
+        </div>
+      </div>
+
+      <label class="flex items-start gap-3 text-gray-300">
+        <input type="checkbox" id="acepto" required class="mt-1">
+        <span>Acepto los <a href="#" class="text-green-500 hover:text-green-400 underline">Términos y Condiciones</a> y la <a href="#" class="text-green-500 hover:text-green-400 underline">Política de Privacidad</a>.</span>
+      </label>
+      <p id="error-acepto" class="mt-1 text-sm text-red-400 hidden">Debes aceptar los términos para continuar.</p>
+
+      <button type="submit" id="btnSubmit"
+              class="w-full bg-green-500 hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3 rounded-lg transition duration-200">
+        Crear Cuenta
+      </button>
+    </form>
+
+    {% if messages %}
+    <div class="mt-4 text-center">
+      {% for message in messages %}
+      <p class="text-red-400">{{ message }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <p class="text-center text-gray-400 mt-6">
+      ¿Ya tienes cuenta?
+      <a href="{% url 'login' %}" class="text-green-500 hover:text-green-400 font-semibold">Inicia sesión</a>
+    </p>
+  </div>
+
+  <script>
+    const $ = (s, r=document) => r.querySelector(s);
+    const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+
+    // Fecha de nacimiento: >= 18, se requiere que los usuarios deben mayores de edad
+    (() => {
+      const dob = $('[name="fecha_nacimiento"]');
+      if (!dob) return;
+      dob.min = '1900-01-01';
+      const today = new Date();
+      const max = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+      dob.max = max.toISOString().slice(0,10);
+      dob.addEventListener('change', () => {
+        const d = dob.value ? new Date(dob.value + 'T00:00:00') : null;
+        const invalid = d && d > max;
+        toggleError(dob, $('#error-fecha'), invalid);
+      });
+    })();
+
+    // Selector de país: Mapea reglas de documento
+    const country = $('#country');
+    const dni = $('#dni');
+    const telefono = $('#telefono');
+
+    const docRules = {
+      // pattern, maxlength, title/placeholder
+      'PE': { pattern: '^\\d{8}$', max: 8, placeholder: 'DNI (8 dígitos)', msg: 'DNI peruano de 8 dígitos.' },
+      'US': { pattern: '^[A-Za-z0-9]{6,20}$', max: 20, placeholder: 'ID (alfa-numérico, 6–20)', msg: 'Documento (alfa-numérico, 6–20). No ingreses SSN.' },
+      'ES': { pattern: '^[A-Za-z0-9]{7,15}$', max: 15, placeholder: 'DNI/NIE (7–15, puede incluir letras)', msg: 'DNI/NIE 7–15, puede incluir letras.' },
+      'MX': { pattern: '^[A-Za-z0-9]{10,18}$', max: 18, placeholder: 'CURP/RFC (10–18)', msg: 'CURP/RFC 10–18 (alfa-numérico).' },
+      'CO': { pattern: '^\\d{6,12}$', max: 12, placeholder: 'CC (6–12 dígitos)', msg: 'Documento colombiano 6–12 dígitos.' },
+      'AR': { pattern: '^\\d{6,12}$', max: 12, placeholder: 'DNI (6–12 dígitos)', msg: 'DNI argentino 6–12 dígitos.' },
+      'CL': { pattern: '^\\d{6,12}$', max: 12, placeholder: 'RUN/RUT (6–12 dígitos sin guión)', msg: 'RUN/RUT 6–12 dígitos (sin puntos/guión).' },
+      'OTHER': { pattern: '^[A-Za-z0-9]{6,20}$', max: 20, placeholder: 'Documento (6–20, alfa-numérico)', msg: 'Documento (alfa-numérico, 6–20).' }
+    };
+
+    function applyDocRules() {
+      const c = country.value in docRules ? country.value : 'OTHER';
+      const r = docRules[c];
+      dni.setAttribute('pattern', r.pattern);
+      dni.setAttribute('maxlength', r.max);
+      dni.setAttribute('title', r.msg);
+      dni.placeholder = r.placeholder;
+      // feedback inmediato
+      const ok = new RegExp(r.pattern).test(dni.value);
+      toggleError(dni, $('#error-dni'), dni.value.length > 0 && !ok);
+      $('#error-dni').textContent = ok ? '' : r.msg;
+    }
+
+    function applyDialCode() {
+      const opt = country.selectedOptions[0];
+      const dial = opt?.dataset?.dial || '';
+      // En caso de que no empieza con +, y el usuario no ha escrito número telefonico, sugerir prefijo
+      if (dial && (telefono.value === '' || /^\d+$/.test(telefono.value))) {
+        telefono.value = dial;
+      }
+    }
+
+    country.addEventListener('change', () => { applyDocRules(); applyDialCode(); });
+
+    // Teléfono: E.164 genérico (8–15 dígitos con prefijo opcional +)
+    const telRegex = /^\+?[1-9]\d{7,14}$/;
+    telefono.addEventListener('input', () => {
+      let v = telefono.value.replace(/[^\d+]/g, '');
+      v = v.replace(/\+(?=.+\+)/g, ''); // solo un + al inicio
+      if (!v.startsWith('+') && v.startsWith('0')) v = v.replace(/^0+/, ''); // sin ceros a la izquierda si no hay +
+      telefono.value = v;
+      toggleError(telefono, $('#error-telefono'), v.length > 0 && !telRegex.test(v));
+    });
+
+    // DNI: limpieza liviana (según regla; si acepta letras, no limpiar)
+    dni.addEventListener('input', () => {
+      const c = country.value in docRules ? country.value : 'OTHER';
+      const onlyDigits = ['PE','CO','AR','CL'].includes(c);
+      if (onlyDigits) dni.value = dni.value.replace(/\D+/g, '').slice(0, parseInt(dni.getAttribute('maxlength') || '99',10));
+      const re = new RegExp(docRules[c].pattern);
+      const invalid = dni.value.length > 0 && !re.test(dni.value);
+      toggleError(dni, $('#error-dni'), invalid);
+      $('#error-dni').textContent = invalid ? docRules[c].msg : '';
+    });
+
+    // Nombre/Apellido
+    const nameRegex = /^[A-Za-zÁÉÍÓÚÑáéíóúñ ]{2,}$/;
+    $('[name="nombre"]').addEventListener('input', e => {
+      toggleError(e.target, $('#error-nombre'), !nameRegex.test(e.target.value.trim()));
+    });
+    $('[name="apellido"]').addEventListener('input', e => {
+      toggleError(e.target, $('#error-apellido'), !nameRegex.test(e.target.value.trim()));
+    });
+
+    // Email
+    $('[name="email"]').addEventListener('input', e => {
+      toggleError(e.target, $('#error-email'), !e.target.checkValidity());
+    });
+
+    // Password + fuerza + confirmación
+    const pass = $('[name="password"]');
+    const pass2 = $('[name="password2"]');
+    const bar = $('#bar-pass');
+    const passRegex = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}/;
+
+    pass.addEventListener('input', () => {
+      const v = pass.value;
+      const tests = [/[a-z]/, /[A-Z]/, /\d/, /[^\w\s]/].map(rx => rx.test(v));
+      const score = tests.filter(Boolean).length + (v.length >= 8 ? 1 : 0); // 0..5
+      bar.style.width = (score * 20) + '%';
+      bar.className = 'h-2 rounded transition-all duration-300 ' + (
+        score <= 2 ? 'bg-red-500' : score === 3 ? 'bg-yellow-500' : score === 4 ? 'bg-green-500' : 'bg-green-600'
+      );
+      toggleError(pass, $('#error-pass'), v.length > 0 && !passRegex.test(v));
+      validateConfirm();
+    });
+
+    pass2.addEventListener('input', validateConfirm);
+    function validateConfirm() {
+      const mismatch = pass.value !== pass2.value || pass2.value.length === 0;
+      toggleError(pass2, $('#error-pass2'), mismatch);
+    }
+
+    // Términos
+    const acepto = $('#acepto');
+    acepto.addEventListener('change', () => toggleError(acepto, $('#error-acepto'), !acepto.checked));
+
+    // Submit
+    $('#registroForm').addEventListener('submit', (e) => {
+      const invalids = $$('#registroForm input, #registroForm select').filter(i => i.willValidate && !i.checkValidity());
+      const extraInvalid = !passRegex.test(pass.value) || pass.value !== pass2.value;
+      if (invalids.length || extraInvalid || !acepto.checked) {
+        e.preventDefault();
+        invalids.forEach(i => {
+          const id = 'error-' + (i.name || i.id);
+          const el = $('#' + id);
+          if (el) toggleError(i, el, true);
+        });
+        toggleError(pass, $('#error-pass'), !passRegex.test(pass.value));
+        toggleError(pass2, $('#error-pass2'), pass.value !== pass2.value);
+        toggleError(acepto, $('#error-acepto'), !acepto.checked);
+      }
+    });
+
+    function toggleError(input, errorEl, show) {
+      if (!errorEl) return;
+      if (show) {
+        errorEl.classList.remove('hidden');
+        input?.classList?.add('border-red-500');
+        input?.setAttribute('aria-invalid', 'true');
+      } else {
+        errorEl.classList.add('hidden');
+        input?.classList?.remove('border-red-500');
+        input?.removeAttribute('aria-invalid');
+      }
+    }
+
+    // Inicializar reglas según país por defecto
+    applyDocRules();
+    applyDialCode();
+  </script>
 </body>
 </html>
