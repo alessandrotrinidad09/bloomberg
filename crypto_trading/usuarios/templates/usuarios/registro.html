@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CryptoTrade - Registro</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -17,7 +17,7 @@
     <form id="registroForm" method="POST" class="space-y-4" novalidate>
       {% csrf_token %}
 
-      <!-- Listado de paises-->
+      <!-- Listado de paises -->
       <div>
         <label class="block mb-1 text-gray-300">País</label>
         <select id="country" name="country"
@@ -62,7 +62,7 @@
       </div>
 
       <div class="grid grid-cols-2 gap-4">
-        <!-- Documento de identidad: Cambia según país elegido -->
+        <!-- Documento de identidad: Cambia según país seleccionado -->
         <div>
           <input type="text" name="dni" id="dni" placeholder="Documento de identidad"
                  required
@@ -71,16 +71,13 @@
           <p id="error-dni" class="mt-1 text-sm text-red-400 hidden"></p>
         </div>
 
-        <!-- Teléfono  -->
+        <!-- Teléfono internacional -->
         <div>
           <input type="text" name="telefono" id="telefono"
                  placeholder="Teléfono en formato internacional (ej. +519XXXXXXXX)"
                  inputmode="tel" autocomplete="tel"
                  class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none"
                  aria-describedby="error-telefono">
-          <p id="error-telefono" class="mt-1 text-sm text-red-400 hidden">
-            Usa formato internacional (E.164), ej.: +519XXXXXXXX. Mín. 8 y máx. 15 dígitos.
-          </p>
         </div>
       </div>
 
@@ -107,6 +104,7 @@
             Mín. 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 símbolo.
           </p>
           <p id="error-pass" class="mt-1 text-sm text-red-400 hidden">La contraseña no cumple los requisitos.</p>
+          <!-- Indicador de fuerza en la contraseña -->
           <div class="mt-2 h-2 bg-gray-800 rounded">
             <div id="bar-pass" class="h-2 w-0 rounded transition-all duration-300"></div>
           </div>
@@ -150,7 +148,7 @@
     const $ = (s, r=document) => r.querySelector(s);
     const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
 
-    // Fecha de nacimiento: >= 18, se requiere que los usuarios deben mayores de edad
+    // === Fecha de nacimiento requiere persona mayor de 18 años ===
     (() => {
       const dob = $('[name="fecha_nacimiento"]');
       if (!dob) return;
@@ -165,86 +163,99 @@
       });
     })();
 
-    // Selector de país: Mapea reglas de documento
-    const country = $('#country');
-    const dni = $('#dni');
+    const country  = $('#country');
+    const dni      = $('#dni');
     const telefono = $('#telefono');
 
+    // === Reglas de documento por país ===
     const docRules = {
-      // pattern, maxlength, title/placeholder
-      'PE': { pattern: '^\\d{8}$', max: 8, placeholder: 'DNI (8 dígitos)', msg: 'DNI peruano de 8 dígitos.' },
+      'PE': { pattern: '^\\d{8}$', max: 8,  placeholder: 'DNI (8 dígitos)',                   msg: 'DNI peruano de 8 dígitos.' },
       'US': { pattern: '^[A-Za-z0-9]{6,20}$', max: 20, placeholder: 'ID (alfa-numérico, 6–20)', msg: 'Documento (alfa-numérico, 6–20). No ingreses SSN.' },
-      'ES': { pattern: '^[A-Za-z0-9]{7,15}$', max: 15, placeholder: 'DNI/NIE (7–15, puede incluir letras)', msg: 'DNI/NIE 7–15, puede incluir letras.' },
-      'MX': { pattern: '^[A-Za-z0-9]{10,18}$', max: 18, placeholder: 'CURP/RFC (10–18)', msg: 'CURP/RFC 10–18 (alfa-numérico).' },
-      'CO': { pattern: '^\\d{6,12}$', max: 12, placeholder: 'CC (6–12 dígitos)', msg: 'Documento colombiano 6–12 dígitos.' },
-      'AR': { pattern: '^\\d{6,12}$', max: 12, placeholder: 'DNI (6–12 dígitos)', msg: 'DNI argentino 6–12 dígitos.' },
-      'CL': { pattern: '^\\d{6,12}$', max: 12, placeholder: 'RUN/RUT (6–12 dígitos sin guión)', msg: 'RUN/RUT 6–12 dígitos (sin puntos/guión).' },
-      'OTHER': { pattern: '^[A-Za-z0-9]{6,20}$', max: 20, placeholder: 'Documento (6–20, alfa-numérico)', msg: 'Documento (alfa-numérico, 6–20).' }
+      'ES': { pattern: '^[A-Za-z0-9]{7,15}$', max: 15, placeholder: 'DNI/NIE (7–15)',           msg: 'DNI/NIE 7–15, puede incluir letras.' },
+      'MX': { pattern: '^[A-Za-z0-9]{10,18}$',max: 18, placeholder: 'CURP/RFC (10–18)',         msg: 'CURP/RFC 10–18 (alfa-numérico).' },
+      'CO': { pattern: '^\\d{6,12}$',        max: 12, placeholder: 'CC (6–12 dígitos)',        msg: 'Documento colombiano 6–12 dígitos.' },
+      'AR': { pattern: '^\\d{6,12}$',        max: 12, placeholder: 'DNI (6–12 dígitos)',       msg: 'DNI argentino 6–12 dígitos.' },
+      'CL': { pattern: '^\\d{6,12}$',        max: 12, placeholder: 'RUN/RUT (6–12 dígitos)',   msg: 'RUN/RUT 6–12 dígitos (sin puntos/guión).' },
+      'OTHER': { pattern: '^[A-Za-z0-9]{6,20}$', max: 20, placeholder: 'Documento (6–20)',     msg: 'Documento (alfa-numérico, 6–20).' }
     };
 
+    // === Prefijo telefónico dinámico (el +51 persistente inicial) ===
+    let lastDial = country.selectedOptions[0]?.dataset?.dial || '';
+
     function applyDocRules() {
-      const c = country.value in docRules ? country.value : 'OTHER';
+      const c = (country.value in docRules) ? country.value : 'OTHER';
       const r = docRules[c];
       dni.setAttribute('pattern', r.pattern);
       dni.setAttribute('maxlength', r.max);
       dni.setAttribute('title', r.msg);
       dni.placeholder = r.placeholder;
-      // feedback inmediato
-      const ok = new RegExp(r.pattern).test(dni.value);
-      toggleError(dni, $('#error-dni'), dni.value.length > 0 && !ok);
-      $('#error-dni').textContent = ok ? '' : r.msg;
+
+      const re = new RegExp(r.pattern);
+      const invalid = dni.value.length > 0 && !re.test(dni.value);
+      toggleError(dni, $('#error-dni'), invalid);
+      $('#error-dni').textContent = invalid ? r.msg : '';
     }
+
+    // Validador E.164 de regla telefónica internacional
+    const telRegex = /^\+?[1-9]\d{7,14}$/;
 
     function applyDialCode() {
-        const newDial = country.selectedOptions[0]?.dataset?.dial || '';
-        if (!telefono) return;
+      const newDial = country.selectedOptions[0]?.dataset?.dial || '';
+      if (!telefono) return;
 
-        // Normaliza valor actual
-        let v = telefono.value.trim().replace(/\s+/g, '').replace(/[^\d+]/g, '');
+      // Normaliza valor actual
+      let v = telefono.value.trim().replace(/\s+/g, '').replace(/[^\d+]/g, '');
 
-        // Caso 1: si empezaba con el prefijo anterior, reemplázalo por el nuevo
-        if (lastDial && v.startsWith(lastDial)) {
-            v = newDial + v.slice(lastDial.length);
-        }
-        // Caso 2: si está vacío o solo tenía un prefijo suelto (con o sin '+')
-        else if (v === '' || /^\+?\d{0,3}$/.test(v)) {
-            v = newDial;
-        }
-        // Caso 3: si no tenía '+', antepone el nuevo prefijo
-        else if (!v.startsWith('+') && newDial) {
-            v = newDial + v.replace(/^0+/, '');
-        }
+      // Si la entrada empezaba con el prefijo anterior, lo reemplazamos por el nuevo
+      if (lastDial && v.startsWith(lastDial)) {
+        v = newDial + v.slice(lastDial.length);
+      }
+      // Si está vacío o solo tenía un prefijo suelto, colocamos el nuevo el prefijo
+      else if (v === '' || /^\+?\d{0,3}$/.test(v)) {
+        v = newDial;
+      }
+      // Si no tenía '+' y hay nuevo prefijo, lo anteponemos quitando ceros iniciales
+      else if (!v.startsWith('+') && newDial) {
+        v = newDial + v.replace(/^0+/, '');
+      }
 
-        telefono.value = v;
-        lastDial = newDial;
-        // Dispara validación en vivo
-        telefono.dispatchEvent(new Event('input'));
+      telefono.value = v;
+      lastDial = newDial;
+      // Dispara validación para actualizar mensajes/estilos
+      telefono.dispatchEvent(new Event('input'));
     }
 
-    country.addEventListener('change', () => { applyDocRules(); applyDialCode(); });
+    // Listeners principales
+    country.addEventListener('change', () => {
+      applyDocRules();
+      applyDialCode();
+    });
 
-    // Teléfono: E.164 genérico (8–15 dígitos con prefijo opcional +)
-    const telRegex = /^\+?[1-9]\d{7,14}$/;
+    // Teléfono: limpieza y feedback
     telefono.addEventListener('input', () => {
       let v = telefono.value.replace(/[^\d+]/g, '');
-      v = v.replace(/\+(?=.+\+)/g, ''); // solo un + al inicio
-      if (!v.startsWith('+') && v.startsWith('0')) v = v.replace(/^0+/, ''); // sin ceros a la izquierda si no hay +
+      // Solo un '+' al inicio
+      v = v.replace(/\+(?=.+\+)/g, '');
+      if (!v.startsWith('+') && v.startsWith('0')) v = v.replace(/^0+/, '');
       telefono.value = v;
       toggleError(telefono, $('#error-telefono'), v.length > 0 && !telRegex.test(v));
     });
 
-    // DNI: limpieza liviana (según regla; si acepta letras, no limpiar)
+    // DNI: limpieza (solo dígitos en países que lo requieren)
     dni.addEventListener('input', () => {
-      const c = country.value in docRules ? country.value : 'OTHER';
+      const c = (country.value in docRules) ? country.value : 'OTHER';
       const onlyDigits = ['PE','CO','AR','CL'].includes(c);
-      if (onlyDigits) dni.value = dni.value.replace(/\D+/g, '').slice(0, parseInt(dni.getAttribute('maxlength') || '99',10));
+      if (onlyDigits) {
+        const max = parseInt(dni.getAttribute('maxlength') || '99', 10);
+        dni.value = dni.value.replace(/\D+/g, '').slice(0, max);
+      }
       const re = new RegExp(docRules[c].pattern);
       const invalid = dni.value.length > 0 && !re.test(dni.value);
       toggleError(dni, $('#error-dni'), invalid);
       $('#error-dni').textContent = invalid ? docRules[c].msg : '';
     });
 
-    // Nombre/Apellido
+    // Nombre/Apellido/Email validación UX
     const nameRegex = /^[A-Za-zÁÉÍÓÚÑáéíóúñ ]{2,}$/;
     $('[name="nombre"]').addEventListener('input', e => {
       toggleError(e.target, $('#error-nombre'), !nameRegex.test(e.target.value.trim()));
@@ -252,16 +263,14 @@
     $('[name="apellido"]').addEventListener('input', e => {
       toggleError(e.target, $('#error-apellido'), !nameRegex.test(e.target.value.trim()));
     });
-
-    // Email
     $('[name="email"]').addEventListener('input', e => {
       toggleError(e.target, $('#error-email'), !e.target.checkValidity());
     });
 
-    // Password + fuerza + confirmación
+    // Password: fuerza + confirmación
     const pass = $('[name="password"]');
     const pass2 = $('[name="password2"]');
-    const bar = $('#bar-pass');
+    const bar  = $('#bar-pass');
     const passRegex = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}/;
 
     pass.addEventListener('input', () => {
@@ -270,7 +279,9 @@
       const score = tests.filter(Boolean).length + (v.length >= 8 ? 1 : 0); // 0..5
       bar.style.width = (score * 20) + '%';
       bar.className = 'h-2 rounded transition-all duration-300 ' + (
-        score <= 2 ? 'bg-red-500' : score === 3 ? 'bg-yellow-500' : score === 4 ? 'bg-green-500' : 'bg-green-600'
+        score <= 2 ? 'bg-red-500' :
+        score === 3 ? 'bg-yellow-500' :
+        score === 4 ? 'bg-green-500' : 'bg-green-600'
       );
       toggleError(pass, $('#error-pass'), v.length > 0 && !passRegex.test(v));
       validateConfirm();
@@ -297,7 +308,7 @@
           const el = $('#' + id);
           if (el) toggleError(i, el, true);
         });
-        toggleError(pass, $('#error-pass'), !passRegex.test(pass.value));
+        toggleError(pass,  $('#error-pass'),  !passRegex.test(pass.value));
         toggleError(pass2, $('#error-pass2'), pass.value !== pass2.value);
         toggleError(acepto, $('#error-acepto'), !acepto.checked);
       }
@@ -316,7 +327,7 @@
       }
     }
 
-    // Inicializar reglas según país por defecto
+    // === Inicializar (aplica reglas del país por defecto y su prefijo) ===
     applyDocRules();
     applyDialCode();
   </script>
