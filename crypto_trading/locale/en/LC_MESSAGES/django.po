@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CryptoTrade 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-15 10:35-0500\n"
+"POT-Creation-Date: 2025-10-26 07:05-0500\n"
 "PO-Revision-Date: 2025-10-15 11:00-0500\n"
 "Last-Translator: Giussepe Trinidad <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
@@ -17,84 +17,178 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\crypto_trading\settings.py:121
+#: .\crypto_trading\settings.py:123
 msgid "Español"
 msgstr "Spanish"
 
-#: .\crypto_trading\settings.py:122
+#: .\crypto_trading\settings.py:124
 msgid "Inglés"
 msgstr "English"
 
-#: .\usuarios\templates\usuarios\landing.html:8
-msgid "CryptoTrade - Bienvenido"
-msgstr "CryptoTrade - Welcome"
-
-#: .\usuarios\templates\usuarios\landing.html:16
-msgid "Bienvenido a CryptoTrade"
-msgstr "Welcome to CryptoTrade"
-
-#: .\usuarios\templates\usuarios\landing.html:18
-msgid "La plataforma de trading con predicciones inteligentes impulsadas por IA. Gestiona tus inversiones y toma decisiones informadas en criptomonedas."
-msgstr "The trading platform with AI-powered smart predictions. Manage your investments and make informed cryptocurrency decisions."
-
-#: .\usuarios\templates\usuarios\landing.html:23
-msgid "Iniciar Sesión"
-msgstr "Login"
-
-#: .\usuarios\templates\usuarios\landing.html:27
-#: .\usuarios\templates\usuarios\login.html:64
-msgid "¿No tienes cuenta?"
-msgstr "Don't have an account?"
-
-#: .\usuarios\templates\usuarios\landing.html:28
-#: .\usuarios\templates\usuarios\login.html:66
-msgid "Registrarse"
-msgstr "Sign Up"
-
-#: .\usuarios\templates\usuarios\login.html:8
-msgid "CryptoTrade - Iniciar Sesión"
-msgstr "CryptoTrade - Login"
-
-#: .\usuarios\templates\usuarios\login.html:24
+#: .\usuarios\templates\usuarios\landing.html:9
+#: .\usuarios\templates\usuarios\login.html:23
 msgid "CryptoTrade"
 msgstr "CryptoTrade"
 
-#: .\usuarios\templates\usuarios\login.html:26
+#: usuarios/templates/usuarios/landing.html:28
+msgid "Producto"
+msgstr "Product"
+
+#: usuarios/templates/usuarios/landing.html:29
+msgid "Soporte"
+msgstr "Support"
+
+#: usuarios/templates/usuarios/landing.html:30
+msgid "Sobre nosotros"
+msgstr "About us"
+
+#: usuarios/templates/usuarios/landing.html:31
+msgid "Aprender"
+msgstr "Learn"
+
+#: .\usuarios\templates\usuarios\landing.html:38
+msgid "Iniciar Sesión"
+msgstr "Login"
+
+#: .\usuarios\templates\usuarios\landing.html:40
+#: .\usuarios\templates\usuarios\login.html:145
+msgid "Registrarse"
+msgstr "Sign Up"
+
+#: .\usuarios\templates\usuarios\landing.html:52
+msgid "Bienvenido a CryptoTrade"
+msgstr "Welcome to CryptoTrade"
+
+#: .\usuarios\templates\usuarios\landing.html:54
+msgid ""
+"La plataforma de trading con predicciones inteligentes impulsadas por IA. "
+"Gestiona tus inversiones y toma decisiones informadas en criptomonedas."
+msgstr ""
+"The trading platform with AI-powered smart predictions. Manage your "
+"investments and make informed cryptocurrency decisions."
+
+#: .\usuarios\templates\usuarios\login.html:7
+msgid "CryptoTrade - Iniciar Sesión"
+msgstr "CryptoTrade - Login"
+
+#: .\usuarios\templates\usuarios\login.html:25
 msgid "Tu plataforma de trading confiable"
 msgstr "Your trusted trading platform"
 
-#: .\usuarios\templates\usuarios\login.html:33
+#: .\usuarios\templates\usuarios\login.html:34
 msgid "Correo electrónico"
 msgstr "Email"
 
-#: .\usuarios\templates\usuarios\login.html:37
+#: .\usuarios\templates\usuarios\login.html:38
+#: .\usuarios\templates\usuarios\password_reset_form.html:26
 msgid "ejemplo@correo.com"
 msgstr "example@email.com"
 
-#: .\usuarios\templates\usuarios\login.html:41
+#: .\usuarios\templates\usuarios\login.html:43
 msgid "Contraseña"
 msgstr "Password"
 
-#: .\usuarios\templates\usuarios\login.html:50
+#: .\usuarios\templates\usuarios\login.html:54
+msgid "¿Olvidaste tu contraseña?"
+msgstr "Forgot your password?"
+
+#: .\usuarios\templates\usuarios\login.html:62
 msgid "Ingresar"
 msgstr "Sign In"
 
-#: .\usuarios\templates\usuarios\login.html:71
-
+#: .\usuarios\templates\usuarios\login.html:79
 msgid "O"
 msgstr "Or"
 
+#: .\usuarios\templates\usuarios\login.html:101
 msgid "INGRESAR CON GOOGLE"
 msgstr "Sign in with Google"
 
+#: .\usuarios\templates\usuarios\login.html:120
 msgid "INGRESAR CON GITHUB"
 msgstr "Sign in with GitHub"
 
+#: .\usuarios\templates\usuarios\login.html:135
 msgid "INGRESAR CON X"
 msgstr "Sign in with X"
 
-msgid "INGRESAR CON FACEBOOK"
-msgstr "Sign in with Facebook"
+#: .\usuarios\templates\usuarios\login.html:143
+msgid "¿No tienes cuenta?"
+msgstr "Don't have an account?"
 
+#: usuarios/templates/usuarios/password_reset_complete.html:8
+msgid "Contraseña actualizada"
+msgstr "Password updated"
 
+#: usuarios/templates/usuarios/password_reset_complete.html:15
+msgid "Tu contraseña se actualizó"
+msgstr "Your password has been updated"
 
+#: usuarios/templates/usuarios/password_reset_complete.html:16
+msgid "Ya puedes iniciar sesión con tu nueva contraseña."
+msgstr "You can now sign in with your new password."
+
+#: usuarios/templates/usuarios/password_reset_complete.html:18
+msgid "Ir al login"
+msgstr "Go to login"
+
+#: usuarios/templates/usuarios/password_reset_confirm.html:8
+#: usuarios/templates/usuarios/password_reset_confirm.html:15
+msgid "Crear nueva contraseña"
+msgstr "Create new password"
+
+#: usuarios/templates/usuarios/password_reset_confirm.html:32
+msgid "Contraseña nueva"
+msgstr "New password"
+
+#: usuarios/templates/usuarios/password_reset_confirm.html:42
+msgid "Contraseña nueva (confirmación)"
+msgstr "New password (confirmation)"
+
+#: usuarios/templates/usuarios/password_reset_confirm.html:50
+msgid "Guardar contraseña"
+msgstr "Save password"
+
+#: usuarios/templates/usuarios/password_reset_done.html:8
+msgid "Correo enviado"
+msgstr "Email sent"
+
+#: usuarios/templates/usuarios/password_reset_done.html:16
+msgid "Revisa tu correo"
+msgstr "Check your email"
+
+#: usuarios/templates/usuarios/password_reset_done.html:18
+msgid ""
+"Si existe una cuenta con ese correo, te enviamos un enlace para restablecer "
+"tu contraseña."
+msgstr ""
+"If an account with that email exists, we have sent you a link to reset your "
+"password."
+
+#: usuarios/templates/usuarios/password_reset_done.html:21
+msgid "Volver al login"
+msgstr "Back to login"
+
+#: usuarios/templates/usuarios/password_reset_form.html:8
+#: usuarios/templates/usuarios/password_reset_form.html:16
+msgid "Restablecer contraseña"
+msgstr "Reset password"
+
+#: usuarios/templates/usuarios/password_reset_form.html:20
+msgid ""
+"Ingresa tu correo y te enviaremos un enlace para crear una nueva contraseña."
+msgstr "Enter your email and we'll send you a link to create a new password."
+
+#: usuarios/templates/usuarios/password_reset_form.html:29
+msgid "Enviar enlace"
+msgstr "Send link"
+
+#: usuarios/templates/usuarios/password_reset_form.html:35
+msgid "Volver a iniciar sesión"
+msgstr "Back to sign in"
+
+#~ msgid "CryptoTrade - Bienvenido"
+#~ msgstr "CryptoTrade - Welcome"
+
+#~ msgid "INGRESAR CON FACEBOOK"
+#~ msgstr "Sign in with Facebook"
