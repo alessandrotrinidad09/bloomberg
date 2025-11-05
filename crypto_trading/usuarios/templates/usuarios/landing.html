@@ -1,62 +1,249 @@
 {% load i18n %}
 {% load static i18n %}
 <!DOCTYPE html>
-<html lang="es">
-
+<html lang="{{ LANGUAGE_CODE }}" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% trans "CryptoTrade" %}</title>
-    <link rel="icon" type="image/png" href="{% static 'img/f1.png' %}" sizes="32x32">
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% trans "CryptoTrade" %}</title>
+
+  <!-- SEO / Social -->
+  <meta name="description" content="{% trans 'Plataforma de trading con backtesting sin código, señales explicadas por IA y gestión de riesgo integrada.' %}">
+  <meta name="robots" content="index,follow">
+  <meta property="og:title" content="{% trans 'CryptoTrade' %}">
+  <meta property="og:description" content="{% trans 'Backtesting sin código, señales explicadas y riesgo integrado.' %}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ request.build_absolute_uri }}">
+  <meta property="og:image" content="{% static 'img/og.png' %}">
+
+  <link rel="icon" type="image/png" href="{% static 'img/f1.png' %}" sizes="32x32" />
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-black min-h-screen text-white">
+  <!-- Skip link (accesibilidad) -->
+  <a href="#main" class="sr-only focus:not-sr-only absolute left-2 top-2 z-[60] bg-black text-white px-3 py-2 rounded">
+    {% trans "Saltar al contenido" %}
+  </a>
 
-    <!-- Barra de navegación -->
-    <nav class="bg-gray-900 bg-opacity-80 backdrop-blur-md fixed w-full z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                
-                <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center text-green-500 font-bold text-xl">
-                    CryptoTrade
-                </div>
+  <!-- NAV -->
+  <nav aria-label="{% trans 'Navegación principal' %}" class="bg-gray-900 bg-opacity-80 backdrop-blur-md fixed w-full z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center">
 
-                <!-- Menú -->
-                <div class="hidden md:flex space-x-8">
-                    <a href="#producto" class="hover:text-green-500 transition">{% trans "Producto" %}</a>
-                    <a href="#soporte" class="hover:text-green-500 transition">{% trans "Soporte" %}</a>
-                    <a href="#sobre-nosotros" class="hover:text-green-500 transition">{% trans "Sobre nosotros" %}</a>
-                    <a href="#aprender" class="hover:text-green-500 transition">{% trans "Aprender" %}</a>
-                </div>
+        <!-- Logo -->
+        <a href="#" class="flex-shrink-0 flex items-center text-green-500 font-bold text-xl">
+          CryptoTrade
+        </a>
 
-                <!-- Botón login -->
-                <div class="flex items-center space-x-4">
-                    <a href="{% url 'login' %}"
-                        class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition">
-                        {% trans "Iniciar Sesión" %}
-                    </a>
-                    <a href="{% url 'registro' %}" class="hover:text-green-500 transition">{% trans "Registrarse" %}</a>
-                        {% include "lang_sel.html" %}
-                </div>
-            </div>
+        <!-- Menú -->
+        <div class="hidden md:flex space-x-8">
+          <a href="#producto" class="hover:text-green-500 transition focus:outline-none focus:ring-2 focus:ring-green-400">{% trans "Producto" %}</a>
+          <a href="#soporte" class="hover:text-green-500 transition focus:outline-none focus:ring-2 focus:ring-green-400">{% trans "Soporte" %}</a>
+          <a href="#sobre-nosotros" class="hover:text-green-500 transition focus:outline-none focus:ring-2 focus:ring-green-400">{% trans "Sobre nosotros" %}</a>
+          <a href="#aprender" class="hover:text-green-500 transition focus:outline-none focus:ring-2 focus:ring-green-400">{% trans "Aprender" %}</a>
         </div>
-    </nav>
 
-    <!-- Espacio para que la barra fija no tape el contenido -->
-    <div class="h-16"></div>
+        <!-- Acciones -->
+        <div class="flex items-center space-x-4">
+          <!-- Login en contorno (no compite con el CTA principal) -->
+          <a href="{% url 'login' %}"
+             class="hidden md:inline-flex items-center rounded-lg border border-gray-600 px-4 py-2 text-white hover:border-gray-500 transition focus:outline-none focus:ring-2 focus:ring-green-400">
+            {% trans "Iniciar sesión" %}
+          </a>
 
-    <!-- Contenido principal -->
-    <div class="flex flex-col items-center justify-center p-4 text-center max-w-2xl mx-auto mt-10">
-        <h1 class="text-5xl font-bold text-green-500 mb-4">{% trans "Bienvenido a CryptoTrade" %}</h1>
-        <p class="text-gray-300 mb-8">
-            {% trans "La plataforma de trading con predicciones inteligentes impulsadas por IA. Gestiona tus inversiones y toma decisiones informadas en criptomonedas." %}
-        </p>
+          <a href="{% url 'registro' %}" class="hover:text-green-500 transition focus:outline-none focus:ring-2 focus:ring-green-400 rounded-lg px-1">
+            {% trans "Registrarse" %}
+          </a>
 
+          {% include "lang_sel.html" %}
+        </div>
+      </div>
     </div>
+  </nav>
 
+  <!-- separador del nav fijo -->
+  <div class="h-16"></div>
 
+  <main id="main">
+    <!-- HERO -->
+    <section class="flex flex-col items-center justify-center p-6 text-center max-w-3xl mx-auto mt-20">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-green-500 mb-4">
+        {% trans "Aprende trading cripto con datos reales y señales explicadas por IA" %}
+      </h1>
+      <p class="text-gray-300 mb-8 max-w-3xl leading-relaxed">
+        {% trans "Explora datos, haz backtesting sin código y recibe señales generadas por un modelo híbrido con explicabilidad. Gestiona el riesgo antes de operar en real." %}
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-col sm:flex-row gap-4 items-center">
+        <!-- CTA principal -->
+        <a href="{% url 'registro' %}"
+           class="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+          {% trans "Comenzar gratis" %}
+        </a>
+
+        <!-- Botón de login SOLO en móvil para evitar redundancia -->
+        <a href="{% url 'login' %}"
+           class="sm:hidden border border-gray-600 hover:border-gray-500 text-white font-semibold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+          {% trans "Iniciar sesión" %}
+        </a>
+      </div>
+
+      <!-- Link de login sutil en desktop -->
+      <p class="hidden sm:block mt-3 text-sm text-gray-400">
+        {% trans "¿Ya tienes cuenta?" %}
+        <a href="{% url 'login' %}" class="text-green-400 hover:text-green-300 underline focus:outline-none focus:ring-2 focus:ring-green-400 rounded">
+          {% trans "Iniciar sesión" %}
+        </a>
+      </p>
+
+      <!-- “Confianza” -->
+      <ul class="mt-6 flex flex-wrap justify-center gap-x-8 gap-y-3 text-[13px] text-gray-300" role="list">
+        <li class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-green-500" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          {% trans "Simulador con datos reales" %}
+        </li>
+        <li class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-green-500" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          {% trans "Backtesting anti-overfitting" %}
+        </li>
+        <li class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-green-500" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          {% trans "Gestión de riesgo integrada" %}
+        </li>
+        <li class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-green-500" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          {% trans "2FA y cifrado SSL" %}
+        </li>
+      </ul>
+    </section>
+
+    <!-- PRODUCTO -->
+    <section id="producto" class="py-16 scroll-mt-24">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-semibold mb-3">{% trans "Un entorno no-code para decidir mejor" %}</h2>
+        <p class="text-gray-300 mb-6">
+          {% trans "CryptoTrade combina datos confiables, backtesting con buenas prácticas y gestión de riesgo para que desarrolles criterio antes de operar en real." %}
+        </p>
+        <ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-gray-300">
+          <li class="bg-gray-900/50 border border-gray-800 rounded-xl p-4 hover:border-gray-700 hover:-translate-y-0.5 transition">
+            {% trans "Centraliza datos y señales para decidir más rápido" %}
+          </li>
+          <li class="bg-gray-900/50 border border-gray-800 rounded-xl p-4 hover:border-gray-700 hover:-translate-y-0.5 transition">
+            {% trans "Valida ideas con rigor estadístico (split y métricas claras)" %}
+          </li>
+          <li class="bg-gray-900/50 border border-gray-800 rounded-xl p-4 hover:border-gray-700 hover:-translate-y-0.5 transition">
+            {% trans "Entiende el porqué detrás de cada señal (SHAP)" %}
+          </li>
+          <li class="bg-gray-900/50 border border-gray-800 rounded-xl p-4 hover:border-gray-700 hover:-translate-y-0.5 transition">
+            {% trans "Define tamaños, límites y alertas desde el inicio" %}
+          </li>
+          <li class="bg-gray-900/50 border border-gray-800 rounded-xl p-4 hover:border-gray-700 hover:-translate-y-0.5 transition">
+            {% trans "Aprende haciendo con un flujo guiado e intuitivo" %}
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CTA INTERMEDIO -->
+    <section class="py-14 border-t border-gray-800">
+      <div class="max-w-6xl mx-auto px-4 text-center">
+        <a href="{% url 'registro' %}"
+           class="inline-flex bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+          {% trans "Comenzar gratis" %}
+        </a>
+        <p class="mt-2 text-sm text-gray-400">{% trans "Sin tarjeta. Cancela cuando quieras." %}</p>
+      </div>
+    </section>
+
+    <!-- SOPORTE -->
+    <section id="soporte" class="py-16 bg-gradient-to-b from-black to-gray-900 scroll-mt-24">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-semibold mb-3">{% trans "Soporte cuando lo necesitas" %}</h2>
+        <p class="text-gray-300 mb-6">
+          {% trans "Respuestas inmediatas en el Centro de Ayuda y guías. Soporte por correo en 24–48 h (días hábiles)." %}
+        </p>
+        <div class="flex gap-4">
+          <a href="#" class="text-green-500 hover:text-green-400 underline focus:outline-none focus:ring-2 focus:ring-green-400 rounded">{% trans "Centro de ayuda" %}</a>
+          <a href="#" class="text-green-500 hover:text-green-400 underline focus:outline-none focus:ring-2 focus:ring-green-400 rounded">{% trans "Escríbenos" %}</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section id="testimonios" class="py-16 border-t border-gray-800">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-semibold mb-8">{% trans "Lo que dicen nuestros usuarios" %}</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <figure class="bg-gray-900/50 border border-gray-800 rounded-xl p-5">
+            <blockquote class="text-gray-300">“{% trans "Entendí por qué una señal era buena o mala y dejé de operar por intuición." %}”</blockquote>
+            <figcaption class="mt-4 text-sm text-gray-400">— {% trans "Ana, estudiante de Ingeniería" %}</figcaption>
+          </figure>
+          <figure class="bg-gray-900/50 border border-gray-800 rounded-xl p-5">
+            <blockquote class="text-gray-300">“{% trans "El backtesting me obligó a validar ideas como en un proyecto real." %}”</blockquote>
+            <figcaption class="mt-4 text-sm text-gray-400">— {% trans "Luis, trader principiante" %}</figcaption>
+          </figure>
+          <figure class="bg-gray-900/50 border border-gray-800 rounded-xl p-5">
+            <blockquote class="text-gray-300">“{% trans "La gestión de riesgo integrada me salvó de varios sustos." %}”</blockquote>
+            <figcaption class="mt-4 text-sm text-gray-400">— {% trans "Carla, analista junior" %}</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE NOSOTROS -->
+    <section id="sobre-nosotros" class="py-16 scroll-mt-24">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-semibold mb-3">{% trans "Hecho para aprender en serio" %}</h2>
+        <p class="text-gray-300 leading-[1.7]">
+          {% trans "Proyecto educativo que acerca el trading cuantitativo a principiantes con metodologías ágiles para iterar rápido y basarse en feedback real." %}
+        </p>
+      </div>
+    </section>
+
+    <!-- APRENDER -->
+    <section id="aprender" class="py-16 bg-gradient-to-t from-black to-gray-900 scroll-mt-24">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-semibold mb-3">{% trans "Aprende paso a paso" %}</h2>
+        <ul class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-gray-300">
+          <li class="bg-gray-900/50 border border-gray-800 rounded-xl p-4 hover:border-gray-700 hover:-translate-y-0.5 transition">{% trans "Guía rápida de la plataforma" %}</li>
+          <li class="bg-gray-900/50 border border-gray-800 rounded-xl p-4 hover:border-gray-700 hover:-translate-y-0.5 transition">{% trans "Buenas prácticas de riesgo" %}</li>
+          <li class="bg-gray-900/50 border border-gray-800 rounded-xl p-4 hover:border-gray-700 hover:-translate-y-0.5 transition">{% trans "Glosario cripto y de análisis técnico" %}</li>
+          <li class="bg-gray-900/50 border border-gray-800 rounded-xl p-4 hover:border-gray-700 hover:-translate-y-0.5 transition">{% trans "Casos de uso y ejercicios guiados" %}</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="py-16">
+      <div class="max-w-6xl mx-auto px-4 text-center">
+        <h3 class="text-2xl font-semibold mb-4">{% trans "¿Listo para probar CryptoTrade?" %}</h3>
+        <a href="{% url 'registro' %}"
+           class="inline-flex bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+          {% trans "Comenzar gratis" %}
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-gray-800 py-8 text-center text-gray-400">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <span>© CryptoTrade 2025</span>
+      <div class="flex gap-4">
+        <a href="#" class="hover:text-green-400 focus:outline-none focus:ring-2 focus:ring-green-400 rounded px-1">{% trans "Privacidad" %}</a>
+        <a href="#" class="hover:text-green-400 focus:outline-none focus:ring-2 focus:ring-green-400 rounded px-1">{% trans "Términos" %}</a>
+      </div>
+    </div>
+  </footer>
 </body>
-
 </html>
