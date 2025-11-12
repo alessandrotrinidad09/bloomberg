@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
+import os
+
+PORT = os.environ.get("PORT", 8000)
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -79,16 +82,19 @@ WSGI_APPLICATION = 'crypto_trading.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+import os
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bloomberg',
-        'USER': 'root',
-        'PASSWORD': 'alianzalima1',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }   
+        'NAME': os.environ.get('DB_NAME', 'bloomberg'),
+        'USER': os.environ.get('DB_USER', 'root'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'capstone123'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'PORT': os.environ.get('DB_PORT', '3306'),
+    }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -142,6 +148,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'usuarios.UsuarioPersonalizado'
 
 # Configuración del backend de correo electrónico para desarrollo CONSOLA
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'CryptoTrade <no-reply@cryptotrade.local>'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'email-smtp.us-east-1.amazonaws.com'  # Cambia si tu región es otra
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
+# Tus credenciales SMTP de SES
+EMAIL_HOST_USER = 'AKIA5X2JUNPXARGNEBHI'  # Nombre de usuario SMTP
+EMAIL_HOST_PASSWORD = 'BKyhjdP2mBzZ96XW5ycyBmhsoiOExyhHeExNaA0X0Abl'  # Contraseña SMTP
+
+# Dirección que aparecerá en el campo "De" de los correos
+DEFAULT_FROM_EMAIL = 'alessandro.trinidad09@gmail.com'
+
+ALLOWED_HOSTS = ['.elasticbeanstalk.com', 'crypto-trading-env.eba-3ep8huja.us-east-1.elasticbeanstalk.com', 'localhost',"*"]
