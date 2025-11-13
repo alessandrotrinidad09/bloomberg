@@ -147,12 +147,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'usuarios.UsuarioPersonalizado'
 
+# Configuración del backend de correo electrónico para local
 # Configuración del backend de correo electrónico para desarrollo CONSOLA
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'CryptoTrade <no-reply@cryptotrade.local>'
+
+"""
+#solo cambiar cuando esta en local
+# Configuración del backend de correo electrónico para produccion
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'email-smtp.us-east-1.amazonaws.com'  # Cambia si tu región es otra
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
+"""
 # Tus credenciales SMTP de SES
 EMAIL_HOST_USER = 'AKIA5X2JUNPXARGNEBHI'  # Nombre de usuario SMTP
 EMAIL_HOST_PASSWORD = 'BKyhjdP2mBzZ96XW5ycyBmhsoiOExyhHeExNaA0X0Abl'  # Contraseña SMTP
