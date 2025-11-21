@@ -1,0 +1,58 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="utf-8">
+    <title>{{ articulo.titulo }} · Centro de Ayuda</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white min-h-screen font-sans">
+
+    <nav class="border-b border-gray-800 bg-black/50 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+            
+            <div class="flex items-center gap-4">
+                <a href="{% url 'centro_ayuda' %}" class="text-gray-400 hover:text-green-400 transition flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    {% trans "Volver" %}
+                </a>
+                <span class="text-gray-700 hidden sm:inline">|</span>
+                <span class="text-green-500 font-semibold hidden sm:inline">{% trans "Guía Educativa" %}</span>
+            </div>
+
+            <div>
+                {% include "lang_sel.html" %}
+            </div>
+            
+        </div>
+    </nav>
+
+    <main class="max-w-3xl mx-auto px-4 py-12">
+        <article class="prose prose-invert prose-green max-w-none">
+            <header class="mb-10 border-b border-gray-800 pb-8">
+                <h1 class="text-4xl font-extrabold text-white mb-4">{{ articulo.titulo }}</h1>
+                <div class="flex items-center gap-3 text-sm text-gray-400">
+                    <span class="bg-green-900/30 text-green-400 px-3 py-1 rounded-full border border-green-900">{% trans "Concepto Clave" %}</span>
+                    <span>{% trans "Lectura de 2 min" %}</span>
+                </div>
+            </header>
+
+            <div class="text-gray-300 text-lg leading-relaxed space-y-6">
+                {{ articulo.cuerpo|safe }}
+            </div>
+            
+            <div class="mt-12 bg-gray-900/50 rounded-xl p-6 border border-gray-800 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+                <div>
+                    <h4 class="font-bold text-white">{% trans "¿Te quedó claro el concepto?" %}</h4>
+                    <p class="text-sm text-gray-400 mt-1">{% trans "Estas guías están diseñadas para reforzar tu aprendizaje antes de operar." %}</p>
+                </div>
+                <a href="{% url 'contacto' %}" class="whitespace-nowrap px-5 py-2 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg text-sm font-medium transition">
+                    {% trans "Tengo una duda" %}
+                </a>
+            </div>
+        </article>
+    </main>
+
+</body>
+</html>

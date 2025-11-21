@@ -32,7 +32,7 @@
       <div class="flex justify-between h-16 items-center">
 
         <!-- Logo -->
-        <a href="#" class="flex-shrink-0 flex items-center text-green-500 font-bold text-xl">
+        <a href="{% url 'landing' %}" class="flex-shrink-0 flex items-center text-green-500 font-bold text-xl">
           CryptoTrade
         </a>
 
@@ -173,9 +173,8 @@
           {% trans "Respuestas inmediatas en el Centro de Ayuda y guías. Soporte por correo en 24–48 h (días hábiles)." %}
         </p>
         <div class="flex gap-4">
-          <a href="#" class="text-green-500 hover:text-green-400 underline focus:outline-none focus:ring-2 focus:ring-green-400 rounded">{% trans "Centro de ayuda" %}</a>
-          <a href="#" class="text-green-500 hover:text-green-400 underline focus:outline-none focus:ring-2 focus:ring-green-400 rounded">{% trans "Escríbenos" %}</a>
-        </div>
+          <a href="{% url 'centro_ayuda' %}" class="text-green-500 hover:text-green-400 underline">{% trans "Centro de ayuda" %}</a>
+          <a href="{% url 'contacto' %}" class="text-green-500 hover:text-green-400 underline">{% trans "Escríbenos" %}</a>
       </div>
     </section>
 

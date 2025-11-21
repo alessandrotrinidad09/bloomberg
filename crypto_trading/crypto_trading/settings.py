@@ -147,19 +147,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'usuarios.UsuarioPersonalizado'
 
-# Configuración del backend de correo electrónico para local
 # Configuración del backend de correo electrónico para desarrollo CONSOLA
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'CryptoTrade <no-reply@cryptotrade.local>'
 
 """
-#solo cambiar cuando esta en local
-# Configuración del backend de correo electrónico para produccion
+# Configuración del backend de correo electrónico para desarrollo CONSOLA
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'email-smtp.us-east-1.amazonaws.com'  # Cambia si tu región es otra
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-"""
+
 # Tus credenciales SMTP de SES
 EMAIL_HOST_USER = 'AKIA5X2JUNPXARGNEBHI'  # Nombre de usuario SMTP
 EMAIL_HOST_PASSWORD = 'BKyhjdP2mBzZ96XW5ycyBmhsoiOExyhHeExNaA0X0Abl'  # Contraseña SMTP
@@ -168,3 +166,28 @@ EMAIL_HOST_PASSWORD = 'BKyhjdP2mBzZ96XW5ycyBmhsoiOExyhHeExNaA0X0Abl'  # Contrase
 DEFAULT_FROM_EMAIL = 'alessandro.trinidad09@gmail.com'
 
 ALLOWED_HOSTS = ['.elasticbeanstalk.com', 'crypto-trading-env.eba-3ep8huja.us-east-1.elasticbeanstalk.com', 'localhost',"*"]
+"""
+""""
+# Soporte
+SUPPORT_EMAIL = "alessandro.trinidad09@gmail.com"
+"""
+
+"""""
+# Usamos SMTP de Gmail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# TU CORREO GMAIL (El que usaste para generar la clave)
+EMAIL_HOST_USER = 'favio.tirado.13@gmail.com' 
+
+# LA CONTRASEÑA DE APLICACIÓN (Los 16 caracteres, sin espacios)
+EMAIL_HOST_PASSWORD = 'wyraamwypprxbssj' 
+
+# Remitente por defecto
+DEFAULT_FROM_EMAIL = 'CryptoTrade <favio.tirado.13@gmail.com>'
+
+# Correo donde recibirás los mensajes del formulario de contacto
+SUPPORT_EMAIL = 'favio.tirado.13@gmail.com'
+"""
