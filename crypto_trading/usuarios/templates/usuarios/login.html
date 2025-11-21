@@ -10,138 +10,96 @@
 
 <body class="bg-black min-h-screen flex items-center justify-center p-4 relative">
 
+    <div class="absolute top-4 left-4">
+        <a href="{% url 'landing' %}" class="text-gray-400 hover:text-green-400 transition flex items-center gap-2 text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            {% trans "Volver al inicio" %}
+        </a>
+    </div>
+
     {% include "lang_sel.html" %}
 
     <div class="w-full max-w-md">
-        <!-- Logo y Título -->
         <div class="text-center mb-8">
-            <div class="flex items-center justify-center gap-2 mb-2">
-                <svg class="text-green-500 w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+            <a href="{% url 'landing' %}" class="flex items-center justify-center gap-2 mb-2 group">
+                <svg class="text-green-500 w-10 h-10 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                 </svg>
-                <h1 class="text-4xl font-bold text-white">{% trans "CryptoTrade" %}</h1>
-            </div>
+                <h1 class="text-4xl font-bold text-white">CryptoTrade</h1>
+            </a>
             <p class="text-gray-400">{% trans "Tu plataforma de trading confiable" %}</p>
         </div>
 
-        <!-- Formulario de Inicio de Sesión -->
-        <form method="POST" class="space-y-4">
+        <form method="POST" class="space-y-5">
             {% csrf_token %}
             
-            <!-- Campo de Email -->
             <div>
-                <label class="block text-gray-300 mb-2">{% trans "Correo electrónico" %}</label>
+                <label class="block text-gray-300 mb-2 text-sm font-medium">{% trans "Correo electrónico" %}</label>
                 <input type="email" name="email"
-                       class="w-full px-4 py-3 bg-black border border-gray-700 rounded-lg text-white 
-                              focus:outline-none focus:border-green-500 transition"
+                       class="w-full px-4 py-3.5 bg-gray-900 border border-gray-800 rounded-xl text-white placeholder-gray-500
+                              focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition"
                        placeholder="{% trans 'ejemplo@correo.com' %}" required />
             </div>
 
-            <!-- Campo de Contraseña -->
             <div>
-                <label class="block text-gray-300 mb-2">{% trans "Contraseña" %}</label>
+                <label class="block text-gray-300 mb-2 text-sm font-medium">{% trans "Contraseña" %}</label>
                 <input type="password" name="password"
-                       class="w-full px-4 py-3 bg-black border border-gray-700 rounded-lg text-white 
-                              focus:outline-none focus:border-green-500 transition"
+                       class="w-full px-4 py-3.5 bg-gray-900 border border-gray-800 rounded-xl text-white placeholder-gray-500
+                              focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition"
                        placeholder="••••••••" required />
             </div>
 
-            <!-- Enlace para restablecer contraseña -->
             <div class="flex justify-end">
                 <a href="{% url 'password_reset' %}"
-                    class="text-sm text-green-500 hover:text-green-400 font-medium transition">
-                    {% trans "¿Olvidaste tu contraseña?" %}
+                   class="text-sm text-green-500 hover:text-green-400 hover:underline transition">
+                   {% trans "¿Olvidaste tu contraseña?" %}
                 </a>
             </div>
 
-            <!-- Botón de Ingresar -->
             <button type="submit"
-                    class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 
-                           rounded-lg transition duration-200 mt-6">
+                    class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-green-900/20 transition transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900">
                 {% trans "Ingresar" %}
             </button>
         </form>
 
-        <!-- Mensajes de error o éxito -->
         {% if messages %}
-        <div class="mt-4 text-red-400 text-center">
+        <div class="mt-6 space-y-2">
             {% for message in messages %}
-                <p>{{ message }}</p>
+                <div class="p-3 rounded-lg text-sm text-center 
+                            {% if message.tags == 'error' %} bg-red-900/30 text-red-300 border border-red-800
+                            {% else %} bg-green-900/30 text-green-300 border border-green-800 {% endif %}">
+                    {{ message }}
+                </div>
             {% endfor %}
         </div>
         {% endif %}
 
-        <!-- Separador OR -->
-        <div class="relative flex items-center my-6">
-        
-            <div class="flex-grow border-t border-gray-700"></div>
-            <span class="px-3 text-gray-400 text-sm">{% trans "O" %}</span>
-            <div class="flex-grow border-t border-gray-700"></div>
+        <div class="relative flex items-center my-8">
+            <div class="flex-grow border-t border-gray-800"></div>
+            <span class="px-4 text-gray-500 text-sm">{% trans "O" %}</span>
+            <div class="flex-grow border-t border-gray-800"></div>
         </div>
 
-        <!-- Opciones de inicio de sesión alternativo -->
-        <div class="w-full md:w-80 mx-auto space-y-3 font-semibold">
-        
-            <!-- Google -->
-            <a href="#" class="relative flex items-center p-4 rounded-full border border-gray-700 
-                              hover:bg-gray-800 text-gray-300 hover:text-white transition w-full">
-                <svg class="w-6 h-6 absolute left-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-                    <path fill="#fcfcfcff" d="M43.611,20.083H42V20H24v8h11.303
-                          c-1.649,4.657-6.08,8-11.303,8
-                          c-6.627,0-12-5.373-12-12
-                          c0-6.627,5.373-12,12-12
-                          c3.045,0,5.82,1.14,7.938,3.001
-                          l5.657-5.657C34.578,7.583,29.574,5,24,5
-                          C12.954,5,4,13.954,4,25
-                          c0,11.046,8.954,20,20,20
-                          c11.046,0,20-8.954,20-20
-                          C44,23.659,43.861,21.845,43.611,20.083z"/>
-                </svg>
-                <span class="w-full text-center">{% trans "INGRESAR CON GOOGLE" %}</span>
-            </a>
+        <div class="space-y-3">
+            <button class="flex items-center justify-center w-full px-4 py-3 rounded-xl border border-gray-700 hover:bg-gray-800 hover:border-gray-600 text-gray-300 hover:text-white transition group gap-3">
+                <svg class="w-5 h-5" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.045,0,5.82,1.14,7.938,3.001l5.657-5.657C34.578,7.583,29.574,5,24,5C12.954,5,4,13.954,4,25c0,11.046,8.954,20,20,20c11.046,0,20-8.954,20-20C44,23.659,43.861,21.845,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg>
+                <span class="font-medium text-sm">{% trans "Ingresar con Google" %}</span>
+            </button>
 
-            <!-- GitHub -->
-            <a class="relative flex items-center p-4 rounded-full border border-gray-700 
-                      hover:bg-gray-800 text-gray-300 hover:text-white transition w-full" href="">
-                <svg class="w-6 h-6 absolute left-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path fill="#fcfcfcff" d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.18 6.84 9.5.5.09.66-.22.66-.48
-                             0-.24-.01-1.04-.01-1.9-2.78.58-3.37-1.18-3.37-1.18-.45-1.15-1.1-1.46-1.1-1.46
-                             -.9-.62.07-.6.07-.6 1 .07 1.52 1.03 1.52 1.03.9 1.51 2.36 1.07 2.94.82
-                             .09-.66.35-1.07.63-1.31-2.22-.25-4.56-1.11-4.56-4.95
-                             0-1.09.39-1.99 1.03-2.69-.1-.26-.45-1.29.1-2.69
-                             0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0
-                             c1.91-1.29 2.75-1.02 2.75-1.02.55 1.4.2 2.43.1 2.69
-                             .64.7 1.03 1.6 1.03 2.69
-                             0 3.85-2.34 4.7-4.57 4.95.36.31.68.91.68 1.84
-                             0 1.33-.01 2.41-.01 2.74 0 .26.16.58.67.48
-                             A10.012 10.012 0 0 0 22 12c0-5.52-4.48-10-10-10z"/>
-                </svg>
-                <span class="text-center w-full">{% trans "INGRESAR CON GITHUB" %}</span>
-            </a>
+            <button class="flex items-center justify-center w-full px-4 py-3 rounded-xl border border-gray-700 hover:bg-gray-800 hover:border-gray-600 text-gray-300 hover:text-white transition gap-3">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                <span class="font-medium text-sm">{% trans "Ingresar con GitHub" %}</span>
+            </button>
 
-            <!-- X -->
-            <a class="relative flex items-center p-4 rounded-full border border-gray-700 
-                      hover:bg-gray-800 text-gray-300 hover:text-white transition w-full" href="">
-                <svg class="w-6 h-6 absolute left-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
-                    <path fill="#fcfcfcff" d="M 5.9199219 6 L 20.582031 27.375 L 6.2304688 44 
-                             L 9.4101562 44 L 21.986328 29.421875 L 31.986328 44 
-                             L 44 44 L 28.681641 21.669922 L 42.199219 6 
-                             L 39.029297 6 L 27.275391 19.617188 L 17.933594 6 
-                             L 5.9199219 6 z 
-                             M 9.7167969 8 L 16.880859 8 L 40.203125 42 
-                             L 33.039062 42 L 9.7167969 8 z"></path>
-                </svg>
-                <span class="text-center w-full">{% trans "INGRESAR CON X" %}</span>
-            </a>
-
-           
+            <button class="flex items-center justify-center w-full px-4 py-3 rounded-xl border border-gray-700 hover:bg-gray-800 hover:border-gray-600 text-gray-300 hover:text-white transition gap-3">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                <span class="font-medium text-sm">{% trans "Ingresar con X" %}</span>
+            </button>
         </div>
 
-        <!-- Link a Registro -->
-        <p class="text-center text-gray-400 mt-6">
+        <p class="text-center text-gray-400 mt-8 text-sm">
             {% trans "¿No tienes cuenta?" %}
-            <a href="{% url 'registro' %}" class="text-green-500 hover:text-green-400 font-semibold transition">
+            <a href="{% url 'registro' %}" class="text-green-500 hover:text-green-400 font-semibold hover:underline transition ml-1">
                 {% trans "Registrarse" %}
             </a>
         </p>

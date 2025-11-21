@@ -16,7 +16,6 @@ from django.urls import reverse
 from django.conf import settings
 
 from django.http import Http404
-from django.utils.translation import gettext as _ 
 
 # Create your views here.
 def login_view(request):
@@ -361,3 +360,41 @@ def articulo_ayuda(request, tema):
         return redirect('centro_ayuda')
 
     return render(request, 'usuarios/articulo_ayuda.html', {'articulo': articulo})
+
+def privacidad(request):
+    # Usamos f-strings para inyectar las traducciones _() dentro del HTML
+    contenido_html = (
+        f"<h3 class='text-xl font-bold text-green-400 mb-2'>1. { _('Protección de Datos Financieros') }</h3>"
+        f"<p class='mb-4'>{ _('CryptoTrade se compromete a proteger la integridad de sus datos operativos y personales. Utilizamos cifrado de extremo a extremo para toda la información sensible, cumpliendo con los estándares de la industria financiera.') }</p>"
+        
+        f"<h3 class='text-xl font-bold text-green-400 mb-2'>2. { _('Recopilación de Datos de Trading') }</h3>"
+        f"<p class='mb-4'>{ _('Para optimizar nuestros modelos de IA (XGBoost + LSTM), la plataforma procesa datos anonimizados sobre patrones de configuración de estrategias y resultados de backtesting. Estos datos se utilizan exclusivamente para mejorar la precisión de las señales.') }</p>"
+
+        f"<h3 class='text-xl font-bold text-green-400 mb-2'>3. { _('Seguridad de la Cuenta') }</h3>"
+        f"<p>{ _('Es responsabilidad del usuario mantener la confidencialidad de sus credenciales. Recomendamos encarecidamente mantener activada la autenticación de dos factores (2FA) en todo momento para prevenir accesos no autorizados.') }</p>"
+    )
+    
+    return render(request, 'usuarios/legal.html', {
+        'titulo': _('Política de Privacidad'),
+        'contenido': contenido_html
+    })
+
+def terminos(request):
+    contenido_html = (
+        f"<h3 class='text-xl font-bold text-green-400 mb-2'>1. { _('Objeto del Servicio') }</h3>"
+        f"<p class='mb-4'>{ _('CryptoTrade proporciona herramientas avanzadas de análisis cuantitativo, backtesting y señales generadas por Inteligencia Artificial para asistir en la toma de decisiones de trading en mercados de criptoactivos.') }</p>"
+
+        f"<h3 class='text-xl font-bold text-green-400 mb-2'>2. { _('Uso de las Herramientas') }</h3>"
+        f"<p class='mb-4'>{ _('El usuario recibe una licencia limitada para utilizar nuestro software de visualización y análisis. El usuario reconoce que las señales de IA son herramientas de apoyo basadas en probabilidades estadísticas y no garantías de rendimiento futuro.') }</p>"
+
+        f"<h3 class='text-xl font-bold text-green-400 mb-2'>3. { _('Divulgación de Riesgos') }</h3>"
+        f"<p class='mb-4'>{ _('El trading de criptomonedas implica un riesgo sustancial de pérdida. Si bien nuestras herramientas de gestión de riesgo y detección de overfitting están diseñadas para mitigar la exposición, la decisión final de ejecución y la responsabilidad financiera recaen exclusivamente en el usuario.') }</p>"
+
+        f"<h3 class='text-xl font-bold text-green-400 mb-2'>4. { _('Disponibilidad del Servicio') }</h3>"
+        f"<p>{ _('Nos esforzamos por garantizar la disponibilidad 24/7 de la plataforma y la integridad de los datos de mercado en tiempo real, sujetos a mantenimientos programados y condiciones de red.') }</p>"
+    )
+
+    return render(request, 'usuarios/legal.html', {
+        'titulo': _('Términos y Condiciones'),
+        'contenido': contenido_html
+    })

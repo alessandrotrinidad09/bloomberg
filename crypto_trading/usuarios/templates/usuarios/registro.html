@@ -1,146 +1,184 @@
+{% load i18n %}
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CryptoTrade - Registro</title>
+  <title>{% trans "CryptoTrade - Crear Cuenta" %}</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-black min-h-screen flex items-center justify-center p-4">
-  <div class="w-full max-w-lg">
-    <div class="text-center mb-8">
-      <h1 class="text-4xl font-bold text-green-500">Crear Cuenta</h1>
-      <p class="text-gray-400 mt-2">Únete a CryptoTrade y comienza a invertir con IA</p>
+<body class="bg-black min-h-screen flex items-center justify-center p-4 relative font-sans">
+
+  <div class="absolute top-4 left-4 z-10">
+      <a href="{% url 'landing' %}" class="text-gray-400 hover:text-green-400 transition flex items-center gap-2 text-sm font-medium">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          {% trans "Volver al inicio" %}
+      </a>
+  </div>
+
+  {% include "lang_sel.html" %}
+
+  <div class="w-full max-w-lg mt-16 mb-10">
+    <div class="text-center mb-10">
+      <h1 class="text-4xl font-extrabold text-green-500 tracking-tight">{% trans "Crear Cuenta" %}</h1>
+      <p class="text-gray-400 mt-2 text-lg">{% trans "Únete a CryptoTrade y comienza a invertir con IA" %}</p>
     </div>
 
-    <form id="registroForm" method="POST" class="space-y-4" novalidate>
+    <form id="registroForm" method="POST" class="space-y-5" novalidate>
       {% csrf_token %}
 
-      <!-- Listado de paises -->
       <div>
-        <label class="block mb-1 text-gray-300">País</label>
-        <select id="country" name="country"
-                class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none"
-                aria-describedby="error-country" required>
-          <!-- value=ISO-3166-1 alpha-2 -->
-          <option value="PE" data-dial="+51">Perú</option>
-          <option value="US" data-dial="+1">Estados Unidos</option>
-          <option value="ES" data-dial="+34">España</option>
-          <option value="MX" data-dial="+52">México</option>
-          <option value="CO" data-dial="+57">Colombia</option>
-          <option value="AR" data-dial="+54">Argentina</option>
-          <option value="CL" data-dial="+56">Chile</option>
-          <option value="OTHER" data-dial="">Otro</option>
-        </select>
-        <p id="error-country" class="mt-1 text-sm text-red-400 hidden">Selecciona un país.</p>
+        <label class="block mb-1.5 text-sm font-medium text-gray-300">{% trans "País de residencia" %}</label>
+        <div class="relative">
+            <select id="country" name="country"
+                    class="w-full bg-gray-900 border border-gray-800 text-white px-4 py-3.5 rounded-xl focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none appearance-none cursor-pointer transition"
+                    aria-describedby="error-country" required>
+              <option value="PE" data-dial="+51">{% trans "Perú" %}</option>
+              <option value="US" data-dial="+1">{% trans "Estados Unidos" %}</option>
+              <option value="ES" data-dial="+34">{% trans "España" %}</option>
+              <option value="MX" data-dial="+52">{% trans "México" %}</option>
+              <option value="CO" data-dial="+57">{% trans "Colombia" %}</option>
+              <option value="AR" data-dial="+54">{% trans "Argentina" %}</option>
+              <option value="CL" data-dial="+56">{% trans "Chile" %}</option>
+              <option value="OTHER" data-dial="">{% trans "Otro" %}</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </div>
+        </div>
+        <p id="error-country" class="mt-1 text-sm text-red-400 hidden">{% trans "Selecciona un país." %}</p>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <input type="text" name="nombre" placeholder="Nombre" required minlength="2"
+          <label class="block mb-1.5 text-sm font-medium text-gray-300">{% trans "Nombre" %}</label>
+          <input type="text" name="nombre" required minlength="2"
                  pattern="[A-Za-zÁÉÍÓÚÑáéíóúñ ]{2,}" autocomplete="given-name"
-                 class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none"
+                 placeholder="{% trans 'Tu nombre' %}"
+                 class="w-full bg-gray-900 border border-gray-800 text-white px-4 py-3.5 rounded-xl focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition placeholder-gray-600"
                  aria-describedby="error-nombre">
-          <p id="error-nombre" class="mt-1 text-sm text-red-400 hidden">Ingresa un nombre válido (solo letras y espacios).</p>
+          <p id="error-nombre" class="mt-1 text-xs text-red-400 hidden">{% trans "Solo letras y espacios." %}</p>
         </div>
 
         <div>
-          <input type="text" name="apellido" placeholder="Apellido" required minlength="2"
+          <label class="block mb-1.5 text-sm font-medium text-gray-300">{% trans "Apellido" %}</label>
+          <input type="text" name="apellido" required minlength="2"
                  pattern="[A-Za-zÁÉÍÓÚÑáéíóúñ ]{2,}" autocomplete="family-name"
-                 class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none"
+                 placeholder="{% trans 'Tu apellido' %}"
+                 class="w-full bg-gray-900 border border-gray-800 text-white px-4 py-3.5 rounded-xl focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition placeholder-gray-600"
                  aria-describedby="error-apellido">
-          <p id="error-apellido" class="mt-1 text-sm text-red-400 hidden">Ingresa un apellido válido (solo letras y espacios).</p>
+          <p id="error-apellido" class="mt-1 text-xs text-red-400 hidden">{% trans "Solo letras y espacios." %}</p>
         </div>
       </div>
 
       <div>
-        <input type="email" name="email" placeholder="Correo electrónico" required autocomplete="email"
-               class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none"
+        <label class="block mb-1.5 text-sm font-medium text-gray-300">{% trans "Correo electrónico" %}</label>
+        <input type="email" name="email" required autocomplete="email"
+               placeholder="{% trans 'ejemplo@correo.com' %}"
+               class="w-full bg-gray-900 border border-gray-800 text-white px-4 py-3.5 rounded-xl focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition placeholder-gray-600"
                aria-describedby="error-email">
-        <p id="error-email" class="mt-1 text-sm text-red-400 hidden">Ingresa un correo válido.</p>
+        <p id="error-email" class="mt-1 text-sm text-red-400 hidden">{% trans "Ingresa un correo válido." %}</p>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
-        <!-- Documento de identidad: Cambia según país seleccionado -->
         <div>
-          <input type="text" name="dni" id="dni" placeholder="Documento de identidad"
-                 required
-                 class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none"
+          <label class="block mb-1.5 text-sm font-medium text-gray-300">{% trans "Documento ID" %}</label>
+          <input type="text" name="dni" id="dni" required
+                 class="w-full bg-gray-900 border border-gray-800 text-white px-4 py-3.5 rounded-xl focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition placeholder-gray-600"
                  aria-describedby="error-dni">
-          <p id="error-dni" class="mt-1 text-sm text-red-400 hidden"></p>
+          <p id="error-dni" class="mt-1 text-xs text-red-400 hidden"></p>
         </div>
 
-        <!-- Teléfono internacional -->
         <div>
+          <label class="block mb-1.5 text-sm font-medium text-gray-300">{% trans "Teléfono" %}</label>
           <input type="text" name="telefono" id="telefono"
-                 placeholder="Teléfono en formato internacional (ej. +519XXXXXXXX)"
                  inputmode="tel" autocomplete="tel"
-                 class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none"
+                 class="w-full bg-gray-900 border border-gray-800 text-white px-4 py-3.5 rounded-xl focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition placeholder-gray-600"
                  aria-describedby="error-telefono">
         </div>
       </div>
 
       <div>
-        <input type="text" name="direccion" placeholder="Dirección" autocomplete="street-address"
-               class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none">
+        <label class="block mb-1.5 text-sm font-medium text-gray-300">{% trans "Dirección" %}</label>
+        <input type="text" name="direccion" autocomplete="street-address"
+               placeholder="{% trans 'Av. Principal 123' %}"
+               class="w-full bg-gray-900 border border-gray-800 text-white px-4 py-3.5 rounded-xl focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition placeholder-gray-600">
       </div>
 
       <div>
+        <label class="block mb-1.5 text-sm font-medium text-gray-300">{% trans "Fecha de nacimiento" %}</label>
         <input type="date" name="fecha_nacimiento"
-               class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none"
+               class="w-full bg-gray-900 border border-gray-800 text-white px-4 py-3.5 rounded-xl focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition placeholder-gray-500"
                aria-describedby="error-fecha">
-        <p id="error-fecha" class="mt-1 text-sm text-red-400 hidden">Debes ser mayor de 18 años.</p>
+        <p id="error-fecha" class="mt-1 text-sm text-red-400 hidden">{% trans "Debes ser mayor de 18 años." %}</p>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
         <div>
-          <input type="password" name="password" placeholder="Contraseña" required minlength="8"
+          <label class="block mb-1.5 text-sm font-medium text-gray-300">{% trans "Contraseña" %}</label>
+          <input type="password" name="password" required minlength="8"
                  pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}"
                  autocomplete="new-password"
-                 class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none"
+                 class="w-full bg-gray-900 border border-gray-800 text-white px-4 py-3.5 rounded-xl focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition"
                  aria-describedby="error-pass pass-help">
-          <p id="pass-help" class="mt-1 text-xs text-gray-400">
-            Mín. 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 símbolo.
-          </p>
-          <p id="error-pass" class="mt-1 text-sm text-red-400 hidden">La contraseña no cumple los requisitos.</p>
-          <!-- Indicador de fuerza en la contraseña -->
-          <div class="mt-2 h-2 bg-gray-800 rounded">
-            <div id="bar-pass" class="h-2 w-0 rounded transition-all duration-300"></div>
+          
+          <div class="mt-2 h-1.5 w-full bg-gray-800 rounded-full overflow-hidden">
+            <div id="bar-pass" class="h-full w-0 transition-all duration-500 ease-out bg-red-500"></div>
           </div>
+          
+          <p id="error-pass" class="mt-1 text-xs text-red-400 hidden">{% trans "Contraseña débil." %}</p>
         </div>
 
         <div>
-          <input type="password" name="password2" placeholder="Confirmar contraseña" required autocomplete="new-password"
-                 class="w-full bg-black border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-green-500 outline-none"
+          <label class="block mb-1.5 text-sm font-medium text-gray-300">{% trans "Confirmar" %}</label>
+          <input type="password" name="password2" required autocomplete="new-password"
+                 class="w-full bg-gray-900 border border-gray-800 text-white px-4 py-3.5 rounded-xl focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition"
                  aria-describedby="error-pass2">
-          <p id="error-pass2" class="mt-1 text-sm text-red-400 hidden">Las contraseñas no coinciden.</p>
+          <p id="error-pass2" class="mt-1 text-xs text-red-400 hidden">{% trans "No coinciden." %}</p>
         </div>
       </div>
+      
+      <p id="pass-help" class="text-xs text-gray-500">
+        {% trans "Mín. 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 símbolo." %}
+      </p>
 
-      <label class="flex items-start gap-3 text-gray-300">
-        <input type="checkbox" id="acepto" required class="mt-1">
-        <span>Acepto los <a href="#" class="text-green-500 hover:text-green-400 underline">Términos y Condiciones</a> y la <a href="#" class="text-green-500 hover:text-green-400 underline">Política de Privacidad</a>.</span>
+      <label class="flex items-start gap-3 text-gray-400 text-sm cursor-pointer group mt-2">
+        <div class="relative flex items-center pt-0.5">
+            <input type="checkbox" id="acepto" required 
+                   class="peer h-5 w-5 cursor-pointer appearance-none rounded border border-gray-600 bg-gray-900 checked:border-green-500 checked:bg-green-500 transition-all">
+            <svg class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 pointer-events-none opacity-0 peer-checked:opacity-100 text-black" viewBox="0 0 14 14" fill="none">
+                <path d="M3 8L6 11L11 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <span class="group-hover:text-gray-300 transition select-none">
+            {% trans "Acepto los" %} 
+            <a href="{% url 'terminos' %}" target="_blank" class="text-green-500 hover:text-green-400 underline">{% trans "Términos y Condiciones" %}</a> 
+            {% trans "y la" %} 
+            <a href="{% url 'privacidad' %}" target="_blank" class="text-green-500 hover:text-green-400 underline">{% trans "Política de Privacidad" %}</a>.
+        </span>
       </label>
-      <p id="error-acepto" class="mt-1 text-sm text-red-400 hidden">Debes aceptar los términos para continuar.</p>
+      <p id="error-acepto" class="mt-1 text-xs text-red-400 hidden">{% trans "Debes aceptar los términos para continuar." %}</p>
 
       <button type="submit" id="btnSubmit"
-              class="w-full bg-green-500 hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3 rounded-lg transition duration-200">
-        Crear Cuenta
+              class="w-full bg-green-600 hover:bg-green-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3.5 rounded-xl shadow-lg shadow-green-900/20 transition transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900 mt-4">
+        {% trans "Crear Cuenta" %}
       </button>
     </form>
 
     {% if messages %}
-    <div class="mt-4 text-center">
+    <div class="mt-6 space-y-2">
       {% for message in messages %}
-      <p class="text-red-400">{{ message }}</p>
+      <div class="p-3 rounded-lg text-sm text-center border {% if message.tags == 'error' %}bg-red-900/30 text-red-300 border-red-800{% else %}bg-green-900/30 text-green-300 border-green-800{% endif %}">
+          {{ message }}
+      </div>
       {% endfor %}
     </div>
     {% endif %}
 
-    <p class="text-center text-gray-400 mt-6">
-      ¿Ya tienes cuenta?
-      <a href="{% url 'login' %}" class="text-green-500 hover:text-green-400 font-semibold">Inicia sesión</a>
+    <p class="text-center text-gray-400 mt-8 text-sm">
+      {% trans "¿Ya tienes cuenta?" %}
+      <a href="{% url 'login' %}" class="text-green-500 hover:text-green-400 font-semibold hover:underline ml-1">{% trans "Inicia sesión" %}</a>
     </p>
   </div>
 
@@ -167,16 +205,16 @@
     const dni      = $('#dni');
     const telefono = $('#telefono');
 
-    // === Reglas de documento por país ===
+    // === Reglas de documento por país (Traducidas al renderizar) ===
     const docRules = {
-      'PE': { pattern: '^\\d{8}$', max: 8,  placeholder: 'DNI (8 dígitos)',                   msg: 'DNI peruano de 8 dígitos.' },
-      'US': { pattern: '^[A-Za-z0-9]{6,20}$', max: 20, placeholder: 'ID (alfa-numérico, 6–20)', msg: 'Documento (alfa-numérico, 6–20). No ingreses SSN.' },
-      'ES': { pattern: '^[A-Za-z0-9]{7,15}$', max: 15, placeholder: 'DNI/NIE (7–15)',           msg: 'DNI/NIE 7–15, puede incluir letras.' },
-      'MX': { pattern: '^[A-Za-z0-9]{10,18}$',max: 18, placeholder: 'CURP/RFC (10–18)',         msg: 'CURP/RFC 10–18 (alfa-numérico).' },
-      'CO': { pattern: '^\\d{6,12}$',        max: 12, placeholder: 'CC (6–12 dígitos)',        msg: 'Documento colombiano 6–12 dígitos.' },
-      'AR': { pattern: '^\\d{6,12}$',        max: 12, placeholder: 'DNI (6–12 dígitos)',       msg: 'DNI argentino 6–12 dígitos.' },
-      'CL': { pattern: '^\\d{6,12}$',        max: 12, placeholder: 'RUN/RUT (6–12 dígitos)',   msg: 'RUN/RUT 6–12 dígitos (sin puntos/guión).' },
-      'OTHER': { pattern: '^[A-Za-z0-9]{6,20}$', max: 20, placeholder: 'Documento (6–20)',     msg: 'Documento (alfa-numérico, 6–20).' }
+      'PE': { pattern: '^\\d{8}$', max: 8,  placeholder: '{% trans "DNI (8 dígitos)" %}',                   msg: '{% trans "DNI peruano de 8 dígitos." %}' },
+      'US': { pattern: '^[A-Za-z0-9]{6,20}$', max: 20, placeholder: '{% trans "ID (alfa-numérico, 6–20)" %}', msg: '{% trans "Documento (alfa-numérico, 6–20). No ingreses SSN." %}' },
+      'ES': { pattern: '^[A-Za-z0-9]{7,15}$', max: 15, placeholder: '{% trans "DNI/NIE (7–15)" %}',           msg: '{% trans "DNI/NIE 7–15, puede incluir letras." %}' },
+      'MX': { pattern: '^[A-Za-z0-9]{10,18}$',max: 18, placeholder: '{% trans "CURP/RFC (10–18)" %}',         msg: '{% trans "CURP/RFC 10–18 (alfa-numérico)." %}' },
+      'CO': { pattern: '^\\d{6,12}$',        max: 12, placeholder: '{% trans "CC (6–12 dígitos)" %}',        msg: '{% trans "Documento colombiano 6–12 dígitos." %}' },
+      'AR': { pattern: '^\\d{6,12}$',        max: 12, placeholder: '{% trans "DNI (6–12 dígitos)" %}',       msg: '{% trans "DNI argentino 6–12 dígitos." %}' },
+      'CL': { pattern: '^\\d{6,12}$',        max: 12, placeholder: '{% trans "RUN/RUT (6–12 dígitos)" %}',   msg: '{% trans "RUN/RUT 6–12 dígitos (sin puntos/guión)." %}' },
+      'OTHER': { pattern: '^[A-Za-z0-9]{6,20}$', max: 20, placeholder: '{% trans "Documento (6–20)" %}',     msg: '{% trans "Documento (alfa-numérico, 6–20)." %}' }
     };
 
     // === Prefijo telefónico dinámico (el +51 persistente inicial) ===
@@ -278,7 +316,7 @@
       const tests = [/[a-z]/, /[A-Z]/, /\d/, /[^\w\s]/].map(rx => rx.test(v));
       const score = tests.filter(Boolean).length + (v.length >= 8 ? 1 : 0); // 0..5
       bar.style.width = (score * 20) + '%';
-      bar.className = 'h-2 rounded transition-all duration-300 ' + (
+      bar.className = 'h-full w-0 transition-all duration-500 ease-out ' + (
         score <= 2 ? 'bg-red-500' :
         score === 3 ? 'bg-yellow-500' :
         score === 4 ? 'bg-green-500' : 'bg-green-600'
