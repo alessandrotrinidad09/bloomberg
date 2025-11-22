@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CryptoTrade 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-21 14:32-0500\n"
+"POT-Creation-Date: 2025-11-21 12:00-0500\n"
 "PO-Revision-Date: 2025-11-21 12:00-0500\n"
 "Last-Translator: Giussepe Trinidad <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
@@ -16,1239 +16,920 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\crypto_trading\settings.py:129
+#: .\crypto_trading\settings.py:123
 msgid "Español"
 msgstr "Spanish"
 
-#: .\crypto_trading\settings.py:130
+#: .\crypto_trading\settings.py:124
 msgid "Inglés"
 msgstr "English"
-
-# --- Header/Footer Artículos ---
-#: .\usuarios\templates\usuarios\articulo_ayuda.html:18
-msgid "Volver"
-msgstr "Back"
-
-#: .\usuarios\templates\usuarios\articulo_ayuda.html:21
-msgid "Guía Educativa"
-msgstr "Educational Guide"
-
-#: .\usuarios\templates\usuarios\articulo_ayuda.html:36
-msgid "Concepto Clave"
-msgstr "Key Concept"
-
-#: .\usuarios\templates\usuarios\articulo_ayuda.html:37
-msgid "Lectura de 2 min"
-msgstr "2 min read"
-
-#: .\usuarios\templates\usuarios\articulo_ayuda.html:47
-msgid "¿Te quedó claro el concepto?"
-msgstr "Is the concept clear?"
-
-#: .\usuarios\templates\usuarios\articulo_ayuda.html:48
-msgid ""
-"Estas guías están diseñadas para reforzar tu aprendizaje antes de operar."
-msgstr "These guides are designed to reinforce your learning before trading."
-
-#: .\usuarios\templates\usuarios\articulo_ayuda.html:51
-msgid "Tengo una duda"
-msgstr "I have a question"
-
-# ==============================================================================
-# CENTRO DE AYUDA (MAIN)
-# ==============================================================================
-#: .\usuarios\templates\usuarios\centro_ayuda.html:6
-#: .\usuarios\templates\usuarios\landing.html:166
-msgid "Centro de ayuda"
-msgstr "Help Center"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:18
-#: .\usuarios\templates\usuarios\contacto.html:18
-#: .\usuarios\templates\usuarios\legal.html:16
-#: .\usuarios\templates\usuarios\login.html:16
-#: .\usuarios\templates\usuarios\registro.html:16
-msgid "Volver al inicio"
-msgstr "Back to home"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:29
-msgid "Centro de Ayuda"
-msgstr "Help Center"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:32
-msgid ""
-"Domina el trading cuantitativo: desde la configuración de 2FA hasta la "
-"interpretación de señales IA con SHAP."
-msgstr ""
-"Master quantitative trading: from 2FA setup to interpreting AI signals with "
-"SHAP."
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:37
-msgid "Buscar en el centro de ayuda"
-msgstr "Search the Help Center"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:41
-msgid "Busca sobre: backtesting, overfitting, LSTM, API…"
-msgstr "Search for: backtesting, overfitting, LSTM, API…"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:55
-msgid "Guías Esenciales"
-msgstr "Essential Guides"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:60
-msgid "Configuración de Cuenta y Seguridad"
-msgstr "Account Setup and Security (KYC)"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:65 .\usuarios\views.py:292
-msgid "Seguridad y Acceso (2FA)"
-msgstr "Security and Access (2FA)"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:66
-msgid ""
-"Activa la autenticación de dos factores y valida tu identidad (KYC) para "
-"operar seguro."
-msgstr ""
-"Enable two-factor authentication and validate your identity (KYC) to trade "
-"securely."
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:69
-msgid "Evitando el Overfitting"
-msgstr "Avoiding Overfitting"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:74 .\usuarios\views.py:305
-msgid "Backtesting sin Overfitting"
-msgstr "Backtesting without Overfitting"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:75
-msgid ""
-"Aprende a separar datos de entrenamiento y prueba para validar estrategias "
-"realistas."
-msgstr ""
-"Learn to separate training and testing data to validate realistic strategies."
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:78
-msgid "Interpretación de Señales IA"
-msgstr "AI Signal Interpretation"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:83 .\usuarios\views.py:318
-msgid "Entendiendo las Señales (SHAP)"
-msgstr "Understanding Signals (SHAP)"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:84
-msgid ""
-"Descubre por qué el modelo híbrido (LSTM+XGBoost) sugiere comprar o vender."
-msgstr ""
-"Discover why the hybrid model (LSTM+XGBoost) suggests buying or selling."
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:87
-#: .\usuarios\templates\usuarios\centro_ayuda.html:92
-#: .\usuarios\templates\usuarios\landing.html:144
-msgid "Gestión de Riesgo"
-msgstr "Risk Management"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:93
-msgid ""
-"Configura stop-loss, tamaño de posición y límites para proteger tu capital."
-msgstr ""
-"Configure stop-loss, position size, and limits to protect your capital."
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:96
-msgid "Navegación del Dashboard"
-msgstr "Dashboard Navigation"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:101 .\usuarios\views.py:342
-msgid "Tu Dashboard Pro"
-msgstr "Your Pro Dashboard"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:102
-msgid ""
-"Visualiza métricas en tiempo real, alertas y el rendimiento de tu portafolio."
-msgstr "Visualize real-time metrics, alerts, and your portfolio performance."
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:105
-msgid "Integración de Datos"
-msgstr "Data Integration"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:110
-msgid "Datos de Mercado"
-msgstr "Market Data"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:111
-msgid ""
-"Fuentes de datos (Bloomberg, Binance) y limpieza automática para tus modelos."
-msgstr ""
-"Data sources (Bloomberg, Binance) and automatic cleaning for your models."
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:117
-msgid "No encontramos resultados. Prueba con 'Riesgo', 'SHAP' o '2FA'."
-msgstr "We didn't find any results. Try searching for 'Risk', 'SHAP' or '2FA'."
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:122
-msgid "Preguntas Frecuentes"
-msgstr "Frequently Asked Questions"
-
-# --- FAQ ---
-#: .\usuarios\templates\usuarios\centro_ayuda.html:127
-msgid "¿Cómo genera CryptoTrade las señales de trading?"
-msgstr "How does CryptoTrade generate trading signals?"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:133
-msgid ""
-"Utilizamos un modelo híbrido que combina LSTM (para secuencias temporales) y "
-"XGBoost (para relaciones no lineales). Además, aplicamos valores SHAP para "
-"explicarte exactamente qué variables (precio, volumen, sentimiento) "
-"influyeron en cada señal."
-msgstr ""
-"We use a hybrid model combining LSTM (for temporal sequences) and XGBoost "
-"(for non-linear relationships). Additionally, we apply SHAP values to "
-"explain exactly which variables (price, volume, sentiment) influenced each "
-"signal."
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:139
-msgid "¿Por qué mis resultados de backtesting difieren del trading real?"
-msgstr "Why do my backtesting results differ from real trading?"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:145
-msgid ""
-"Es probable que ocurra 'overfitting' (sobreajuste). Nuestra plataforma "
-"mitiga esto separando automáticamente los datos de entrenamiento y prueba, y "
-"utilizando métricas como el Deflated Sharpe Ratio para asegurar que tu "
-"estrategia sea robusta ante nuevos datos."
-msgstr ""
-"Overfitting is likely occurring. Our platform mitigates this by "
-"automatically separating training and testing data, and using metrics like "
-"the Deflated Sharpe Ratio to ensure your strategy is robust against new data."
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:152
-msgid "¿Necesito conocimientos de programación para crear estrategias?"
-msgstr "Do I need programming skills to create strategies?"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:159
-msgid ""
-"No es necesario escribir scripts. CryptoTrade reemplaza la programación "
-"manual (como Pine Script o Python) con una interfaz de configuración visual. "
-"Esto te permite validar hipótesis financieras complejas enfocándote en la "
-"lógica y el riesgo, delegando la ejecución técnica a nuestra plataforma."
-msgstr ""
-"Scripting is not required. CryptoTrade replaces manual programming (like "
-"Pine Script or Python) with a visual configuration interface. This allows "
-"you to validate complex financial hypotheses focusing on logic and risk, "
-"delegating the technical execution to our platform."
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:173
-msgid "¿No encontraste lo que buscabas? Contáctanos"
-msgstr "Didn't find what you were looking for? Contact us"
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:176
-msgid "o"
-msgstr ""
-
-#: .\usuarios\templates\usuarios\centro_ayuda.html:180
-msgid "Volver al Dashboard"
-msgstr "Back to Dashboard"
-
-# ==============================================================================
-# FORMULARIO DE CONTACTO
-# ==============================================================================
-#: .\usuarios\templates\usuarios\contacto.html:6
-#: .\usuarios\templates\usuarios\contacto.html:29
-#: .\usuarios\templates\usuarios\landing.html:168
-msgid "Escríbenos"
-msgstr "Contact us"
-
-#: .\usuarios\templates\usuarios\contacto.html:32
-msgid ""
-"Cuéntanos tu duda. Te responderemos por correo en 24–48 h (días hábiles)."
-msgstr ""
-"Tell us your question. We will answer via email within 24–48h (business "
-"days)."
-
-#: .\usuarios\templates\usuarios\contacto.html:63
-msgid "Nombre completo"
-msgstr "Full Name"
-
-#: .\usuarios\templates\usuarios\contacto.html:70
-#: .\usuarios\templates\usuarios\login.html:37
-#: .\usuarios\templates\usuarios\registro.html:76
-msgid "Correo electrónico"
-msgstr "Email"
-
-#: .\usuarios\templates\usuarios\contacto.html:73
-#: .\usuarios\templates\usuarios\login.html:41
-#: .\usuarios\templates\usuarios\password_reset_form.html:25
-#: .\usuarios\templates\usuarios\registro.html:78
-msgid "ejemplo@correo.com"
-msgstr "example@email.com"
-
-#: .\usuarios\templates\usuarios\contacto.html:79
-msgid "Tipo de consulta"
-msgstr "Inquiry Type"
-
-#: .\usuarios\templates\usuarios\contacto.html:82
-msgid "Soporte Técnico / Problema"
-msgstr "Technical Support / Bug Report"
-
-#: .\usuarios\templates\usuarios\contacto.html:83
-msgid "Duda sobre Backtesting o Estrategias"
-msgstr "Question about Backtesting or Strategies"
-
-#: .\usuarios\templates\usuarios\contacto.html:84
-msgid "Problemas de Acceso / Cuenta"
-msgstr "Access / Account Issues"
-
-#: .\usuarios\templates\usuarios\contacto.html:85
-msgid "Sugerencias o Feedback"
-msgstr "Suggestions or Feedback"
-
-#: .\usuarios\templates\usuarios\contacto.html:86
-msgid "Otro asunto"
-msgstr "Other Subject"
-
-#: .\usuarios\templates\usuarios\contacto.html:95
-msgid "Asunto específico"
-msgstr "Specific Subject"
-
-#: .\usuarios\templates\usuarios\contacto.html:102
-msgid "Mensaje"
-msgstr "Message"
-
-#: .\usuarios\templates\usuarios\contacto.html:111
-msgid "Cancelar"
-msgstr "Cancel"
-
-#: .\usuarios\templates\usuarios\contacto.html:116
-msgid "Enviar Mensaje"
-msgstr "Send Message"
 
 # ==============================================================================
 # LANDING PAGE
 # ==============================================================================
-#: .\usuarios\templates\usuarios\landing.html:7
-#: .\usuarios\templates\usuarios\landing.html:11
+
 msgid "CryptoTrade"
 msgstr "CryptoTrade"
 
-#: .\usuarios\templates\usuarios\landing.html:9
-msgid ""
-"Plataforma de trading con backtesting sin código, señales explicadas por IA "
-"y gestión de riesgo integrada."
-msgstr ""
-"Quantitative simulation platform with visual strategy configuration, AI-"
-"explained signals, and integrated risk management."
+msgid "Plataforma de trading con backtesting sin código, señales explicadas por IA y gestión de riesgo integrada."
+msgstr "Quantitative simulation platform with visual strategy configuration, AI-explained signals, and integrated risk management."
 
-#: .\usuarios\templates\usuarios\landing.html:12
 msgid "Backtesting sin código, señales explicadas y riesgo integrado."
 msgstr "Visual backtesting, explained signals, and integrated risk."
 
-#: .\usuarios\templates\usuarios\landing.html:23
 msgid "Saltar al contenido"
 msgstr "Skip to content"
 
-#: .\usuarios\templates\usuarios\landing.html:26
 msgid "Navegación principal"
 msgstr "Main navigation"
 
-#: .\usuarios\templates\usuarios\landing.html:35
 msgid "Producto"
 msgstr "Product"
 
-#: .\usuarios\templates\usuarios\landing.html:36
 msgid "Soporte"
 msgstr "Support"
 
-#: .\usuarios\templates\usuarios\landing.html:37
 msgid "Sobre nosotros"
 msgstr "About us"
 
-#: .\usuarios\templates\usuarios\landing.html:38
 msgid "Aprender"
 msgstr "Learn"
 
-#: .\usuarios\templates\usuarios\landing.html:44
-#: .\usuarios\templates\usuarios\landing.html:76
-#: .\usuarios\templates\usuarios\landing.html:83
-msgid "Iniciar sesión"
-msgstr "Sign in"
-
-#: .\usuarios\templates\usuarios\landing.html:48
-#: .\usuarios\templates\usuarios\login.html:103
-msgid "Registrarse"
-msgstr "Sign Up"
-
-#: .\usuarios\templates\usuarios\landing.html:62
 msgid "Aprende trading cripto con datos reales y "
 msgstr "Learn crypto trading with real data and "
 
-#: .\usuarios\templates\usuarios\landing.html:63
 msgid "señales explicadas por IA"
 msgstr "AI-explained signals"
 
-#: .\usuarios\templates\usuarios\landing.html:66
-msgid ""
-"Explora datos, haz backtesting sin código y recibe señales generadas por un "
-"modelo híbrido con explicabilidad. Gestiona el riesgo antes de operar en "
-"real."
-msgstr ""
-"Explore data, run visual backtests, and get signals generated by a hybrid "
-"model with explainability. Manage risk before trading live."
+msgid "Explora datos, haz backtesting sin código y recibe señales generadas por un modelo híbrido con explicabilidad. Gestiona el riesgo antes de operar en real."
+msgstr "Explore data, run visual backtests, and get signals generated by a hybrid model with explainability. Manage risk before trading live."
 
-#: .\usuarios\templates\usuarios\landing.html:72
-#: .\usuarios\templates\usuarios\landing.html:241
 msgid "Comenzar gratis"
 msgstr "Start for free"
 
-#: .\usuarios\templates\usuarios\landing.html:81
-#: .\usuarios\templates\usuarios\registro.html:180
 msgid "¿Ya tienes cuenta?"
 msgstr "Already have an account?"
 
-#: .\usuarios\templates\usuarios\landing.html:88
-msgid "Características principales"
-msgstr "Key Features"
-
-#: .\usuarios\templates\usuarios\landing.html:92
 msgid "Simulador con datos reales"
 msgstr "Simulator with real data"
 
-#: .\usuarios\templates\usuarios\landing.html:96
 msgid "Backtesting anti-overfitting"
 msgstr "Anti-overfitting backtesting"
 
-#: .\usuarios\templates\usuarios\landing.html:100
+msgid "Gestión de riesgo integrada"
+msgstr "Integrated risk management"
+
 msgid "2FA y cifrado SSL"
 msgstr "2FA and SSL encryption"
 
-#: .\usuarios\templates\usuarios\landing.html:109
 msgid "Un entorno no-code para decidir mejor"
 msgstr "A quantitative environment to decide better"
 
-#: .\usuarios\templates\usuarios\landing.html:111
-msgid ""
-"CryptoTrade combina datos confiables, backtesting con buenas prácticas y "
-"gestión de riesgo para que desarrolles criterio antes de operar en real."
-msgstr ""
-"CryptoTrade combines reliable data, best-practice backtesting, and risk "
-"management so you can build judgment before trading live."
+msgid "CryptoTrade combina datos confiables, backtesting con buenas prácticas y gestión de riesgo para que desarrolles criterio antes de operar en real."
+msgstr "CryptoTrade combines reliable data, best-practice backtesting, and risk management so you can build judgment before trading live."
 
-#: .\usuarios\templates\usuarios\landing.html:120
 msgid "Centraliza datos"
 msgstr "Centralize Data"
 
-#: .\usuarios\templates\usuarios\landing.html:121
-msgid ""
-"Centraliza datos y señales para decidir más rápido con información limpia y "
-"en tiempo real."
-msgstr ""
-"Centralize data and signals to decide faster with clean, real-time "
-"information."
+msgid "Centraliza datos y señales para decidir más rápido con información limpia y en tiempo real."
+msgstr "Centralize data and signals to decide faster with clean, real-time information."
 
-#: .\usuarios\templates\usuarios\landing.html:128
 msgid "Validación Rigurosa"
 msgstr "Rigorous Validation"
 
-#: .\usuarios\templates\usuarios\landing.html:129
-msgid ""
-"Valida ideas con rigor estadístico (split y métricas claras) evitando el "
-"overfitting."
-msgstr ""
-"Validate ideas with statistical rigor (split and clear metrics) avoiding "
-"overfitting."
+msgid "Valida ideas con rigor estadístico (split y métricas claras) evitando el overfitting."
+msgstr "Validate ideas with statistical rigor (split and clear metrics) avoiding overfitting."
 
-#: .\usuarios\templates\usuarios\landing.html:136
 msgid "Explicabilidad IA (SHAP)"
 msgstr "AI Explainability (SHAP)"
 
-#: .\usuarios\templates\usuarios\landing.html:137
 msgid "Entiende el porqué detrás de cada señal (SHAP). No más cajas negras."
 msgstr "Understand the why behind each signal (SHAP). No more black boxes."
 
-#: .\usuarios\templates\usuarios\landing.html:145
-msgid ""
-"Define tamaños, límites y alertas desde el inicio para proteger tu capital."
-msgstr ""
-"Define sizes, limits, and alerts from the start to protect your capital."
+msgid "Define tamaños, límites y alertas desde el inicio para proteger tu capital."
+msgstr "Define sizes, limits, and alerts from the start to protect your capital."
 
-#: .\usuarios\templates\usuarios\landing.html:152
 msgid "Aprendizaje Guiado"
 msgstr "Guided Learning"
 
-#: .\usuarios\templates\usuarios\landing.html:153
-msgid ""
-"Aprende haciendo con un flujo guiado e intuitivo diseñado para estudiantes."
+msgid "Aprende haciendo con un flujo guiado e intuitivo diseñado para estudiantes."
 msgstr "Learn by doing with a guided and intuitive flow designed for students."
 
-#: .\usuarios\templates\usuarios\landing.html:161
+msgid "Sin tarjeta. Cancela cuando quieras."
+msgstr "No card required. Cancel anytime."
+
 msgid "Soporte cuando lo necesitas"
 msgstr "Support when you need it"
 
-#: .\usuarios\templates\usuarios\landing.html:163
-msgid ""
-"Respuestas inmediatas en el Centro de Ayuda y guías. Soporte por correo en "
-"24–48 h (días hábiles)."
-msgstr ""
-"Instant answers in the Help Center and guides. Email support in 24–48 h "
-"(business days)."
+msgid "Respuestas inmediatas en el Centro de Ayuda y guías. Soporte por correo en 24–48 h (días hábiles)."
+msgstr "Instant answers in the Help Center and guides. Email support in 24–48 h (business days)."
 
-#: .\usuarios\templates\usuarios\landing.html:175
 msgid "Lo que dicen nuestros usuarios"
 msgstr "What our users say"
 
-#: .\usuarios\templates\usuarios\landing.html:179
-msgid ""
-"Entendí por qué una señal era buena o mala y dejé de operar por intuición."
-msgstr ""
-"I understood why a signal was good or bad and stopped trading on intuition."
+msgid "Entendí por qué una señal era buena o mala y dejé de operar por intuición."
+msgstr "I understood why a signal was good or bad and stopped trading on intuition."
 
-#: .\usuarios\templates\usuarios\landing.html:180
 msgid "Ana, estudiante de Ingeniería"
 msgstr "Ana, engineering student"
 
-#: .\usuarios\templates\usuarios\landing.html:184
 msgid "El backtesting me obligó a validar ideas como en un proyecto real."
 msgstr "Backtesting forced me to validate ideas like a real project."
 
-#: .\usuarios\templates\usuarios\landing.html:185
 msgid "Luis, trader principiante"
 msgstr "Luis, beginner trader"
 
-#: .\usuarios\templates\usuarios\landing.html:189
 msgid "La gestión de riesgo integrada me salvó de varios sustos."
 msgstr "Integrated risk management saved me from several scares."
 
-#: .\usuarios\templates\usuarios\landing.html:190
 msgid "Carla, analista junior"
 msgstr "Carla, junior analyst"
 
-#: .\usuarios\templates\usuarios\landing.html:198
 msgid "Hecho para aprender en serio"
 msgstr "Built to learn seriously"
 
-#: .\usuarios\templates\usuarios\landing.html:200
-msgid ""
-"Proyecto educativo que acerca el trading cuantitativo a principiantes con "
-"metodologías ágiles para iterar rápido y basarse en feedback real."
-msgstr ""
-"Educational project that brings quantitative trading to beginners with agile "
-"methodologies to iterate quickly and rely on real feedback."
+msgid "Proyecto educativo que acerca el trading cuantitativo a principiantes con metodologías ágiles para iterar rápido y basarse en feedback real."
+msgstr "Educational project that brings quantitative trading to beginners with agile methodologies to iterate quickly and rely on real feedback."
 
-#: .\usuarios\templates\usuarios\landing.html:208
 msgid "Aprende paso a paso"
 msgstr "Learn step by step"
 
-#: .\usuarios\templates\usuarios\landing.html:209
 msgid "Recursos diseñados para cerrar la brecha entre teoría y práctica."
 msgstr "Resources designed to bridge the gap between theory and practice."
 
-#: .\usuarios\templates\usuarios\landing.html:215
 msgid "Guía rápida de la plataforma"
 msgstr "Platform quickstart"
 
-#: .\usuarios\templates\usuarios\landing.html:220
 msgid "Buenas prácticas de riesgo"
 msgstr "Risk best practices"
 
-#: .\usuarios\templates\usuarios\landing.html:225
 msgid "Glosario cripto y de análisis técnico"
 msgstr "Crypto and technical analysis glossary"
 
-#: .\usuarios\templates\usuarios\landing.html:230
 msgid "Casos de uso y ejercicios guiados"
 msgstr "Use cases and guided exercises"
 
-#: .\usuarios\templates\usuarios\landing.html:238
 msgid "¿Listo para probar CryptoTrade?"
 msgstr "Ready to try CryptoTrade?"
 
-#: .\usuarios\templates\usuarios\landing.html:254
 msgid "Privacidad"
 msgstr "Privacy"
 
-#: .\usuarios\templates\usuarios\landing.html:257
 msgid "Términos"
 msgstr "Terms"
 
-#: .\usuarios\templates\usuarios\legal.html:35
-msgid "Última actualización: Noviembre 2025"
-msgstr "Last updated: November 2025"
+msgid "Características principales"
+msgstr "Key Features"
 
 # ==============================================================================
 # AUTENTICACIÓN (LOGIN / REGISTRO / RESET)
 # ==============================================================================
-#: .\usuarios\templates\usuarios\login.html:7
+
 msgid "CryptoTrade - Iniciar Sesión"
 msgstr "CryptoTrade - Login"
 
-#: .\usuarios\templates\usuarios\login.html:30
 msgid "Tu plataforma de trading confiable"
 msgstr "Your trusted trading platform"
 
-#: .\usuarios\templates\usuarios\login.html:45
-#: .\usuarios\templates\usuarios\registro.html:119
+msgid "Iniciar sesión"
+msgstr "Sign in"
+
+msgid "Registrarse"
+msgstr "Sign Up"
+
+msgid "Correo electrónico"
+msgstr "Email"
+
+msgid "ejemplo@correo.com"
+msgstr "example@email.com"
+
 msgid "Contraseña"
 msgstr "Password"
 
-#: .\usuarios\templates\usuarios\login.html:55
 msgid "¿Olvidaste tu contraseña?"
 msgstr "Forgot your password?"
 
-#: .\usuarios\templates\usuarios\login.html:61
 msgid "Ingresar"
 msgstr "Sign In"
 
-#: .\usuarios\templates\usuarios\login.html:79
 msgid "O"
 msgstr "Or"
 
-#: .\usuarios\templates\usuarios\login.html:86
 msgid "Ingresar con Google"
 msgstr "Sign in with Google"
 
-#: .\usuarios\templates\usuarios\login.html:91
 msgid "Ingresar con GitHub"
 msgstr "Sign in with GitHub"
 
-#: .\usuarios\templates\usuarios\login.html:96
 msgid "Ingresar con X"
 msgstr "Sign in with X"
 
-#: .\usuarios\templates\usuarios\login.html:101
 msgid "¿No tienes cuenta?"
 msgstr "Don't have an account?"
 
-#: .\usuarios\templates\usuarios\password_reset_complete.html:8
 msgid "Contraseña actualizada"
 msgstr "Password updated"
 
-#: .\usuarios\templates\usuarios\password_reset_complete.html:15
 msgid "Tu contraseña se actualizó"
 msgstr "Your password has been updated"
 
-#: .\usuarios\templates\usuarios\password_reset_complete.html:16
 msgid "Ya puedes iniciar sesión con tu nueva contraseña."
 msgstr "You can now sign in with your new password."
 
-#: .\usuarios\templates\usuarios\password_reset_complete.html:18
 msgid "Ir al login"
 msgstr "Go to login"
 
-#: .\usuarios\templates\usuarios\password_reset_confirm.html:8
-#: .\usuarios\templates\usuarios\password_reset_confirm.html:15
 msgid "Crear nueva contraseña"
 msgstr "Create new password"
 
-#: .\usuarios\templates\usuarios\password_reset_confirm.html:32
 msgid "Contraseña nueva"
 msgstr "New password"
 
-#: .\usuarios\templates\usuarios\password_reset_confirm.html:42
 msgid "Contraseña nueva (confirmación)"
 msgstr "New password (confirmation)"
 
-#: .\usuarios\templates\usuarios\password_reset_confirm.html:50
 msgid "Guardar contraseña"
 msgstr "Save password"
 
-#: .\usuarios\templates\usuarios\password_reset_done.html:8
 msgid "Correo enviado"
 msgstr "Email sent"
 
-#: .\usuarios\templates\usuarios\password_reset_done.html:16
 msgid "Revisa tu correo"
 msgstr "Check your email"
 
-#: .\usuarios\templates\usuarios\password_reset_done.html:18
-msgid ""
-"Si existe una cuenta con ese correo, te enviamos un enlace para restablecer "
-"tu contraseña."
-msgstr ""
-"If an account with that email exists, we have sent you a link to reset your "
-"password."
+msgid "Si existe una cuenta con ese correo, te enviamos un enlace para restablecer tu contraseña."
+msgstr "If an account with that email exists, we have sent you a link to reset your password."
 
-#: .\usuarios\templates\usuarios\password_reset_done.html:21
 msgid "Volver al login"
 msgstr "Back to login"
 
-#: .\usuarios\templates\usuarios\password_reset_form.html:8
-#: .\usuarios\templates\usuarios\password_reset_form.html:15
 msgid "Restablecer contraseña"
 msgstr "Reset password"
 
-#: .\usuarios\templates\usuarios\password_reset_form.html:19
-msgid ""
-"Ingresa tu correo y te enviaremos un enlace para crear una nueva contraseña."
+msgid "Ingresa tu correo y te enviaremos un enlace para crear una nueva contraseña."
 msgstr "Enter your email and we'll send you a link to create a new password."
 
-#: .\usuarios\templates\usuarios\password_reset_form.html:28
 msgid "Enviar enlace"
 msgstr "Send link"
 
-#: .\usuarios\templates\usuarios\password_reset_form.html:34
 msgid "Volver a iniciar sesión"
 msgstr "Back to sign in"
 
 # ==============================================================================
-# AUTENTICACIÓN (LOGIN / REGISTRO / RESET)
+# CENTRO DE AYUDA (MAIN)
 # ==============================================================================
-#: .\usuarios\templates\usuarios\registro.html:7
-#, fuzzy
-#| msgid "CryptoTrade - Iniciar Sesión"
-msgid "CryptoTrade - Crear Cuenta"
-msgstr "CryptoTrade - Login"
 
-#: .\usuarios\templates\usuarios\registro.html:24
-#: .\usuarios\templates\usuarios\registro.html:165
-msgid "Crear Cuenta"
-msgstr "Create Account"
+msgid "Centro de ayuda"
+msgstr "Help Center"
 
-#: .\usuarios\templates\usuarios\registro.html:25
-msgid "Únete a CryptoTrade y comienza a invertir con IA"
-msgstr "Join CryptoTrade and start investing with AI"
+msgid "Centro de Ayuda"
+msgstr "Help Center"
 
-# ==============================================================================
-# REGISTRO (NUEVAS TRADUCCIONES)
-# ==============================================================================
-#: .\usuarios\templates\usuarios\registro.html:32
-msgid "País de residencia"
-msgstr "Country of residence"
+msgid "Volver al inicio"
+msgstr "Back to home"
 
-#: .\usuarios\templates\usuarios\registro.html:37
-msgid "Perú"
-msgstr "Peru"
+msgid "Guías rápidas, preguntas frecuentes y primeros pasos."
+msgstr "Quick guides, FAQs, and first steps."
 
-#: .\usuarios\templates\usuarios\registro.html:38
-msgid "Estados Unidos"
-msgstr "United States"
+msgid "Domina el trading cuantitativo: desde la configuración de 2FA hasta la interpretación de señales IA con SHAP."
+msgstr "Master quantitative trading: from 2FA setup to interpreting AI signals with SHAP."
 
-#: .\usuarios\templates\usuarios\registro.html:39
-msgid "España"
-msgstr "Spain"
+msgid "Buscar en el centro de ayuda"
+msgstr "Search the Help Center"
 
-#: .\usuarios\templates\usuarios\registro.html:40
-msgid "México"
-msgstr "Mexico"
+msgid "Buscar guías, temas o preguntas…"
+msgstr "Search guides, topics, or questions..."
 
-#: .\usuarios\templates\usuarios\registro.html:41
-msgid "Colombia"
-msgstr "Colombia"
+msgid "Busca sobre: backtesting, overfitting, LSTM, API…"
+msgstr "Search for: backtesting, overfitting, LSTM, API…"
 
-#: .\usuarios\templates\usuarios\registro.html:42
-msgid "Argentina"
-msgstr "Argentina"
+msgid "Guías Esenciales"
+msgstr "Essential Guides"
 
-#: .\usuarios\templates\usuarios\registro.html:43
-msgid "Chile"
-msgstr "Chile"
+msgid "Configuración de Cuenta y Seguridad"
+msgstr "Account Setup and Security (KYC)"
 
-#: .\usuarios\templates\usuarios\registro.html:44
-msgid "Otro"
-msgstr "Other"
+msgid "Seguridad y Acceso (2FA)"
+msgstr "Security and Access (2FA)"
 
-#: .\usuarios\templates\usuarios\registro.html:50
-msgid "Selecciona un país."
-msgstr "Select a country."
+msgid "Activa la autenticación de dos factores y valida tu identidad (KYC) para operar seguro."
+msgstr "Enable two-factor authentication and validate your identity (KYC) to trade securely."
 
-#: .\usuarios\templates\usuarios\registro.html:55
-msgid "Nombre"
-msgstr "First Name"
+msgid "Evitando el Overfitting"
+msgstr "Avoiding Overfitting"
 
-#: .\usuarios\templates\usuarios\registro.html:58
-msgid "Tu nombre"
-msgstr "Your name"
+msgid "Backtesting sin Overfitting"
+msgstr "Backtesting without Overfitting"
 
-#: .\usuarios\templates\usuarios\registro.html:61
-#: .\usuarios\templates\usuarios\registro.html:71
-msgid "Solo letras y espacios."
-msgstr "Letters and spaces only."
+msgid "Aprende a separar datos de entrenamiento y prueba para validar estrategias realistas."
+msgstr "Learn to separate training and testing data to validate realistic strategies."
 
-#: .\usuarios\templates\usuarios\registro.html:65
-msgid "Apellido"
-msgstr "Last Name"
+msgid "Interpretación de Señales IA"
+msgstr "AI Signal Interpretation"
 
-#: .\usuarios\templates\usuarios\registro.html:68
-msgid "Tu apellido"
-msgstr "Your last name"
+msgid "Entendiendo las Señales (SHAP)"
+msgstr "Understanding Signals (SHAP)"
 
-#: .\usuarios\templates\usuarios\registro.html:81
-msgid "Ingresa un correo válido."
-msgstr "Enter a valid email."
+msgid "Descubre por qué el modelo híbrido (LSTM+XGBoost) sugiere comprar o vender."
+msgstr "Discover why the hybrid model (LSTM+XGBoost) suggests buying or selling."
 
-#: .\usuarios\templates\usuarios\registro.html:86
-msgid "Documento ID"
-msgstr "ID Document"
+msgid "Gestión de Riesgo"
+msgstr "Risk Management"
 
-#: .\usuarios\templates\usuarios\registro.html:94
-msgid "Teléfono"
-msgstr "Phone Number"
+msgid "Configura stop-loss, tamaño de posición y límites para proteger tu capital."
+msgstr "Configure stop-loss, position size, and limits to protect your capital."
 
-#: .\usuarios\templates\usuarios\registro.html:103
-msgid "Dirección"
-msgstr "Address"
+msgid "Navegación del Dashboard"
+msgstr "Dashboard Navigation"
 
-#: .\usuarios\templates\usuarios\registro.html:105
-msgid "Av. Principal 123"
-msgstr "123 Main St."
+msgid "Tu Dashboard Pro"
+msgstr "Your Pro Dashboard"
 
-#: .\usuarios\templates\usuarios\registro.html:110
-msgid "Fecha de nacimiento"
-msgstr "Date of Birth"
+msgid "Visualiza métricas en tiempo real, alertas y el rendimiento de tu portafolio."
+msgstr "Visualize real-time metrics, alerts, and your portfolio performance."
 
-#: .\usuarios\templates\usuarios\registro.html:114
-msgid "Debes ser mayor de 18 años."
-msgstr "You must be over 18."
+msgid "Integración de Datos"
+msgstr "Data Integration"
 
-#: .\usuarios\templates\usuarios\registro.html:130
-msgid "Contraseña débil."
-msgstr "Weak password."
+msgid "Datos de Mercado"
+msgstr "Market Data"
 
-#: .\usuarios\templates\usuarios\registro.html:134
-msgid "Confirmar"
-msgstr "Confirm"
+msgid "Fuentes de datos (Bloomberg, Binance) y limpieza automática para tus modelos."
+msgstr "Data sources (Bloomberg, Binance) and automatic cleaning for your models."
 
-#: .\usuarios\templates\usuarios\registro.html:138
-msgid "No coinciden."
-msgstr "Do not match."
+msgid "No encontramos resultados. Prueba con 'Riesgo', 'SHAP' o '2FA'."
+msgstr "We didn't find any results. Try searching for 'Risk', 'SHAP' or '2FA'."
 
-#: .\usuarios\templates\usuarios\registro.html:143
-msgid "Mín. 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 símbolo."
-msgstr "Min. 8 chars, 1 uppercase, 1 lowercase, 1 number, and 1 symbol."
+msgid "Preguntas Frecuentes"
+msgstr "Frequently Asked Questions"
 
-#: .\usuarios\templates\usuarios\registro.html:155
-msgid "Acepto los"
-msgstr "I accept the"
+# --- FAQ ---
 
-#: .\usuarios\templates\usuarios\registro.html:156 .\usuarios\views.py:399
-msgid "Términos y Condiciones"
-msgstr "Terms and Conditions"
+msgid "¿Cómo genera CryptoTrade las señales de trading?"
+msgstr "How does CryptoTrade generate trading signals?"
 
-#: .\usuarios\templates\usuarios\registro.html:157
-msgid "y la"
-msgstr "and the"
+msgid "Utilizamos un modelo híbrido que combina LSTM (para secuencias temporales) y XGBoost (para relaciones no lineales). Además, aplicamos valores SHAP para explicarte exactamente qué variables (precio, volumen, sentimiento) influyeron en cada señal."
+msgstr "We use a hybrid model combining LSTM (for temporal sequences) and XGBoost (for non-linear relationships). Additionally, we apply SHAP values to explain exactly which variables (price, volume, sentiment) influenced each signal."
 
-# ==============================================================================
-# PÁGINAS LEGALES (FRAGMENTADO - VERSIÓN CORRECTA)
-# ==============================================================================
-#: .\usuarios\templates\usuarios\registro.html:158 .\usuarios\views.py:379
-msgid "Política de Privacidad"
-msgstr "Privacy Policy"
+msgid "¿Por qué mis resultados de backtesting difieren del trading real?"
+msgstr "Why do my backtesting results differ from real trading?"
 
-#: .\usuarios\templates\usuarios\registro.html:161
-msgid "Debes aceptar los términos para continuar."
-msgstr "You must accept the terms to continue."
+msgid "Es probable que ocurra 'overfitting' (sobreajuste). Nuestra plataforma mitiga esto separando automáticamente los datos de entrenamiento y prueba, y utilizando métricas como el Deflated Sharpe Ratio para asegurar que tu estrategia sea robusta ante nuevos datos."
+msgstr "Overfitting is likely occurring. Our platform mitigates this by automatically separating training and testing data, and using metrics like the Deflated Sharpe Ratio to ensure your strategy is robust against new data."
 
-#: .\usuarios\templates\usuarios\registro.html:181
-msgid "Inicia sesión"
-msgstr "Sign in"
+msgid "¿Necesito conocimientos de programación para crear estrategias?"
+msgstr "Do I need programming skills to create strategies?"
 
-#: .\usuarios\templates\usuarios\registro.html:210
-msgid "DNI (8 dígitos)"
-msgstr ""
+msgid "No es necesario escribir scripts. CryptoTrade reemplaza la programación manual (como Pine Script o Python) con una interfaz de configuración visual. Esto te permite validar hipótesis financieras complejas enfocándote en la lógica y el riesgo, delegando la ejecución técnica a nuestra plataforma."
+msgstr "Scripting is not required. CryptoTrade replaces manual programming (like Pine Script or Python) with a visual configuration interface. This allows you to validate complex financial hypotheses focusing on logic and risk, delegating the technical execution to our platform."
 
-#: .\usuarios\templates\usuarios\registro.html:210
-msgid "DNI peruano de 8 dígitos."
-msgstr ""
+msgid "¿No encontraste lo que buscabas? Contáctanos"
+msgstr "Didn't find what you were looking for? Contact us"
 
-#: .\usuarios\templates\usuarios\registro.html:211
-msgid "ID (alfa-numérico, 6–20)"
-msgstr ""
-
-#: .\usuarios\templates\usuarios\registro.html:211
-msgid "Documento (alfa-numérico, 6–20). No ingreses SSN."
-msgstr ""
-
-#: .\usuarios\templates\usuarios\registro.html:212
-msgid "DNI/NIE (7–15)"
-msgstr ""
-
-#: .\usuarios\templates\usuarios\registro.html:212
-msgid "DNI/NIE 7–15, puede incluir letras."
-msgstr ""
-
-#: .\usuarios\templates\usuarios\registro.html:213
-msgid "CURP/RFC (10–18)"
-msgstr ""
-
-#: .\usuarios\templates\usuarios\registro.html:213
-msgid "CURP/RFC 10–18 (alfa-numérico)."
-msgstr ""
-
-#: .\usuarios\templates\usuarios\registro.html:214
-msgid "CC (6–12 dígitos)"
-msgstr ""
-
-#: .\usuarios\templates\usuarios\registro.html:214
-msgid "Documento colombiano 6–12 dígitos."
-msgstr ""
-
-#: .\usuarios\templates\usuarios\registro.html:215
-msgid "DNI (6–12 dígitos)"
-msgstr ""
-
-#: .\usuarios\templates\usuarios\registro.html:215
-msgid "DNI argentino 6–12 dígitos."
-msgstr ""
-
-#: .\usuarios\templates\usuarios\registro.html:216
-msgid "RUN/RUT (6–12 dígitos)"
-msgstr ""
-
-#: .\usuarios\templates\usuarios\registro.html:216
-msgid "RUN/RUT 6–12 dígitos (sin puntos/guión)."
-msgstr ""
-
-#: .\usuarios\templates\usuarios\registro.html:217
-#, fuzzy
-#| msgid "Documento ID"
-msgid "Documento (6–20)"
-msgstr "ID Document"
-
-#: .\usuarios\templates\usuarios\registro.html:217
-msgid "Documento (alfa-numérico, 6–20)."
-msgstr ""
-
-#: .\usuarios\views.py:181
-msgid "Por favor, completa todos los campos."
-msgstr "Please complete all fields."
-
-#: .\usuarios\views.py:196
-msgid "Tu mensaje fue enviado. Te responderemos en 24–48 h (días hábiles)."
-msgstr ""
-"Your message has been sent. We will reply within 24–48h (business days)."
-
-#: .\usuarios\views.py:199
-msgid "No pudimos enviar tu mensaje en este momento. Inténtalo más tarde."
-msgstr "We couldn't send your message at this time. Please try again later."
+msgid "Volver al Dashboard"
+msgstr "Back to Dashboard"
 
 # ==============================================================================
 # ARTÍCULOS EDUCATIVOS (VIEWS.PY) - TEXTOS FRAGMENTADOS PARA TRADUCCIÓN
 # ==============================================================================
-# --- 1. Seguridad ---
-#: .\usuarios\views.py:294
-msgid ""
-"La seguridad es el pilar fundamental de CryptoTrade. Para proteger tus "
-"activos y datos, implementamos autenticación de dos factores (2FA) "
-"obligatoria para operaciones críticas."
-msgstr ""
-"Security is the cornerstone of CryptoTrade. To protect your assets and data, "
-"we implement mandatory two-factor authentication (2FA) for critical "
-"operations."
 
-#: .\usuarios\views.py:295
+# --- 1. Seguridad ---
+msgid "La seguridad es el pilar fundamental de CryptoTrade. Para proteger tus activos y datos, implementamos autenticación de dos factores (2FA) obligatoria para operaciones críticas."
+msgstr "Security is the cornerstone of CryptoTrade. To protect your assets and data, we implement mandatory two-factor authentication (2FA) for critical operations."
+
 msgid "¿Por qué es necesario?"
 msgstr "Why is it necessary?"
 
-#: .\usuarios\views.py:296
-msgid ""
-"El mercado cripto opera 24/7 y los riesgos de seguridad son constantes. "
-"Nuestro sistema valida tu identidad no solo con contraseña, sino con un "
-"código temporal único."
-msgstr ""
-"The crypto market operates 24/7 and security risks are constant. Our system "
-"validates your identity not only with a password but with a unique temporary "
-"code."
+msgid "El mercado cripto opera 24/7 y los riesgos de seguridad son constantes. Nuestro sistema valida tu identidad no solo con contraseña, sino con un código temporal único."
+msgstr "The crypto market operates 24/7 and security risks are constant. Our system validates your identity not only with a password but with a unique temporary code."
 
-#: .\usuarios\views.py:298
 msgid "Validación de correo electrónico para activar cuenta."
 msgstr "Email validation to activate account."
 
-#: .\usuarios\views.py:299
 msgid "Protección contra ataques de fuerza bruta."
 msgstr "Protection against brute force attacks."
 
-#: .\usuarios\views.py:300
 msgid "Cifrado de datos sensibles en base de datos."
 msgstr "Encryption of sensitive data in the database."
 
 # --- 2. Backtesting ---
-#: .\usuarios\views.py:307
-msgid ""
-"Uno de los errores más comunes en principiantes es el <strong>sobreajuste "
-"(overfitting)</strong>: crear estrategias que funcionan perfecto en el "
-"pasado pero fallan en el futuro."
-msgstr ""
-"One of the most common mistakes for beginners is <strong>overfitting</"
-"strong>: creating strategies that work perfectly in the past but fail in the "
-"future."
+msgid "Uno de los errores más comunes en principiantes es el <strong>sobreajuste (overfitting)</strong>: crear estrategias que funcionan perfecto en el pasado pero fallan en el futuro."
+msgstr "One of the most common mistakes for beginners is <strong>overfitting</strong>: creating strategies that work perfectly in the past but fail in the future."
 
-#: .\usuarios\views.py:308
 msgid "Nuestra Metodología"
 msgstr "Our Methodology"
 
-#: .\usuarios\views.py:309
-msgid ""
-"CryptoTrade mitiga este riesgo separando automáticamente los datos en dos "
-"conjuntos:"
-msgstr ""
-"CryptoTrade mitigates this risk by automatically separating data into two "
-"sets:"
+msgid "CryptoTrade mitiga este riesgo separando automáticamente los datos en dos conjuntos:"
+msgstr "CryptoTrade mitigates this risk by automatically separating data into two sets:"
 
-#: .\usuarios\views.py:311
 msgid "Entrenamiento (In-Sample):"
 msgstr "Training (In-Sample):"
 
-#: .\usuarios\views.py:311
 msgid "Para diseñar la estrategia."
 msgstr "To design the strategy."
 
-#: .\usuarios\views.py:312
 msgid "Prueba (Out-of-Sample):"
 msgstr "Testing (Out-of-Sample):"
 
-#: .\usuarios\views.py:312
 msgid "Para validarla en datos desconocidos."
 msgstr "To validate it on unknown data."
 
-#: .\usuarios\views.py:314
-#, fuzzy
-#| msgid ""
-#| "Esto asegura que tus resultados sean realistas y no una ilusión "
-#| "estadística (Bailey et al., 2014)."
-msgid ""
-"Esto asegura que tus resultados sean realistas y no una ilusión estadística."
-msgstr ""
-"This ensures your results are realistic and not a statistical illusion "
-"(Bailey et al., 2014)."
+msgid "Esto asegura que tus resultados sean realistas y no una ilusión estadística (Bailey et al., 2014)."
+msgstr "This ensures your results are realistic and not a statistical illusion (Bailey et al., 2014)."
 
 # --- 3. IA / SHAP ---
-#: .\usuarios\views.py:320
-msgid ""
-"CryptoTrade no es una \"caja negra\". Utilizamos un modelo híbrido avanzado "
-"que combina <strong>LSTM</strong> (para tendencias temporales) y "
-"<strong>XGBoost</strong> (para patrones complejos)."
-msgstr ""
-"CryptoTrade is not a \"black box\". We use an advanced hybrid model "
-"combining <strong>LSTM</strong> (for temporal trends) and <strong>XGBoost</"
-"strong> (for complex patterns)."
+msgid "CryptoTrade no es una \"caja negra\". Utilizamos un modelo híbrido avanzado que combina <strong>LSTM</strong> (para tendencias temporales) y <strong>XGBoost</strong> (para patrones complejos)."
+msgstr "CryptoTrade is not a \"black box\". We use an advanced hybrid model combining <strong>LSTM</strong> (for temporal trends) and <strong>XGBoost</strong> (for complex patterns)."
 
-#: .\usuarios\views.py:321
 msgid "¿Qué es SHAP?"
 msgstr "What is SHAP?"
 
-#: .\usuarios\views.py:322
-msgid ""
-"Usamos valores SHAP (SHapley Additive exPlanations) para decirte <em>por "
-"qué</em> el modelo sugiere comprar o vender."
-msgstr ""
-"We use SHAP (SHapley Additive exPlanations) values to tell you <em>why</em> "
-"the model suggests buying or selling."
+msgid "Usamos valores SHAP (SHapley Additive exPlanations) para decirte <em>por qué</em> el modelo sugiere comprar o vender."
+msgstr "We use SHAP (SHapley Additive exPlanations) values to tell you <em>why</em> the model suggests buying or selling."
 
-#: .\usuarios\views.py:324
-msgid ""
-"El modelo sugiere COMPRA porque el volumen aumentó un 20% y la volatilidad "
-"bajó, a pesar de que el precio actual es alto."
-msgstr ""
-"The model suggests BUY because volume increased by 20% and volatility "
-"dropped, even though the current price is high."
+msgid "El modelo sugiere COMPRA porque el volumen aumentó un 20% y la volatilidad bajó, a pesar de que el precio actual es alto."
+msgstr "The model suggests BUY because volume increased by 20% and volatility dropped, even though the current price is high."
 
-#: .\usuarios\views.py:326
 msgid "Esta explicabilidad es clave para tu aprendizaje financiero."
 msgstr "This explainability is key to your financial learning."
 
 # --- 4. Riesgo ---
-#: .\usuarios\views.py:330
 msgid "Gestión de Riesgo Integral"
 msgstr "Comprehensive Risk Management"
 
-#: .\usuarios\views.py:332
-msgid ""
-"Antes de pensar en cuánto ganar, debes pensar en cuánto puedes permitirte "
-"perder. La gestión de riesgo es lo que separa a los profesionales de los "
-"aficionados."
-msgstr ""
-"Before thinking about how much to win, you must think about how much you can "
-"afford to lose. Risk management is what separates professionals from "
-"amateurs."
+msgid "Antes de pensar en cuánto ganar, debes pensar en cuánto puedes permitirte perder. La gestión de riesgo es lo que separa a los profesionales de los aficionados."
+msgstr "Before thinking about how much to win, you must think about how much you can afford to lose. Risk management is what separates professionals from amateurs."
 
-#: .\usuarios\views.py:333
 msgid "Herramientas Integradas"
 msgstr "Integrated Tools"
 
-#: .\usuarios\views.py:335
 msgid "Stop-Loss:"
 msgstr "Stop-Loss:"
 
-#: .\usuarios\views.py:335
 msgid "Define un límite máximo de pérdida por operación."
 msgstr "Defines a maximum loss limit per trade."
 
-#: .\usuarios\views.py:336
 msgid "Tamaño de Posición:"
 msgstr "Position Sizing:"
 
-#: .\usuarios\views.py:336
 msgid "Calcula cuánto invertir según tu capital total."
 msgstr "Calculates how much to invest based on your total capital."
 
-#: .\usuarios\views.py:337
 msgid "Ratio Riesgo/Beneficio:"
 msgstr "Risk/Reward Ratio:"
 
-#: .\usuarios\views.py:337
 msgid "Evalúa si la operación vale la pena antes de entrar."
 msgstr "Evaluates if the trade is worth it before entering."
 
 # --- 5. Dashboard ---
-#: .\usuarios\views.py:344
-msgid ""
-"El panel de control centraliza toda la información crítica para la toma de "
-"decisiones en tiempo real."
-msgstr ""
-"The dashboard centralizes all critical information for real-time decision "
-"making."
+msgid "El panel de control centraliza toda la información crítica para la toma de decisiones en tiempo real."
+msgstr "The dashboard centralizes all critical information for real-time decision making."
 
-#: .\usuarios\views.py:345
 msgid "Métricas Clave"
 msgstr "Key Metrics"
 
-#: .\usuarios\views.py:346
-msgid ""
-"Visualiza el rendimiento de tu portafolio, alertas de mercado activas y el "
-"estado de tus estrategias automatizadas en una sola vista optimizada para "
-"reducir la carga cognitiva."
-msgstr ""
-"Visualize your portfolio performance, active market alerts, and the status "
-"of your automated strategies in a single view optimized to reduce cognitive "
-"load."
+msgid "Visualiza el rendimiento de tu portafolio, alertas de mercado activas y el estado de tus estrategias automatizadas en una sola vista optimizada para reducir la carga cognitiva."
+msgstr "Visualize your portfolio performance, active market alerts, and the status of your automated strategies in a single view optimized to reduce cognitive load."
 
 # --- 6. Datos ---
-#: .\usuarios\views.py:350
 msgid "Integridad de Datos de Mercado"
 msgstr "Market Data Integrity"
 
-#: .\usuarios\views.py:352
-msgid ""
-"Las predicciones precisas requieren datos limpios. CryptoTrade se conecta a "
-"fuentes confiables (APIs de exchanges y agregadores) para obtener precios "
-"históricos y en tiempo real."
-msgstr ""
-"Accurate predictions require clean data. CryptoTrade connects to reliable "
-"sources (Exchange APIs and aggregators) to obtain historical and real-time "
-"prices."
+msgid "Las predicciones precisas requieren datos limpios. CryptoTrade se conecta a fuentes confiables (APIs de exchanges y agregadores) para obtener precios históricos y en tiempo real."
+msgstr "Accurate predictions require clean data. CryptoTrade connects to reliable sources (Exchange APIs and aggregators) to obtain historical and real-time prices."
 
-#: .\usuarios\views.py:353
-msgid ""
-"Nuestro sistema realiza una limpieza automática para eliminar \"ruido\" y "
-"anomalías que podrían afectar el rendimiento de tus modelos de IA."
-msgstr ""
-"Our system performs automatic cleaning to eliminate \"noise\" and anomalies "
-"that could affect the performance of your AI models."
+msgid "Nuestro sistema realiza una limpieza automática para eliminar \"ruido\" y anomalías que podrían afectar el rendimiento de tus modelos de IA."
+msgstr "Our system performs automatic cleaning to eliminate \"noise\" and anomalies that could affect the performance of your AI models."
+
+# --- Header/Footer Artículos ---
+msgid "Volver"
+msgstr "Back"
+
+msgid "Guía Educativa"
+msgstr "Educational Guide"
+
+msgid "Concepto Clave"
+msgstr "Key Concept"
+
+msgid "Lectura de 2 min"
+msgstr "2 min read"
+
+msgid "¿Te quedó claro el concepto?"
+msgstr "Is the concept clear?"
+
+msgid "Estas guías están diseñadas para reforzar tu aprendizaje antes de operar."
+msgstr "These guides are designed to reinforce your learning before trading."
+
+msgid "Tengo una duda"
+msgstr "I have a question"
+
+# ==============================================================================
+# FORMULARIO DE CONTACTO
+# ==============================================================================
+
+msgid "Escríbenos"
+msgstr "Contact us"
+
+msgid "Cuéntanos tu duda. Te responderemos por correo en 24–48 h (días hábiles)."
+msgstr "Tell us your question. We will answer via email within 24–48h (business days)."
+
+msgid "Nombre completo"
+msgstr "Full Name"
+
+msgid "Tipo de consulta"
+msgstr "Inquiry Type"
+
+msgid "Soporte Técnico / Problema"
+msgstr "Technical Support / Bug Report"
+
+msgid "Duda sobre Backtesting o Estrategias"
+msgstr "Question about Backtesting or Strategies"
+
+msgid "Problemas de Acceso / Cuenta"
+msgstr "Access / Account Issues"
+
+msgid "Sugerencias o Feedback"
+msgstr "Suggestions or Feedback"
+
+msgid "Otro asunto"
+msgstr "Other Subject"
+
+msgid "Asunto específico"
+msgstr "Specific Subject"
+
+msgid "Asunto"
+msgstr "Subject"
+
+msgid "Mensaje"
+msgstr "Message"
+
+msgid "Enviar Mensaje"
+msgstr "Send Message"
+
+msgid "Cancelar"
+msgstr "Cancel"
+
+msgid "Por favor, completa todos los campos."
+msgstr "Please complete all fields."
+
+msgid "Tu mensaje fue enviado. Te responderemos en 24–48 h (días hábiles)."
+msgstr "Your message has been sent. We will reply within 24–48h (business days)."
+
+msgid "No pudimos enviar tu mensaje en este momento. Inténtalo más tarde."
+msgstr "We couldn't send your message at this time. Please try again later."
+
+# ==============================================================================
+# PÁGINAS LEGALES (FRAGMENTADO - VERSIÓN CORRECTA)
+# ==============================================================================
+
+msgid "Política de Privacidad"
+msgstr "Privacy Policy"
+
+msgid "Términos y Condiciones"
+msgstr "Terms and Conditions"
 
 # --- TÍTULOS SECCIONES ---
-#: .\usuarios\views.py:368
 msgid "Protección de Datos Financieros"
 msgstr "Financial Data Protection"
 
-# --- CONTENIDOS ---
-#: .\usuarios\views.py:369
-msgid ""
-"CryptoTrade se compromete a proteger la integridad de sus datos operativos y "
-"personales. Utilizamos cifrado de extremo a extremo para toda la información "
-"sensible, cumpliendo con los estándares de la industria financiera."
-msgstr ""
-"CryptoTrade is committed to protecting the integrity of your operational and "
-"personal data. We use end-to-end encryption for all sensitive information, "
-"complying with financial industry standards."
-
-#: .\usuarios\views.py:371
 msgid "Recopilación de Datos de Trading"
 msgstr "Trading Data Collection"
 
-#: .\usuarios\views.py:372
-msgid ""
-"Para optimizar nuestros modelos de IA (XGBoost + LSTM), la plataforma "
-"procesa datos anonimizados sobre patrones de configuración de estrategias y "
-"resultados de backtesting. Estos datos se utilizan exclusivamente para "
-"mejorar la precisión de las señales."
-msgstr ""
-"To optimize our AI models (XGBoost + LSTM), the platform processes "
-"anonymized data on strategy configuration patterns and backtesting results. "
-"This data is used exclusively to improve signal accuracy."
-
-#: .\usuarios\views.py:374
 msgid "Seguridad de la Cuenta"
 msgstr "Account Security"
 
-#: .\usuarios\views.py:375
-msgid ""
-"Es responsabilidad del usuario mantener la confidencialidad de sus "
-"credenciales. Recomendamos encarecidamente mantener activada la "
-"autenticación de dos factores (2FA) en todo momento para prevenir accesos no "
-"autorizados."
-msgstr ""
-"It is the user's responsibility to maintain the confidentiality of their "
-"credentials. We strongly recommend keeping two-factor authentication (2FA) "
-"enabled at all times to prevent unauthorized access."
-
-#: .\usuarios\views.py:385
 msgid "Objeto del Servicio"
 msgstr "Service Object"
 
-#: .\usuarios\views.py:386
-msgid ""
-"CryptoTrade proporciona herramientas avanzadas de análisis cuantitativo, "
-"backtesting y señales generadas por Inteligencia Artificial para asistir en "
-"la toma de decisiones de trading en mercados de criptoactivos."
-msgstr ""
-"CryptoTrade provides advanced quantitative analysis tools, backtesting, and "
-"AI-generated signals to assist in trading decision-making within crypto "
-"asset markets."
-
-#: .\usuarios\views.py:388
 msgid "Uso de las Herramientas"
 msgstr "Use of Tools"
 
-#: .\usuarios\views.py:389
-msgid ""
-"El usuario recibe una licencia limitada para utilizar nuestro software de "
-"visualización y análisis. El usuario reconoce que las señales de IA son "
-"herramientas de apoyo basadas en probabilidades estadísticas y no garantías "
-"de rendimiento futuro."
-msgstr ""
-"The user receives a limited license to use our visualization and analysis "
-"software. The user acknowledges that AI signals are support tools based on "
-"statistical probabilities and not guarantees of future performance."
-
-#: .\usuarios\views.py:391
 msgid "Divulgación de Riesgos"
 msgstr "Risk Disclosure"
 
-#: .\usuarios\views.py:392
-msgid ""
-"El trading de criptomonedas implica un riesgo sustancial de pérdida. Si bien "
-"nuestras herramientas de gestión de riesgo y detección de overfitting están "
-"diseñadas para mitigar la exposición, la decisión final de ejecución y la "
-"responsabilidad financiera recaen exclusivamente en el usuario."
-msgstr ""
-"Cryptocurrency trading involves substantial risk of loss. While our risk "
-"management and overfitting detection tools are designed to mitigate "
-"exposure, the final execution decision and financial responsibility lie "
-"exclusively with the user."
-
-#: .\usuarios\views.py:394
 msgid "Disponibilidad del Servicio"
 msgstr "Service Availability"
 
-#: .\usuarios\views.py:395
-msgid ""
-"Nos esforzamos por garantizar la disponibilidad 24/7 de la plataforma y la "
-"integridad de los datos de mercado en tiempo real, sujetos a mantenimientos "
-"programados y condiciones de red."
-msgstr ""
-"We strive to ensure 24/7 platform availability and real-time market data "
-"integrity, subject to scheduled maintenance and network conditions."
+# --- CONTENIDOS ---
+msgid "CryptoTrade se compromete a proteger la integridad de sus datos operativos y personales. Utilizamos cifrado de extremo a extremo para toda la información sensible, cumpliendo con los estándares de la industria financiera."
+msgstr "CryptoTrade is committed to protecting the integrity of your operational and personal data. We use end-to-end encryption for all sensitive information, complying with financial industry standards."
 
-#~ msgid "Gestión de riesgo integrada"
-#~ msgstr "Integrated risk management"
+msgid "Para optimizar nuestros modelos de IA (XGBoost + LSTM), la plataforma procesa datos anonimizados sobre patrones de configuración de estrategias y resultados de backtesting. Estos datos se utilizan exclusivamente para mejorar la precisión de las señales."
+msgstr "To optimize our AI models (XGBoost + LSTM), the platform processes anonymized data on strategy configuration patterns and backtesting results. This data is used exclusively to improve signal accuracy."
 
-#~ msgid "Sin tarjeta. Cancela cuando quieras."
-#~ msgstr "No card required. Cancel anytime."
+msgid "Es responsabilidad del usuario mantener la confidencialidad de sus credenciales. Recomendamos encarecidamente mantener activada la autenticación de dos factores (2FA) en todo momento para prevenir accesos no autorizados."
+msgstr "It is the user's responsibility to maintain the confidentiality of their credentials. We strongly recommend keeping two-factor authentication (2FA) enabled at all times to prevent unauthorized access."
 
-#~ msgid "Guías rápidas, preguntas frecuentes y primeros pasos."
-#~ msgstr "Quick guides, FAQs, and first steps."
+msgid "CryptoTrade proporciona herramientas avanzadas de análisis cuantitativo, backtesting y señales generadas por Inteligencia Artificial para asistir en la toma de decisiones de trading en mercados de criptoactivos."
+msgstr "CryptoTrade provides advanced quantitative analysis tools, backtesting, and AI-generated signals to assist in trading decision-making within crypto asset markets."
 
-#~ msgid "Buscar guías, temas o preguntas…"
-#~ msgstr "Search guides, topics, or questions..."
+msgid "El usuario recibe una licencia limitada para utilizar nuestro software de visualización y análisis. El usuario reconoce que las señales de IA son herramientas de apoyo basadas en probabilidades estadísticas y no garantías de rendimiento futuro."
+msgstr "The user receives a limited license to use our visualization and analysis software. The user acknowledges that AI signals are support tools based on statistical probabilities and not guarantees of future performance."
 
-#~ msgid "Asunto"
-#~ msgstr "Subject"
+msgid "El trading de criptomonedas implica un riesgo sustancial de pérdida. Si bien nuestras herramientas de gestión de riesgo y detección de overfitting están diseñadas para mitigar la exposición, la decisión final de ejecución y la responsabilidad financiera recaen exclusivamente en el usuario."
+msgstr "Cryptocurrency trading involves substantial risk of loss. While our risk management and overfitting detection tools are designed to mitigate exposure, the final execution decision and financial responsibility lie exclusively with the user."
 
-#~ msgid "* Proyecto de Tesis / Capstone Project"
-#~ msgstr "* Capstone Project"
+msgid "Nos esforzamos por garantizar la disponibilidad 24/7 de la plataforma y la integridad de los datos de mercado en tiempo real, sujetos a mantenimientos programados y condiciones de red."
+msgstr "We strive to ensure 24/7 platform availability and real-time market data integrity, subject to scheduled maintenance and network conditions."
+
+msgid "Última actualización: Noviembre 2025"
+msgstr "Last updated: November 2025"
+
+msgid "* Proyecto de Tesis / Capstone Project"
+msgstr "* Capstone Project"
+
+# ==============================================================================
+# REGISTRO (NUEVAS TRADUCCIONES)
+# ==============================================================================
+
+msgid "País de residencia"
+msgstr "Country of residence"
+
+msgid "Perú"
+msgstr "Peru"
+
+msgid "Estados Unidos"
+msgstr "United States"
+
+msgid "España"
+msgstr "Spain"
+
+msgid "México"
+msgstr "Mexico"
+
+msgid "Colombia"
+msgstr "Colombia"
+
+msgid "Argentina"
+msgstr "Argentina"
+
+msgid "Chile"
+msgstr "Chile"
+
+msgid "Otro"
+msgstr "Other"
+
+msgid "Selecciona un país."
+msgstr "Select a country."
+
+msgid "Nombre"
+msgstr "First Name"
+
+msgid "Tu nombre"
+msgstr "Your name"
+
+msgid "Solo letras y espacios."
+msgstr "Letters and spaces only."
+
+msgid "Apellido"
+msgstr "Last Name"
+
+msgid "Tu apellido"
+msgstr "Your last name"
+
+msgid "Ingresa un correo válido."
+msgstr "Enter a valid email."
+
+msgid "Documento ID"
+msgstr "ID Document"
+
+msgid "Teléfono"
+msgstr "Phone Number"
+
+msgid "Dirección"
+msgstr "Address"
+
+msgid "Av. Principal 123"
+msgstr "123 Main St."
+
+msgid "Fecha de nacimiento"
+msgstr "Date of Birth"
+
+msgid "Debes ser mayor de 18 años."
+msgstr "You must be over 18."
+
+msgid "Contraseña débil."
+msgstr "Weak password."
+
+msgid "Confirmar"
+msgstr "Confirm"
+
+msgid "No coinciden."
+msgstr "Do not match."
+
+msgid "Mín. 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 símbolo."
+msgstr "Min. 8 chars, 1 uppercase, 1 lowercase, 1 number, and 1 symbol."
+
+msgid "Acepto los"
+msgstr "I accept the"
+
+msgid "y la"
+msgstr "and the"
+
+msgid "Debes aceptar los términos para continuar."
+msgstr "You must accept the terms to continue."
+
+msgid "Inicia sesión"
+msgstr "Sign in"
+
+msgid "Crear Cuenta"
+msgstr "Create Account"
+
+msgid "Únete a CryptoTrade y comienza a invertir con IA"
+msgstr "Join CryptoTrade and start investing with AI"
+
+# --- PERFILES PÚBLICO/PRIVADO ---
+
+msgid "Perfil de Trader"
+msgstr "Trader Profile"
+
+msgid "Trader Verificado"
+msgstr "Verified Trader"
+
+msgid "Miembro desde"
+msgstr "Member since"
+
+msgid "Rendimiento Reciente"
+msgstr "Recent Performance"
+
+msgid "Perfil Privado"
+msgstr "Private Profile"
+
+msgid "Este perfil es privado"
+msgstr "This profile is private"
+
+msgid "El usuario"
+msgstr "User"
+
+msgid "ha configurado su perfil como privado para proteger sus estadísticas de trading."
+msgstr "has set their profile to private to protect their trading statistics."
+
+# --- PREFERENCIAS DE USUARIO (HISTORIA D5) ---
+
+msgid "Configuración de Perfil"
+msgstr "Profile Settings"
+
+msgid "Administra tu información personal y configuración de seguridad"
+msgstr "Manage your personal information and security settings"
+
+msgid "Datos Personales"
+msgstr "Personal Data"
+
+msgid "Seguridad"
+msgstr "Security"
+
+msgid "Preferencias"
+msgstr "Preferences"
+
+msgid "Miembro de CryptoTrade"
+msgstr "CryptoTrade Member"
+
+msgid "Guardar Cambios"
+msgstr "Save Changes"
+
+msgid "Autenticación de Dos Factores"
+msgstr "Two-Factor Authentication"
+
+msgid "Protege tu cuenta con una capa extra de seguridad."
+msgstr "Protect your account with an extra layer of security."
+
+msgid "Estado actual:"
+msgstr "Current status:"
+
+msgid "Activado"
+msgstr "Enabled"
+
+msgid "Desactivado"
+msgstr "Disabled"
+
+msgid "Activar 2FA"
+msgstr "Enable 2FA"
+
+msgid "Desactivar 2FA"
+msgstr "Disable 2FA"
+
+msgid "Notificaciones y Privacidad"
+msgstr "Notifications and Privacy"
+
+msgid "Notificaciones"
+msgstr "Notifications"
+
+msgid "Configuración de Alertas"
+msgstr "Alert Settings"
+
+msgid "Alertas de Inicio de Sesión"
+msgstr "Login Alerts"
+
+msgid "Recibe un correo al detectar accesos."
+msgstr "Receive an email upon detecting access."
+
+msgid "Novedades y Marketing"
+msgstr "News and Marketing"
+
+msgid "Noticias sobre nuevas funciones."
+msgstr "News about new features."
+
+msgid "Privacidad de Datos"
+msgstr "Data Privacy"
+
+msgid "Perfil Público"
+msgstr "Public Profile"
+
+msgid "Permitir que otros traders vean tus estadísticas."
+msgstr "Allow other traders to view your statistics."
+
+msgid "Ver mi perfil público"
+msgstr "View my public profile"
+
+msgid "Compartir Datos Anónimos"
+msgstr "Share Anonymous Data"
+
+msgid "Ayuda a mejorar el modelo de IA."
+msgstr "Help improve the AI model."
+
+msgid "Guardar Preferencias"
+msgstr "Save Preferences"
+
+msgid "Preferencias de privacidad actualizadas correctamente."
+msgstr "Privacy preferences updated successfully."
+
+# --- EXPORTACIÓN DE DATOS (HISTORIA D7) ---
+msgid "Tus Datos"
+msgstr "Your Data"
+
+msgid "Exportar mis datos"
+msgstr "Export My Data"
+
+msgid "Descarga una copia JSON de tu información y configuración."
+msgstr "Download a JSON copy of your information and settings."
+
+msgid "Descargar"
+msgstr "Download"
+
+# --- CORREOS DE SEGURIDAD (ALERTAS) ---
+
+msgid "Alerta de seguridad: Nuevo inicio de sesión"
+msgstr "Security Alert: New Login Detected"
+
+msgid "Hola %(nombre)s, se detectó un nuevo inicio de sesión en tu cuenta de CryptoTrade."
+msgstr "Hello %(nombre)s, a new login was detected in your CryptoTrade account."
+
+msgid "Hola %(nombre)s, accediste exitosamente con autenticación de dos factores."
+msgstr "Hello %(nombre)s, you successfully logged in with two-factor authentication."
+
+msgid "Código de verificación - CryptoTrade"
+msgstr "Verification Code - CryptoTrade"
+
+msgid "Tu código de verificación es: %s"
+msgstr "Your verification code is: %s"
+
+msgid "Se ha enviado un código de verificación a tu correo."
+msgstr "A verification code has been sent to your email."
+
+msgid "Tu cuenta aún no está activada. Revisa tu correo o solicita un nuevo enlace."
+msgstr "Your account is not activated yet. Check your email or request a new link."
+
+msgid "Activa tu cuenta en CryptoTrade"
+msgstr "Activate your CryptoTrade account"
+
+msgid "Usuario no encontrado."
+msgstr "User not found."
+
+msgid "Tu cuenta ya está activada."
+msgstr "Your account is already activated."
+
+msgid "Se ha reenviado el enlace de activación a tu correo."
+msgstr "The activation link has been resent to your email."
+
+msgid "Tu cuenta ha sido activada correctamente. Ya puedes iniciar sesión."
+msgstr "Your account has been successfully activated. You can now log in."
+
+msgid "El enlace de activación no es válido o ha expirado."
+msgstr "The activation link is invalid or has expired."
+
+msgid "Datos personales actualizados correctamente."
+msgstr "Personal data updated successfully."
+
+msgid "Autenticación en dos pasos ACTIVADA."
+msgstr "Two-factor authentication ENABLED."
+
+msgid "Autenticación en dos pasos DESACTIVADA."
+msgstr "Two-factor authentication DISABLED."
+
+msgid "Las contraseñas no coinciden."
+msgstr "Passwords do not match."
+
+msgid "El correo ya está registrado."
+msgstr "Email already registered."
+
+msgid "El DNI ya está registrado."
+msgstr "ID document already registered."
+
+msgid "Contraseña incorrecta."
+msgstr "Incorrect password."
+
+msgid "No existe una cuenta registrada con ese correo."
+msgstr "No account registered with that email."
+
+msgid "Código incorrecto. Intenta nuevamente."
+msgstr "Incorrect code. Please try again."

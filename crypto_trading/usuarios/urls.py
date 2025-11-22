@@ -48,4 +48,7 @@ urlpatterns = [
 
     path('privacidad/', views.privacidad, name='privacidad'),
     path('terminos/', views.terminos, name='terminos'),
+
+    # RUTA DE PERFIL PÚBLICO
+    path('trader/<str:username>/', views.perfil_publico_view, name='perfil_publico'),
 ]

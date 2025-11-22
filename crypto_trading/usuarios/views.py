@@ -6,7 +6,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
 
-#METODOS PARA TRABAJAR CON EMAIL
+# METODOS PARA TRABAJAR CON EMAIL
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
@@ -15,6 +15,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.conf import settings
 
+from django.shortcuts import get_object_or_404
 from django.http import Http404
 
 # Create your views here.
@@ -30,31 +31,44 @@ def login_view(request):
 
         if usuario is not None:
             if not usuario.is_active:
-                messages.warning(request, 'Tu cuenta aún no está activada. Revisa tu correo o solicita un nuevo enlace.')
+                messages.warning(request, _('Tu cuenta aún no está activada. Revisa tu correo o solicita un nuevo enlace.'))
                 return redirect('activacion_pendiente', email=usuario.email)
 
             user = authenticate(request, username=usuario.username, password=password)
 
             if user is not None:
+                # --- LÓGICA DE 2FA ---
                 if user.two_factor_enabled:
                     code = user.generate_two_factor_code()
                     send_mail(
-                        subject='Código de verificación - CryptoTrade',
-                        message=f'Tu código de verificación es: {code}',
+                        subject=_('Código de verificación - CryptoTrade'),
+                        message=_('Tu código de verificación es: %s') % code,
                         from_email=settings.DEFAULT_FROM_EMAIL,
                         recipient_list=[user.email],
                         fail_silently=False,
                     )
                     request.session['pending_user_id'] = user.id
-                    messages.info(request, 'Se ha enviado un código de verificación a tu correo.')
+                    messages.info(request, _('Se ha enviado un código de verificación a tu correo.'))
                     return redirect('verificar_codigo')
 
+                # --- INICIO DE SESIÓN DIRECTO (SIN 2FA) ---
                 login(request, user)
+
+                # [NUEVO] Lógica de Alerta de Seguridad (Historia D5)
+                if user.notif_inicio_sesion:
+                    send_mail(
+                        subject=_('Alerta de seguridad: Nuevo inicio de sesión'),
+                        message=_('Hola %(nombre)s, se detectó un nuevo inicio de sesión en tu cuenta de CryptoTrade.') % {'nombre': user.nombre},
+                        from_email=settings.DEFAULT_FROM_EMAIL,
+                        recipient_list=[user.email],
+                        fail_silently=True,
+                    )
+
                 return redirect('inicio')
             else:
-                messages.error(request, 'Contraseña incorrecta.')
+                messages.error(request, _('Contraseña incorrecta.'))
         else:
-            messages.error(request, 'No existe una cuenta registrada con ese correo.')
+            messages.error(request, _('No existe una cuenta registrada con ese correo.'))
 
     return render(request, 'usuarios/login.html')
 
@@ -65,7 +79,7 @@ def enviar_mail_activacion(request, usuario):
     activation_link = request.build_absolute_uri(
         reverse('activar_cuenta', kwargs={'uidb64': uid, 'token': token})
     )
-    subject = "Activa tu cuenta en CryptoTrade"
+    subject = _("Activa tu cuenta en CryptoTrade")
     message = render_to_string('usuarios/emails/activation_email.txt', {
         'user': usuario,
         'activation_link': activation_link,
@@ -86,13 +100,13 @@ def registro_view(request):
         password2 = request.POST.get('password2')
 
         if password != password2:
-            messages.error(request, "Las contraseñas no coinciden.")
+            messages.error(request, _("Las contraseñas no coinciden."))
             return redirect('registro')
         if UsuarioPersonalizado.objects.filter(email=email).exists():
-            messages.error(request, "El correo ya está registrado.")
+            messages.error(request, _("El correo ya está registrado."))
             return redirect('registro')
         if UsuarioPersonalizado.objects.filter(dni=dni).exists():
-            messages.error(request, "El DNI ya está registrado.")
+            messages.error(request, _("El DNI ya está registrado."))
             return redirect('registro')
 
         usuario = UsuarioPersonalizado.objects.create(
@@ -122,15 +136,15 @@ def reenviar_activacion(request, email):
     try:
         usuario = UsuarioPersonalizado.objects.get(email=email)
     except UsuarioPersonalizado.DoesNotExist:
-        messages.error(request, "Usuario no encontrado.")
+        messages.error(request, _("Usuario no encontrado."))
         return redirect('registro')
 
     if usuario.is_active:
-        messages.info(request, "Tu cuenta ya está activada.")
+        messages.info(request, _("Tu cuenta ya está activada."))
         return redirect('login')
 
     enviar_mail_activacion(request, usuario)
-    messages.success(request, "Se ha reenviado el enlace de activación a tu correo.")
+    messages.success(request, _("Se ha reenviado el enlace de activación a tu correo."))
     return redirect('activacion_pendiente', email=email)
 
 
@@ -145,10 +159,10 @@ def activar_cuenta(request, uidb64, token):
         usuario.is_active = True
         usuario.is_verified = True
         usuario.save()
-        messages.success(request, "Tu cuenta ha sido activada correctamente. Ya puedes iniciar sesión.")
+        messages.success(request, _("Tu cuenta ha sido activada correctamente. Ya puedes iniciar sesión."))
         return redirect('login')
     else:
-        messages.error(request, "El enlace de activación no es válido o ha expirado.")
+        messages.error(request, _("El enlace de activación no es válido o ha expirado."))
         return redirect('registro')
 
 def logout_view(request):
@@ -211,11 +225,24 @@ def verificar_codigo_view(request):
         if codigo_ingresado == usuario.two_factor_code:
             usuario.two_factor_code = None
             usuario.save()
+            
+            # --- INICIO DE SESIÓN CON 2FA ---
             login(request, usuario)
             del request.session['pending_user_id']
+
+            # [NUEVO] Lógica de Alerta de Seguridad
+            if usuario.notif_inicio_sesion:
+                send_mail(
+                    subject=_('Alerta de seguridad: Nuevo inicio de sesión'),
+                    message=_('Hola %(nombre)s, accediste exitosamente con autenticación de dos factores.') % {'nombre': usuario.nombre},
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[usuario.email],
+                    fail_silently=True,
+                )
+
             return redirect('inicio')
         else:
-            messages.error(request, 'Código incorrecto. Intenta nuevamente.')
+            messages.error(request, _('Código incorrecto. Intenta nuevamente.'))
 
     return render(request, 'usuarios/verificar_codigo.html', {'email': usuario.email})
 
@@ -226,7 +253,7 @@ def configurar_2fa_view(request):
         opcion = request.POST.get('opcion')
         user.two_factor_enabled = (opcion == 'activar')
         user.save()
-        msg = "Autenticación en dos pasos activada." if opcion == 'activar' else "Autenticación en dos pasos desactivada."
+        msg = _("Autenticación en dos pasos activada.") if opcion == 'activar' else _("Autenticación en dos pasos desactivada.")
         messages.success(request, msg)
     return render(request, 'usuarios/configurar_2fa.html', {'user': user})
 
@@ -241,16 +268,29 @@ def perfil_view(request):
             user.direccion = request.POST.get('direccion')
             user.fecha_nacimiento = request.POST.get('fecha_nacimiento')
             user.save()
-            messages.success(request, "Datos personales actualizados correctamente.")
+            messages.success(request, _("Datos personales actualizados correctamente."))
             return redirect('perfil')
 
         elif 'toggle_2fa' in request.POST:
             user.two_factor_enabled = not user.two_factor_enabled
             user.save()
             if user.two_factor_enabled:
-                messages.success(request, "Autenticación en dos pasos ACTIVADA.")
+                messages.success(request, _("Autenticación en dos pasos ACTIVADA."))
             else:
-                messages.info(request, "Autenticación en dos pasos DESACTIVADA.")
+                messages.info(request, _("Autenticación en dos pasos DESACTIVADA."))
+            return redirect('perfil')
+        
+        # --- NUEVO BLOQUE: PREFERENCIAS ---
+        elif 'update_preferences' in request.POST:
+            # Checkboxes en HTML: si no están marcados, no envían nada.
+            # Por eso verificamos si el valor es 'on'.
+            user.notif_inicio_sesion = request.POST.get('notif_inicio_sesion') == 'on'
+            user.notif_marketing = request.POST.get('notif_marketing') == 'on'
+            user.priv_perfil_publico = request.POST.get('priv_perfil_publico') == 'on'
+            user.priv_compartir_datos = request.POST.get('priv_compartir_datos') == 'on'
+            
+            user.save()
+            messages.success(request, _("Preferencias de privacidad actualizadas correctamente."))
             return redirect('perfil')
 
     return render(request, 'usuarios/perfil.html')
@@ -310,7 +350,7 @@ def articulo_ayuda(request, tema):
                 f"<li><strong>{_('Entrenamiento (In-Sample):')}</strong> {_('Para diseñar la estrategia.')}</li>"
                 f"<li><strong>{_('Prueba (Out-of-Sample):')}</strong> {_('Para validarla en datos desconocidos.')}</li>"
                 f"</ul>"
-                f"<p class='mt-4'>{_('Esto asegura que tus resultados sean realistas y no una ilusión estadística.')}</p>"
+                f"<p class='mt-4'>{_('Esto asegura que tus resultados sean realistas y no una ilusión estadística (Bailey et al., 2014).')}</p>"
             )
         },
         'ia-shap': {
@@ -362,7 +402,6 @@ def articulo_ayuda(request, tema):
     return render(request, 'usuarios/articulo_ayuda.html', {'articulo': articulo})
 
 def privacidad(request):
-    # Usamos f-strings para inyectar las traducciones _() dentro del HTML
     contenido_html = (
         f"<h3 class='text-xl font-bold text-green-400 mb-2'>1. { _('Protección de Datos Financieros') }</h3>"
         f"<p class='mb-4'>{ _('CryptoTrade se compromete a proteger la integridad de sus datos operativos y personales. Utilizamos cifrado de extremo a extremo para toda la información sensible, cumpliendo con los estándares de la industria financiera.') }</p>"
@@ -397,4 +436,31 @@ def terminos(request):
     return render(request, 'usuarios/legal.html', {
         'titulo': _('Términos y Condiciones'),
         'contenido': contenido_html
+    })
+
+def perfil_publico_view(request, username):
+    """
+    Muestra el perfil público de un trader si tiene la opción activada.
+    Si está desactivada, muestra una pantalla de 'Perfil Privado'.
+    """
+    # Buscamos al usuario por su username (que suele ser el email en tu caso, 
+    # pero funciona igual si usas un campo 'username' limpio)
+    usuario_ver = get_object_or_404(UsuarioPersonalizado, username=username)
+    
+    # LÓGICA DEL SWITCH DE PRIVACIDAD
+    if not usuario_ver.priv_perfil_publico:
+        return render(request, 'usuarios/perfil_privado.html', {'usuario': usuario_ver})
+    
+    # Datos simulados para la demo (Tesis)
+    # En el futuro, esto vendría de tu base de datos de trading
+    stats = {
+        'win_rate': '68%',
+        'profit_total': '+15.4%',
+        'trades_mes': 42,
+        'ranking': 'Top 15%'
+    }
+    
+    return render(request, 'usuarios/perfil_publico.html', {
+        'usuario': usuario_ver,
+        'stats': stats
     })

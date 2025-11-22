@@ -13,6 +13,14 @@ class UsuarioPersonalizado(AbstractUser):
     direccion = models.CharField(max_length=100, blank=True, null=True)
     fecha_nacimiento = models.DateField(blank=True, null=True)
 
+    # Notificaciones
+    notif_inicio_sesion = models.BooleanField(default=True, verbose_name="Alerta de inicio de sesión")
+    notif_marketing = models.BooleanField(default=False, verbose_name="Correos de marketing")
+    
+    # Privacidad
+    priv_perfil_publico = models.BooleanField(default=False, verbose_name="Perfil público")
+    priv_compartir_datos = models.BooleanField(default=True, verbose_name="Compartir datos anónimos")
+
     # Campos adicionales para trading
     balance = models.DecimalField(max_digits=20, decimal_places=2, default=0.0)
     RISK_CHOICES = [
@@ -37,3 +45,5 @@ class UsuarioPersonalizado(AbstractUser):
 
     def __str__(self):
         return f"{self.username} ({self.nombre} {self.apellido})"
+    
+    
