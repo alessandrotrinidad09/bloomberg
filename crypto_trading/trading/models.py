@@ -88,3 +88,24 @@ class Operacion(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.trade_type} {self.amount} {self.asset.symbol} a {self.price}"
+    
+    @property
+    def total_usd(self):
+        return self.amount * self.price
+    
+
+class PrecioHistorico(models.Model):
+    asset = models.ForeignKey(Activo, on_delete=models.CASCADE, related_name='historico')
+    date = models.DateField()
+    open_price = models.DecimalField(max_digits=20, decimal_places=8)
+    high_price = models.DecimalField(max_digits=20, decimal_places=8)
+    low_price = models.DecimalField(max_digits=20, decimal_places=8)
+    close_price = models.DecimalField(max_digits=20, decimal_places=8)
+    volume = models.DecimalField(max_digits=25, decimal_places=2, null=True, blank=True)
+
+    class Meta:
+        ordering = ['date']
+        unique_together = ('asset', 'date') # No puede haber dos registros del mismo día para la misma moneda
+
+    def __str__(self):
+        return f"{self.asset.symbol} - {self.date}"

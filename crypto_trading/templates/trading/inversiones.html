@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Inversiones - CryptoTrade</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black text-white min-h-screen flex font-sans">
+
+    {% include 'partials/sidebar.html' %}
+
+    <main class="flex-1 p-8 overflow-y-auto w-full transition-all duration-300">
+        
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h2 class="text-3xl font-bold text-green-500 mb-2">Mi Portafolio</h2>
+                <p class="text-gray-400">Gestiona y monitorea tus inversiones activas</p>
+            </div>
+            <a href="{% url 'trading:trade_view' %}" 
+                class="bg-green-500 hover:bg-green-600 px-6 py-3 rounded-lg font-semibold transition flex items-center gap-2 text-white shadow-lg shadow-green-900/20">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                Nueva Inversión
+            </a>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-6 mb-8">
+            
+            <div class="bg-gradient-to-br from-green-900/20 to-gray-900 p-6 rounded-xl border border-green-800/50 shadow-lg">
+                <p class="text-gray-400 text-sm mb-2 uppercase font-bold tracking-wider">Valor Actual</p>
+                <p class="text-3xl font-bold text-green-400">${{ total_valor|floatformat:2 }}</p>
+                <p class="{% if ganancia_total >= 0 %}text-green-400{% else %}text-red-400{% endif %} text-sm mt-2 font-medium">
+                    {% if ganancia_total >= 0 %}+{% endif %}{{ ganancia_total|floatformat:2 }} 
+                    <span class="bg-black/30 px-2 py-1 rounded ml-1">ROI: {{ roi_total|floatformat:2 }}%</span>
+                </p>
+            </div>
+            
+            <div class="bg-gradient-to-br from-blue-900/20 to-gray-900 p-6 rounded-xl border border-blue-800/50 shadow-lg">
+                <p class="text-gray-400 text-sm mb-2 uppercase font-bold tracking-wider">Inversión Base</p>
+                <p class="text-3xl font-bold text-blue-400">${{ total_invertido|floatformat:2 }}</p>
+                <p class="text-gray-500 text-xs mt-2">Capital total invertido</p>
+            </div>
+            
+            <div class="bg-gradient-to-br from-yellow-900/20 to-gray-900 p-6 rounded-xl border border-yellow-800/50 shadow-lg">
+                <p class="text-gray-400 text-sm mb-2 uppercase font-bold tracking-wider">Ganancia Neta</p>
+                <p class="text-3xl font-bold {% if ganancia_total >= 0 %}text-yellow-400{% else %}text-red-400{% endif %}">
+                    {% if ganancia_total >= 0 %}+{% endif %}${{ ganancia_total|floatformat:2 }}
+                </p>
+                <p class="text-yellow-500/80 text-xs mt-2">P&L No realizado</p>
+            </div>
+            
+            <div class="bg-gradient-to-br from-purple-900/20 to-gray-900 p-6 rounded-xl border border-purple-800/50 shadow-lg">
+                <p class="text-gray-400 text-sm mb-2 uppercase font-bold tracking-wider">Mejor Activo</p>
+                {% if mejor_inversion %}
+                    <p class="text-3xl font-bold text-purple-400">{{ mejor_inversion.symbol }}</p>
+                    <p class="text-purple-400 text-sm mt-2 bg-purple-900/30 inline-block px-2 rounded">+{{ mejor_inversion.roi|floatformat:1 }}%</p>
+                {% else %}
+                    <p class="text-xl font-bold text-gray-500">--</p>
+                    <p class="text-gray-500 text-sm mt-2">Sin datos</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="bg-gray-900 rounded-xl border border-gray-800 mb-6">
+            <div class="flex border-b border-gray-800">
+                <button id="tab-activas" onclick="cambiarTab('activas')" 
+                    class="px-6 py-4 font-semibold text-green-400 border-b-2 border-green-500 transition-all hover:bg-gray-800">
+                    Inversiones Activas
+                </button>
+                <button id="tab-historial" onclick="cambiarTab('historial')" 
+                    class="px-6 py-4 font-semibold text-gray-400 hover:text-white hover:bg-gray-800 transition-all border-b-2 border-transparent">
+                    Historial
+                </button>
+            </div>
+        </div>
+
+        <div id="contenido-activas" class="space-y-6">
+            
+            {% for item in portfolio %}
+            <div class="bg-gradient-to-r from-gray-900 to-gray-800 p-6 rounded-xl border border-gray-700 hover:border-green-500/50 transition duration-300 shadow-lg hover:shadow-green-900/10">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-xl font-bold text-white border border-gray-600 shadow-inner">
+                            {{ item.asset.symbol|slice:":1" }}
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">{{ item.asset.name }} <span class="text-gray-500 text-sm font-normal ml-1">({{ item.asset.symbol }})</span></h3>
+                            <p class="text-gray-400 text-sm">Precio actual: <span class="text-white font-mono">${{ item.asset.price_usd|floatformat:2 }}</span></p>
+                        </div>
+                    </div>
+                    
+                    <span class="{% if item.is_positive %}bg-green-500/10 text-green-400 border-green-500/20{% else %}bg-red-500/10 text-red-400 border-red-500/20{% endif %} px-3 py-1 rounded-full text-sm font-bold border">
+                        {% if item.is_positive %}▲{% else %}▼{% endif %} {{ item.roi|floatformat:2 }}%
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-black/40 p-3 rounded-lg border border-gray-800">
+                        <p class="text-gray-500 text-xs uppercase mb-1 font-bold">Cantidad</p>
+                        <p class="text-white font-bold font-mono">{{ item.amount|floatformat:6 }} <span class="text-xs text-gray-600">{{ item.asset.symbol }}</span></p>
+                    </div>
+                    <div class="bg-black/40 p-3 rounded-lg border border-gray-800">
+                        <p class="text-gray-500 text-xs uppercase mb-1 font-bold">Precio Promedio</p>
+                        <p class="text-white font-bold font-mono">${{ item.avg_price|floatformat:2 }}</p>
+                    </div>
+                    <div class="bg-black/40 p-3 rounded-lg border border-gray-800">
+                        <p class="text-gray-500 text-xs uppercase mb-1 font-bold">Valor Total</p>
+                        <p class="text-white font-bold font-mono">${{ item.current_value|floatformat:2 }}</p>
+                    </div>
+                    <div class="bg-black/40 p-3 rounded-lg border border-gray-800">
+                        <p class="text-gray-500 text-xs uppercase mb-1 font-bold">Ganancia</p>
+                        <p class="{% if item.is_positive %}text-green-400{% else %}text-red-400{% endif %} font-bold font-mono">
+                            {% if item.is_positive %}+{% endif %}${{ item.ganancia|floatformat:2 }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <form action="{% url 'trading:trade_view' %}" method="GET" class="flex-1">
+                        <input type="hidden" name="symbol" value="{{ item.asset.symbol }}">
+                        <input type="hidden" name="action" value="SELL">
+                        <button type="submit" class="w-full bg-red-600/90 hover:bg-red-600 text-white py-2.5 rounded-lg font-bold transition text-sm uppercase tracking-wide">
+                            Vender
+                        </button>
+                    </form>
+                    
+                    <form action="{% url 'trading:trade_view' %}" method="GET" class="flex-1">
+                        <input type="hidden" name="symbol" value="{{ item.asset.symbol }}">
+                        <button type="submit" class="w-full bg-green-600/90 hover:bg-green-600 text-white py-2.5 rounded-lg font-bold transition text-sm uppercase tracking-wide">
+                            Comprar Más
+                        </button>
+                    </form>
+                    
+                    <button onclick="alert('Módulo de IA en construcción...')" 
+                        class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2.5 rounded-lg font-bold transition text-sm uppercase tracking-wide border border-gray-600">
+                        Ver Análisis
+                    </button>
+                </div>
+            </div>
+            {% empty %}
+            <div class="text-center py-16 bg-gray-900/50 rounded-xl border border-gray-800 border-dashed">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-800 text-gray-600 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                </div>
+                <p class="text-gray-400 mb-4 font-medium">Aún no tienes inversiones activas.</p>
+                <a href="{% url 'trading:trade_view' %}" class="inline-block bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-500 transition font-bold shadow-lg">
+                    Comenzar a operar ahora
+                </a>
+            </div>
+            {% endfor %}
+
+        </div>
+
+        <div id="contenido-historial" class="hidden space-y-4">
+            <div class="bg-gray-900 rounded-xl border border-gray-800 overflow-hidden shadow-xl">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-800 border-b border-gray-700 text-xs uppercase text-gray-400 tracking-wider">
+                            <tr>
+                                <th class="text-left p-4 font-semibold">Fecha</th>
+                                <th class="text-left p-4 font-semibold">Activo</th>
+                                <th class="text-left p-4 font-semibold">Acción</th>
+                                <th class="text-right p-4 font-semibold">Cantidad</th>
+                                <th class="text-right p-4 font-semibold">Precio</th>
+                                <th class="text-right p-4 font-semibold">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-800">
+                            {% for op in historial %}
+                            <tr class="hover:bg-gray-800/50 transition group">
+                                <td class="p-4 text-gray-400 text-sm font-mono">{{ op.timestamp|date:"d/m/y H:i" }}</td>
+                                <td class="p-4">
+                                    <span class="font-bold text-white">{{ op.asset.symbol }}</span>
+                                    <span class="text-xs text-gray-500 ml-1 hidden sm:inline">{{ op.asset.name }}</span>
+                                </td>
+                                <td class="p-4">
+                                    <span class="{% if op.trade_type == 'BUY' %}bg-green-500/10 text-green-400 border-green-500/20{% else %}bg-red-500/10 text-red-400 border-red-500/20{% endif %} px-2 py-1 rounded text-xs font-bold border uppercase">
+                                        {{ op.get_trade_type_display }}
+                                    </span>
+                                </td>
+                                <td class="p-4 text-white text-right font-mono text-sm">{{ op.amount|floatformat:6 }}</td>
+                                <td class="p-4 text-gray-400 text-right font-mono text-sm">${{ op.price|floatformat:2 }}</td>
+                                <td class="p-4 font-bold text-white text-right font-mono text-sm">
+                                    ${% widthratio op.amount 1 op.price %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="p-12 text-center text-gray-500 italic">No hay historial de transacciones disponible.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function cambiarTab(tab) {
+            const activas = document.getElementById('contenido-activas');
+            const historial = document.getElementById('contenido-historial');
+            const tabActivas = document.getElementById('tab-activas');
+            const tabHistorial = document.getElementById('tab-historial');
+
+            if (tab === 'activas') {
+                activas.classList.remove('hidden');
+                historial.classList.add('hidden');
+                
+                tabActivas.classList.add('text-green-400', 'border-green-500');
+                tabActivas.classList.remove('text-gray-400', 'border-transparent', 'hover:text-white');
+                
+                tabHistorial.classList.remove('text-green-400', 'border-green-500');
+                tabHistorial.classList.add('text-gray-400', 'border-transparent', 'hover:text-white');
+            } else {
+                activas.classList.add('hidden');
+                historial.classList.remove('hidden');
+                
+                tabHistorial.classList.add('text-green-400', 'border-green-500');
+                tabHistorial.classList.remove('text-gray-400', 'border-transparent', 'hover:text-white');
+                
+                tabActivas.classList.remove('text-green-400', 'border-green-500');
+                tabActivas.classList.add('text-gray-400', 'border-transparent', 'hover:text-white');
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monedas Disponibles - CryptoTrade</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes pulse-green {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pulse-green {
+            animation: pulse-green 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+
+<body class="bg-black text-white min-h-screen flex font-sans">
+
+    {% include 'partials/sidebar.html' %}
+
+    <main class="flex-1 p-8 overflow-y-auto w-full transition-all duration-300">
+        
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold text-green-500 mb-2">Criptomonedas Disponibles</h2>
+            <p class="text-gray-400">Explora y analiza las principales criptomonedas del mercado.</p>
+        </div>
+
+        <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 mb-8">
+            <div class="grid md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Buscar moneda</label>
+                    <input type="text" id="buscar" onkeyup="filtrarMonedas()" 
+                        placeholder="Ej: Bitcoin, ETH..."
+                        class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:border-green-500 focus:outline-none text-white placeholder-gray-500">
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Filtrar por tendencia</label>
+                    <select onchange="filtrarPorTendencia(this.value)" 
+                        class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:border-green-500 focus:outline-none text-white">
+                        <option value="todas">Todas</option>
+                        <option value="alcista">Alcista (Subiendo)</option>
+                        <option value="bajista">Bajista (Bajando)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Ordenar por</label>
+                    <select onchange="ordenarMonedas(this.value)"
+                        class="w-full p-3 rounded-lg bg-gray-800 border border-gray-700 focus:border-green-500 focus:outline-none text-white">
+                        <option value="precio-desc">Precio (Mayor a menor)</option>
+                        <option value="precio-asc">Precio (Menor a mayor)</option>
+                        <option value="cambio-desc">Cambio 24h (Mayor)</option>
+                        <option value="cambio-asc">Cambio 24h (Menor)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid gap-6" id="lista-monedas">
+            
+            {% for item in activos %}
+            <div class="bg-gradient-to-r from-gray-900 to-gray-800 p-6 rounded-xl border border-gray-700 hover:border-green-500 transition-all transform hover:scale-[1.01] moneda-card shadow-lg" 
+                 data-tendencia="{{ item.tendencia }}" 
+                 data-precio="{{ item.obj.price_usd }}" 
+                 data-cambio="{{ item.cambio_24h }}">
+                
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 {{ item.color_icon }} rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-inner">
+                            {{ item.obj.symbol|slice:":1" }}
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">{{ item.obj.name }}</h3>
+                            <p class="text-gray-400 font-mono">{{ item.obj.symbol }}</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-3xl font-bold text-white font-mono">${{ item.obj.price_usd|floatformat:2 }}</p>
+                        <p class="text-lg font-semibold {% if item.cambio_24h >= 0 %}text-green-400{% else %}text-red-400{% endif %}">
+                            {% if item.cambio_24h >= 0 %}+{% endif %}{{ item.cambio_24h }}% (24h)
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="mt-6 grid md:grid-cols-3 gap-4">
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-sm mb-1">Recomendación IA</p>
+                        <p class="{% if item.recomendacion == 'COMPRAR' %}text-green-400{% elif item.recomendacion == 'VENDER' %}text-red-400{% else %}text-yellow-400{% endif %} font-bold flex items-center gap-2">
+                            {% if item.recomendacion == 'COMPRAR' %}
+                                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse-green"></span>
+                            {% endif %}
+                            {{ item.recomendacion }}
+                        </p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-sm mb-1">Confianza IA</p>
+                        <p class="text-white font-bold">{{ item.confianza }}%</p>
+                    </div>
+                    <div class="bg-gray-800/50 p-3 rounded-lg">
+                        <p class="text-gray-400 text-sm mb-1">Cap. Mercado</p>
+                        <p class="text-white font-bold">${{ item.obj.market_cap|floatformat:0 }}</p>
+                    </div>
+                </div>
+
+                <a href="{% url 'trading:analisis' item.obj.symbol %}"
+                   class="block text-center w-full mt-4 bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-semibold transition shadow-lg shadow-green-900/20">
+                    Ver Detalles y Analizar
+                </a>
+            </div>
+            {% empty %}
+            <div class="p-10 text-center text-gray-500 bg-gray-900 rounded-xl border border-gray-800">
+                <p>No hay monedas registradas en la base de datos.</p>
+                <p class="text-sm mt-2">Agrega activos desde el Panel de Admin.</p>
+            </div>
+            {% endfor %}
+
+        </div>
+    </main>
+
+    <script>
+        function filtrarMonedas() {
+            const input = document.getElementById('buscar').value.toLowerCase();
+            const cards = document.querySelectorAll('.moneda-card');
+            
+            cards.forEach(card => {
+                // Buscamos dentro de todo el texto de la tarjeta (nombre y simbolo)
+                const texto = card.textContent.toLowerCase();
+                card.style.display = texto.includes(input) ? 'block' : 'none';
+            });
+        }
+
+        function filtrarPorTendencia(tendencia) {
+            const cards = document.querySelectorAll('.moneda-card');
+            
+            cards.forEach(card => {
+                if (tendencia === 'todas') {
+                    card.style.display = 'block';
+                } else {
+                    const tendenciaCard = card.getAttribute('data-tendencia');
+                    card.style.display = tendenciaCard === tendencia ? 'block' : 'none';
+                }
+            });
+        }
+
+        function ordenarMonedas(criterio) {
+            const container = document.getElementById('lista-monedas');
+            const cards = Array.from(document.querySelectorAll('.moneda-card'));
+            
+            cards.sort((a, b) => {
+                const precioA = parseFloat(a.getAttribute('data-precio'));
+                const precioB = parseFloat(b.getAttribute('data-precio'));
+                const cambioA = parseFloat(a.getAttribute('data-cambio'));
+                const cambioB = parseFloat(b.getAttribute('data-cambio'));
+                
+                switch(criterio) {
+                    case 'precio-desc': return precioB - precioA;
+                    case 'precio-asc': return precioA - precioB;
+                    case 'cambio-desc': return cambioB - cambioA;
+                    case 'cambio-asc': return cambioA - cambioB;
+                    default: return 0;
+                }
+            });
+            
+            cards.forEach(card => container.appendChild(card));
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis {{ activo.symbol }} - CryptoTrade</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
+    
+    <style>
+        #chart-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+        }
+        .chart-btn.active {
+            background-color: #22c55e;
+            color: white;
+            border-color: #22c55e;
+        }
+    </style>
+</head>
+
+<body class="bg-black text-white min-h-screen flex font-sans">
+
+    {% include 'partials/sidebar.html' %}
+
+    <main class="flex-1 p-8 overflow-y-auto w-full transition-all duration-300">
+        
+        <div class="space-y-6">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-white flex items-center gap-3">
+                        {{ activo.name }} <span class="text-gray-500 text-xl">({{ activo.symbol }})</span>
+                    </h2>
+                    <p class="text-3xl font-mono text-green-400 mt-2">${{ activo.price_usd|floatformat:2 }}</p>
+                </div>
+                
+                <div class="flex gap-3">
+                    <a href="{% url 'trading:trade_view' %}?symbol={{ activo.symbol }}&action=BUY" class="bg-green-600 hover:bg-green-500 text-white px-6 py-3 rounded-lg font-bold transition shadow-lg shadow-green-900/20">
+                        COMPRAR
+                    </a>
+                    <a href="{% url 'trading:trade_view' %}?symbol={{ activo.symbol }}&action=SELL" class="bg-red-600 hover:bg-red-500 text-white px-6 py-3 rounded-lg font-bold transition shadow-lg shadow-red-900/20">
+                        VENDER
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-gray-900 p-1 rounded-xl border border-gray-800 shadow-2xl overflow-hidden">
+                <div class="flex justify-end p-4 border-b border-gray-800 bg-gray-900">
+                    <div class="flex gap-2">
+                        <button class="chart-btn px-3 py-1 rounded text-xs font-bold text-gray-400 border border-gray-700 hover:bg-gray-800 transition" onclick="setRange('1M')">1M</button>
+                        <button class="chart-btn px-3 py-1 rounded text-xs font-bold text-gray-400 border border-gray-700 hover:bg-gray-800 transition" onclick="setRange('6M')">6M</button>
+                        <button class="chart-btn px-3 py-1 rounded text-xs font-bold text-gray-400 border border-gray-700 hover:bg-gray-800 transition" onclick="setRange('1Y')">1A</button>
+                        <button class="chart-btn active px-3 py-1 rounded text-xs font-bold text-gray-400 border border-gray-700 hover:bg-gray-800 transition" onclick="setRange('ALL')">TODO</button>
+                    </div>
+                </div>
+                
+                <div id="chart-container"></div>
+            </div>
+        </div>
+
+        {{ chart_data|json_script:"prices-data" }}
+
+        <script>
+            // 2. CORRECCIÓN: Renombramos la variable global a 'tvChart' para evitar conflictos
+            let tvChart;
+            let candleSeries;
+            let rawData = [];
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const container = document.getElementById('chart-container');
+                
+                // Obtener datos
+                const djangoData = JSON.parse(document.getElementById('prices-data').textContent);
+                
+                // Convertir datos al formato de TradingView
+                rawData = djangoData.map(d => ({
+                    time: d.x, 
+                    open: parseFloat(d.y[0]), // Aseguramos que sean números
+                    high: parseFloat(d.y[1]),
+                    low: parseFloat(d.y[2]),
+                    close: parseFloat(d.y[3])
+                }));
+
+                // Ordenar por fecha (vital para evitar errores de rendering)
+                rawData.sort((a, b) => new Date(a.time) - new Date(b.time));
+
+                // Crear el gráfico
+                tvChart = LightweightCharts.createChart(container, {
+                    width: container.clientWidth,
+                    height: 500,
+                    layout: {
+                        background: { type: 'solid', color: '#111827' }, // Fondo oscuro
+                        textColor: '#9ca3af',
+                    },
+                    grid: {
+                        vertLines: { color: '#374151', style: 2 },
+                        horzLines: { color: '#374151', style: 2 },
+                    },
+                    rightPriceScale: {
+                        borderColor: '#374151',
+                    },
+                    timeScale: {
+                        borderColor: '#374151',
+                        timeVisible: true,
+                    },
+                    crosshair: {
+                        mode: LightweightCharts.CrosshairMode.Normal,
+                    },
+                });
+
+                // Agregar la serie de velas
+                candleSeries = tvChart.addCandlestickSeries({
+                    upColor: '#22c55e',
+                    downColor: '#ef4444',
+                    borderUpColor: '#22c55e',
+                    borderDownColor: '#ef4444',
+                    wickUpColor: '#22c55e',
+                    wickDownColor: '#ef4444',
+                });
+
+                candleSeries.setData(rawData);
+
+                // Responsive
+                window.addEventListener('resize', () => {
+                    tvChart.resize(container.clientWidth, 500);
+                });
+            });
+
+            // Función de Zoom
+            function setRange(range) {
+                // Resetear estilos de botones
+                document.querySelectorAll('.chart-btn').forEach(b => b.classList.remove('active', 'bg-green-600', 'text-white'));
+                event.target.classList.add('active', 'bg-green-600', 'text-white');
+
+                if (range === 'ALL') {
+                    tvChart.timeScale().fitContent();
+                    return;
+                }
+
+                const lastIndex = rawData.length - 1;
+                if (lastIndex < 0) return;
+
+                let daysToSubtract = 0;
+                if (range === '1M') daysToSubtract = 30;
+                if (range === '6M') daysToSubtract = 180;
+                if (range === '1Y') daysToSubtract = 365;
+
+                // Calcular el rango lógico (barras)
+                const fromIndex = Math.max(0, lastIndex - daysToSubtract);
+                
+                tvChart.timeScale().setVisibleLogicalRange({
+                    from: fromIndex,
+                    to: lastIndex + 2 // +2 de margen derecho
+                });
+            }
+        </script>
+
+    </main>
+</body>
+</html>

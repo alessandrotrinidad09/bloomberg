@@ -29,4 +29,5 @@ urlpatterns += i18n_patterns(
     path('', usuarios_views.landing_page, name='landing'),  # landing page en /
     path('usuarios/', include('usuarios.urls')),
     path('dashboard/', include('dashboard.urls')),
+    path('trading/', include('trading.urls')),
 )

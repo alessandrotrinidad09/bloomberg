@@ -15,6 +15,9 @@ class UsuarioPersonalizadoAdmin(UserAdmin):
 
     # 4. Organización de los campos al editar un usuario
     fieldsets = UserAdmin.fieldsets + (
+        ('Información Financiera', {
+            'fields': ('balance', 'risk_profile', 'preferences')
+        }),
         ('Información Adicional', {
             'fields': ('dni', 'nombre', 'apellido', 'telefono', 'direccion', 'fecha_nacimiento')
         }),
