@@ -10,7 +10,7 @@
     <script src="https://unpkg.com/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
     
     <style>
-        #chart-container {
+        .chart-container {
             position: relative;
             width: 100%;
             height: 500px;
@@ -29,8 +29,7 @@
 
     <main class="flex-1 p-8 overflow-y-auto w-full transition-all duration-300">
         
-        <div class="space-y-6">
-            <div class="flex justify-between items-center">
+        <div class="space-y-8"> <div class="flex justify-between items-center">
                 <div>
                     <h2 class="text-3xl font-bold text-white flex items-center gap-3">
                         {{ activo.name }} <span class="text-gray-500 text-xl">({{ activo.symbol }})</span>
@@ -49,7 +48,8 @@
             </div>
 
             <div class="bg-gray-900 p-1 rounded-xl border border-gray-800 shadow-2xl overflow-hidden">
-                <div class="flex justify-end p-4 border-b border-gray-800 bg-gray-900">
+                <div class="flex justify-between p-4 border-b border-gray-800 bg-gray-900 items-center">
+                    <h3 class="text-gray-400 font-bold text-sm uppercase tracking-wider">Historial de Precios</h3>
                     <div class="flex gap-2">
                         <button class="chart-btn px-3 py-1 rounded text-xs font-bold text-gray-400 border border-gray-700 hover:bg-gray-800 transition" onclick="setRange('1M')">1M</button>
                         <button class="chart-btn px-3 py-1 rounded text-xs font-bold text-gray-400 border border-gray-700 hover:bg-gray-800 transition" onclick="setRange('6M')">6M</button>
@@ -58,103 +58,149 @@
                     </div>
                 </div>
                 
-                <div id="chart-container"></div>
+                <div id="history-chart" class="chart-container"></div>
             </div>
+
+            <div class="bg-gray-900 p-1 rounded-xl border border-purple-900/50 shadow-2xl overflow-hidden relative">
+                <div class="absolute top-0 left-0 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-br-lg z-10 shadow-lg">
+                    MODELO IA
+                </div>
+
+                <div class="flex justify-between p-4 border-b border-gray-800 bg-gray-900 items-center pl-24">
+                    <h3 class="text-purple-400 font-bold text-sm uppercase tracking-wider flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        Proyección Futura (Oct - Dic)
+                    </h3>
+                    <span class="text-xs text-gray-500">Estimación basada en volatilidad histórica</span>
+                </div>
+                
+                <div id="prediction-chart" class="chart-container" style="height: 400px;"></div>
+            </div>
+
         </div>
 
-        {{ chart_data|json_script:"prices-data" }}
+        {{ chart_data|json_script:"history-data" }}
+        {{ prediction_data|json_script:"prediction-data" }}
 
         <script>
-            // 2. CORRECCIÓN: Renombramos la variable global a 'tvChart' para evitar conflictos
-            let tvChart;
-            let candleSeries;
-            let rawData = [];
+            // Variables Globales
+            let historyChart, predictionChart;
+            let historySeries, predictionSeries;
+            let historyData = [];
 
             document.addEventListener('DOMContentLoaded', function () {
-                const container = document.getElementById('chart-container');
+                initHistoryChart();
+                initPredictionChart();
+            });
+
+            // --- 1. LÓGICA GRÁFICO HISTÓRICO ---
+            function initHistoryChart() {
+                const container = document.getElementById('history-chart');
+                const rawData = JSON.parse(document.getElementById('history-data').textContent);
                 
-                // Obtener datos
-                const djangoData = JSON.parse(document.getElementById('prices-data').textContent);
-                
-                // Convertir datos al formato de TradingView
-                rawData = djangoData.map(d => ({
+                // Mapeo seguro de datos
+                historyData = rawData.map(d => ({
                     time: d.x, 
-                    open: parseFloat(d.y[0]), // Aseguramos que sean números
+                    open: parseFloat(d.y[0]), 
                     high: parseFloat(d.y[1]),
                     low: parseFloat(d.y[2]),
                     close: parseFloat(d.y[3])
-                }));
+                })).sort((a, b) => new Date(a.time) - new Date(b.time));
 
-                // Ordenar por fecha (vital para evitar errores de rendering)
-                rawData.sort((a, b) => new Date(a.time) - new Date(b.time));
-
-                // Crear el gráfico
-                tvChart = LightweightCharts.createChart(container, {
+                // Crear Chart
+                historyChart = LightweightCharts.createChart(container, {
                     width: container.clientWidth,
                     height: 500,
-                    layout: {
-                        background: { type: 'solid', color: '#111827' }, // Fondo oscuro
-                        textColor: '#9ca3af',
-                    },
-                    grid: {
-                        vertLines: { color: '#374151', style: 2 },
-                        horzLines: { color: '#374151', style: 2 },
-                    },
-                    rightPriceScale: {
-                        borderColor: '#374151',
-                    },
-                    timeScale: {
-                        borderColor: '#374151',
-                        timeVisible: true,
-                    },
-                    crosshair: {
-                        mode: LightweightCharts.CrosshairMode.Normal,
-                    },
+                    layout: { background: { type: 'solid', color: '#111827' }, textColor: '#9ca3af' },
+                    grid: { vertLines: { color: '#374151', style: 2 }, horzLines: { color: '#374151', style: 2 } },
+                    rightPriceScale: { borderColor: '#374151' },
+                    timeScale: { borderColor: '#374151', timeVisible: true },
                 });
 
-                // Agregar la serie de velas
-                candleSeries = tvChart.addCandlestickSeries({
-                    upColor: '#22c55e',
-                    downColor: '#ef4444',
-                    borderUpColor: '#22c55e',
-                    borderDownColor: '#ef4444',
-                    wickUpColor: '#22c55e',
-                    wickDownColor: '#ef4444',
+                historySeries = historyChart.addCandlestickSeries({
+                    upColor: '#22c55e', downColor: '#ef4444',
+                    borderUpColor: '#22c55e', borderDownColor: '#ef4444',
+                    wickUpColor: '#22c55e', wickDownColor: '#ef4444',
                 });
 
-                candleSeries.setData(rawData);
+                historySeries.setData(historyData);
+            }
 
-                // Responsive
-                window.addEventListener('resize', () => {
-                    tvChart.resize(container.clientWidth, 500);
+            // --- 2. LÓGICA GRÁFICO PREDICCIÓN ---
+            function initPredictionChart() {
+                const container = document.getElementById('prediction-chart');
+                // Validar si hay datos de predicción antes de intentar renderizar
+                const scriptTag = document.getElementById('prediction-data');
+                if (!scriptTag) return; // Si no hay datos, salimos
+
+                const rawData = JSON.parse(scriptTag.textContent);
+                
+                if (rawData.length === 0) {
+                    container.innerHTML = '<div class="flex h-full items-center justify-center text-gray-500">No hay predicciones disponibles para este activo.</div>';
+                    return;
+                }
+
+                const predData = rawData.map(d => ({
+                    time: d.x, 
+                    open: parseFloat(d.y[0]), 
+                    high: parseFloat(d.y[1]),
+                    low: parseFloat(d.y[2]),
+                    close: parseFloat(d.y[3])
+                })).sort((a, b) => new Date(a.time) - new Date(b.time));
+
+                predictionChart = LightweightCharts.createChart(container, {
+                    width: container.clientWidth,
+                    height: 400,
+                    layout: { background: { type: 'solid', color: '#111827' }, textColor: '#a855f7' }, // Texto morado
+                    grid: { vertLines: { color: '#374151', style: 2 }, horzLines: { color: '#374151', style: 2 } },
+                    rightPriceScale: { borderColor: '#374151' },
+                    timeScale: { borderColor: '#374151', timeVisible: true },
                 });
+
+                predictionSeries = predictionChart.addCandlestickSeries({
+                    // Colores Morados (Purple/Fuchsia) para diferenciar IA
+                    upColor: '#a855f7',        
+                    downColor: '#d946ef',      
+                    borderUpColor: '#a855f7',
+                    borderDownColor: '#d946ef',
+                    wickUpColor: '#a855f7',
+                    wickDownColor: '#d946ef',
+                });
+
+                predictionSeries.setData(predData);
+                predictionChart.timeScale().fitContent(); // Ajustar zoom automáticamente para ver toda la predicción
+            }
+
+            // --- 3. UTILIDADES ---
+            // Responsive Resize
+            window.addEventListener('resize', () => {
+                if (historyChart) historyChart.resize(document.getElementById('history-chart').clientWidth, 500);
+                if (predictionChart) predictionChart.resize(document.getElementById('prediction-chart').clientWidth, 400);
             });
 
-            // Función de Zoom
+            // Zoom Function (Solo afecta al histórico)
             function setRange(range) {
-                // Resetear estilos de botones
                 document.querySelectorAll('.chart-btn').forEach(b => b.classList.remove('active', 'bg-green-600', 'text-white'));
                 event.target.classList.add('active', 'bg-green-600', 'text-white');
 
                 if (range === 'ALL') {
-                    tvChart.timeScale().fitContent();
+                    historyChart.timeScale().fitContent();
                     return;
                 }
 
-                const lastIndex = rawData.length - 1;
+                const lastIndex = historyData.length - 1;
                 if (lastIndex < 0) return;
 
-                let daysToSubtract = 0;
-                if (range === '1M') daysToSubtract = 30;
-                if (range === '6M') daysToSubtract = 180;
-                if (range === '1Y') daysToSubtract = 365;
+                let days = 0;
+                if (range === '1M') days = 30;
+                if (range === '6M') days = 180;
+                if (range === '1Y') days = 365;
 
-                // Calcular el rango lógico (barras)
-                const fromIndex = Math.max(0, lastIndex - daysToSubtract);
+                const fromIndex = Math.max(0, lastIndex - days);
                 
-                tvChart.timeScale().setVisibleLogicalRange({
+                historyChart.timeScale().setVisibleLogicalRange({
                     from: fromIndex,
-                    to: lastIndex + 2 // +2 de margen derecho
+                    to: lastIndex + 2
                 });
             }
         </script>

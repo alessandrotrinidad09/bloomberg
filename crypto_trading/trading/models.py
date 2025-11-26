@@ -109,3 +109,21 @@ class PrecioHistorico(models.Model):
 
     def __str__(self):
         return f"{self.asset.symbol} - {self.date}"
+
+
+
+class PrecioPrediccion(models.Model):
+    asset = models.ForeignKey(Activo, on_delete=models.CASCADE, related_name='predicciones')
+    date = models.DateField()
+    open_price = models.DecimalField(max_digits=20, decimal_places=8)
+    high_price = models.DecimalField(max_digits=20, decimal_places=8)
+    low_price = models.DecimalField(max_digits=20, decimal_places=8)
+    close_price = models.DecimalField(max_digits=20, decimal_places=8)
+    # Opcional: Podríamos agregar un campo de "Confianza" si tu modelo lo tuviera
+    
+    class Meta:
+        ordering = ['date']
+        unique_together = ('asset', 'date')
+
+    def __str__(self):
+        return f"Predicción {self.asset.symbol} - {self.date}"

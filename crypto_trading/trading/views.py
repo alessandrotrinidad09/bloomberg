@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from decimal import Decimal, InvalidOperation
 from .services import TradingService
 from django.core.exceptions import ValidationError
-from .models import Activo, Portafolio, Operacion, PrecioHistorico
+from .models import Activo, Portafolio, Operacion, PrecioHistorico, PrecioPrediccion
 from django.shortcuts import get_object_or_404
 from django.core.serializers.json import DjangoJSONEncoder
 import json
@@ -168,19 +168,27 @@ def monedas_view(request):
 def analisis_view(request, symbol):
     activo = get_object_or_404(Activo, symbol=symbol)
     
-    # Obtener historial
+    # 1. Obtener Histórico
     historico = PrecioHistorico.objects.filter(asset=activo).order_by('date')
-    
     chart_data = []
     for h in historico:
         chart_data.append({
             'x': h.date.strftime('%Y-%m-%d'),
-            # Es importante convertir Decimal a float aquí para que JS lo entienda
             'y': [float(h.open_price), float(h.high_price), float(h.low_price), float(h.close_price)]
+        })
+
+    # 2. Obtener Predicciones (NUEVO)
+    predicciones = PrecioPrediccion.objects.filter(asset=activo).order_by('date')
+    prediction_data = []
+    for p in predicciones:
+        prediction_data.append({
+            'x': p.date.strftime('%Y-%m-%d'),
+            'y': [float(p.open_price), float(p.high_price), float(p.low_price), float(p.close_price)]
         })
     
     context = {
         'activo': activo,
-        'chart_data': chart_data # <--- CAMBIO AQUÍ: Enviamos la lista directa, SIN json.dumps
+        'chart_data': chart_data,          # Histórico
+        'prediction_data': prediction_data # Predicciones
     }
     return render(request, 'trading/analisis.html', context)
